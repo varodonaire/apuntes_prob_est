@@ -1,0 +1,174 @@
+# LaTeX auxiliary files
+*.aux
+*.lof
+*.log
+*.lot
+*.fls
+*.out
+*.toc
+*.fmt
+*.fot
+*.cb
+*.cb2
+.*.lb
+
+# Intermediate documents
+*.dvi
+*.xdv
+*-converted-to.*
+
+# Bibliography auxiliary files
+*.bbl
+*.bcf
+*.blg
+*-blx.aux
+*-blx.bib
+*.run.xml
+
+# Build tool auxiliary files
+*.fdb_latexmk
+*.fls
+*.figlist
+*.makefile
+*.auxlock
+
+# Cross-references
+*.xref
+
+# Hyperref
+*.brf
+
+# Knitr
+*-concordance.tex
+
+# TODO comments
+*.todo
+
+# LuaLaTeX specific files
+*.luac
+
+# Fonts
+*.tfm
+
+# Glossaries
+*.acn
+*.acr
+*.glg
+*.glo
+*.gls
+*.glsdefs
+*.lzo
+*.lzs
+
+# Gnuplot
+*.gnuplot
+*.table
+
+# Index
+*.idx
+*.ilg
+*.ind
+
+# Listings
+*.lol
+
+# Makeidx
+*.idx
+*.ilg
+*.ind
+
+# Minitoc
+*.maf
+*.mlf
+*.mlt
+*.mtc[0-9]*
+*.slf[0-9]*
+*.slt[0-9]*
+*.stc[0-9]*
+
+# Minted
+_minted*
+*.pyg
+
+# Morewrites
+*.mw
+
+# Nomencl
+*.nlg
+*.nlo
+*.nls
+
+# Pax
+*.pax
+
+# PdfPages
+*.pdfpc
+
+# Sagetex
+*.sagetex.sage
+*.sagetex.py
+*.sagetex.scmd
+
+# SyncTeX
+*.synctex
+*.synctex(busy)
+*.synctex.gz
+*.synctex.gz(busy)
+*.pdfsync
+
+# TikZ & PGF
+*.auxlock
+*.figlist
+*.makefile
+*.figlist
+
+# Todonotes
+*.tdo
+
+# Xindy
+*.xdy
+
+# xmpincl
+*.xmpi
+
+# xindy
+*.xdy
+
+# xypic precompiled matrices and outlines
+*.xyc
+
+# endfloat
+*.ttt
+*.fff
+
+# Latexian
+TSWLatexianTemp*
+
+# Temporary folders
+tmp/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Editor files
+*~
+.*.swp
+.*.swo
+*~
+
+# IDE files
+.vscode/
+.idea/
+
+# Output files (uncomment if you want to exclude PDFs)
+# *.pdf
+
+# Backup files
+*.bak
+*.backup
