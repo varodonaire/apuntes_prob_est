@@ -1,0 +1,111 @@
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[a5paper, % Paper size
+	fontsize=10pt, % Base font size
+	twoside=false, % Use different layouts for even and odd pages (in particular, if twoside=true, the margin column will be always on the outside)
+	%open=any, % If twoside=true, uncomment this to force new chapters to start on any page, not only on right (odd) pages
+	%chapterentrydots=true, % Uncomment to output dots from the chapter name to the page number in the table of contents
+	%numbers=noenddot, % Comment to output dots after chapter numbers; the most common values for this option are: enddot, noenddot and auto (see the KOMAScript documentation for an in-depth explanation)
+]{kaobook}
+
+% Choose the language
+\usepackage{polyglossia} % Load characters and hyphenation
+\setdefaultlanguage{spanish} % Set Spanish as the default language
+\usepackage[spanish=mexican]{csquotes}	% Spanish quotes
+
+% Load packages for testing
+\usepackage{blindtext}
+%\usepackage{showframe} % Uncomment to show boxes around the text area, margin, header and footer
+%\usepackage{showlabels} % Uncomment to output the content of \label commands to the document where they are used
+
+% Load the bibliography package
+\usepackage{kaobiblio}
+\addbibresource{main.bib} % Bibliography file
+
+% Load mathematical packages for theorems and related environments
+\usepackage{kaotheorems}
+
+% Load the package for hyperlinks
+\usepackage{kaorefs}
+
+\usepackage{siunitx}
+\sisetup{output-decimal-marker={,}, % Use comma as decimal marker
+         group-digits= integer, % Group digits in thousands only in integer part
+         group-separator={.}, % Use dot as group separator
+         per-mode=symbol} % Use symbols for units (e.g., m/s instead of m s⁻¹)
+
+%----------------------------------------------------------------------------------------
+%	BOOK INFORMATION
+%----------------------------------------------------------------------------------------
+
+
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+%----------------------------------------------------------------------------------------
+%	BOOK TITLE AND TABLE OF CONTENTS
+%----------------------------------------------------------------------------------------
+\titlehead{Apuntes de Probabilidad y Estadística} % Title of the book, shown in the header
+
+
+\title[Apuntes de Probabilidad y Estadística]{Apuntes de Probabilidad y Estadística}
+
+
+\author[AMD]{Álvaro Mattus Donaire}
+
+\date{\today}
+
+\publishers{Notas personales}
+\frontmatter % Start the front matter (Roman page numbering)
+\maketitle % Output the title page
+
+
+\tableofcontents % Output the table of contents
+
+%----------------------------------------------------------------------------------------
+%	PREFACE
+%----------------------------------------------------------------------------------------
+
+
+
+%----------------------------------------------------------------------------------------
+%	PART
+%----------------------------------------------------------------------------------------
+\mainmatter % Start the main matter (Arabic page numbering)
+
+%----------------------------------------------------------------------------------------
+%	CHAPTER 1
+%----------------------------------------------------------------------------------------
+
+\chapter{¿Qué probabilidad hay?}
+
+Todos los días nos encontramos con frases que tienen que ver con probabilidades: ¿Irá a llover? ¡Me encontré con Juanito! No lo veía hace años.
+
+Los matemáticos y científicos también se dieron cuenta que necesitaban hablar de probabilidaes pero, a diferencia de nuestro uso cotidiano, es necesario un lenguaje, unas definiciones, más precisas.
+
+El problema es que es difícil. Hay varias formas de ver la probabilidad y ninguna cubre todos los significados que le asignamos de forma cotidiana al término. En este curso, haremos uso de la definición frecuentista de probabilidad. Esta definición opera bajo algunos supuestos, por ejemplo que podemos repetir un proceso varias veces, independientemente y bajo las mismas condiciones.
+
+Esto es algo que suele ocurrir con los juegos de azar. De hecho, uno de los orígenes de la teoría de probabilidad es el estudio de los juegos de azar y apuestas.
+
+Por ejemplo, al lanzar un dado ideal, cada cara tiene la misma probabilidad de aparecer que las otras, \(1/6\) o \(\qty{16.67}{\percent}\). La interpretación es que, al lanzar el dado bajo las mismas condiciones, en el largo plazo cada cara aparecerá \(1/6\) de las veces.
+
+\begin{definition}
+\labdef{probabilidad}
+La probabilidad de algo es el porcentaje de veces que se espera que ocurra en el largo plazo, cuando el proceso que le da origen se repite una y otra vez, de manera independiente y bajo las mismas condiciones.
+\end{definition}
+
+%----------------------------------------------------------------------------------------
+%	BIBLIOGRAPHY
+%----------------------------------------------------------------------------------------
+
+\defbibnote{bibnote}{Here are the references in citation order.\par\bigskip} % Prepend this text to the bibliography
+\printbibliography[heading=bibintoc, title=Bibliography, prenote=bibnote] % Add the bibliography heading to the ToC, set the title of the bibliography and add a preface to the bibliography
+
+
+
+
+\end{document}
