@@ -25,7 +25,7 @@
 \addbibresource{main.bib} % Bibliography file
 
 % Load mathematical packages for theorems and related environments
-\usepackage{kaotheorems}
+\usepackage[framed]{kaotheorems}
 
 % Load the package for hyperlinks
 \usepackage{kaorefs}
@@ -35,6 +35,17 @@
          group-digits= integer, % Group digits in thousands only in integer part
          group-separator={.}, % Use dot as group separator
          per-mode=symbol} % Use symbols for units (e.g., m/s instead of m s⁻¹)
+
+\usepackage{enumitem}
+
+\newcommand{\formal}{\color{MidnightBlue}} % Define a command for formal text color
+\newcommand{\informal}{\color{black}} % Define a command for informal text color
+% Command for the power set: usage \PS{A} → 𝒫(A)
+\DeclareMathOperator{\powerset}{\mathscr{P}}
+\newcommand{\PS}[1]{\powerset\left(#1\right)}
+
+\DeclareMathOperator{\prob}{P}
+\newcommand{\giventhat}[2]{\left(#1\;\middle|\;#2\right)}
 
 %----------------------------------------------------------------------------------------
 %	BOOK INFORMATION
@@ -83,9 +94,11 @@
 
 \chapter{¿Qué probabilidad hay?}
 
-Todos los días nos encontramos con frases que tienen que ver con probabilidades: ¿Irá a llover? ¡Me encontré con Juanito! No lo veía hace años.
+\section{Introducción}
 
-Los matemáticos y científicos también se dieron cuenta que necesitaban hablar de probabilidaes pero, a diferencia de nuestro uso cotidiano, es necesario un lenguaje, unas definiciones, más precisas.
+\marginnote{En este texto, cada vez que el color del mismo sea negro, este texto está más enfocado en las ideas que dan sustento a la teoría.}Todos los días nos encontramos con frases que tienen que ver con probabilidades: ¿Irá a llover? ¡Me encontré con Juanito! No lo veía hace años.
+
+Los matemáticos y científicos también se dieron cuenta que necesitaban hablar de probabilidades pero, a diferencia de nuestro uso cotidiano, es necesario un lenguaje, unas definiciones, más precisas.
 
 El problema es que es difícil. Hay varias formas de ver la probabilidad y ninguna cubre todos los significados que le asignamos de forma cotidiana al término. En este curso, haremos uso de la definición frecuentista de probabilidad. Esta definición opera bajo algunos supuestos, por ejemplo que podemos repetir un proceso varias veces, independientemente y bajo las mismas condiciones.
 
@@ -97,6 +110,63 @@ Por ejemplo, al lanzar un dado ideal, cada cara tiene la misma probabilidad de a
 \labdef{probabilidad}
 La probabilidad de algo es el porcentaje de veces que se espera que ocurra en el largo plazo, cuando el proceso que le da origen se repite una y otra vez, de manera independiente y bajo las mismas condiciones.
 \end{definition}
+
+Si algo es imposible que pase, su probabilidad es \(0\). Si algo es seguro, su probabilidad es \qty{100}{\percent}. Esos son lógicamente los casos extremos, por lo que
+\begin{remark}
+	Todas las probabilidades están entre \(0\) y \(1\) (\qty{0}{\percent} y \qty{100}{\percent}).
+\end{remark}
+
+Otro hecho fundamental: supongamos que estamos jugando un juego en el que tenemos un \qty{30}{\percent} de ganar. En otras palabras, esperamos ganar un \qty{30}{\percent} de las veces que jugamos. Por lo tanto, esperamos perder el otro \qty{70}{\percent} de las veces.
+
+\begin{remark}
+	La probabilidad de algo es \qty{100}{\percent} menos la probabilidad de su opuesto.
+\end{remark}
+
+Problema: Apostamos en un juego en el que, al sacar una pelota de una caja, si es roja ganamos y si es azul perdemos. Cada pelota tiene la misma probabilidad de ser escogida.
+
+Si podemos elegir la caja de entre las dos siguientes:
+\begin{description}
+	\item[Caja A:] Contiene \(2\) pelotas rojas y \(3\) pelotas azules.
+	\item[Caja B:] Contiene \(20\) pelotas rojas y \(30\) pelotas azules.
+\end{description}
+¿cuál nos conviene?
+
+Quizás es un experimento un poco tonto, pero lo que sí es muy útil es la idea de escoger pelotas de colores desde una caja. Resulta que muchas situaciones en probabilidad (y estadística) se pueden modelar de esta forma. Este es, entonces, nuestro primer modelo probabilístico.
+
+\formal
+\section{Eventos, espacios muestrales y probabilidad}
+
+\marginnote{En este texto, cada vez que el color del mismo sea azul, este texto está más enfocado en la teoría y en las definiciones.}Un experimento es un procedimiento que puede ser repetido indefinidamente y que tiene un conjunto bien definido de resultados. Si el experimento tiene un resultado, es un experimento determinista. Si tiene más de un resultado, es un experimento aleatorio.\sidenote{En este curso sólo nos ocuparemos de experimentos aleatorios.}
+
+El conjunto de resultados de un experimento aleatorio se llama el \emph{espacio muestral} del experimento aleatorio.
+
+Cada vez que realizamos un experimento aleatorio, se obtiene un y sólo un resultado. Sin embargo, este resultado puede estar incluido en uno o más \emph{eventos.} Un evento es un subconjunto del espacio muestral. Cada evento está compuesto de cero o más resultados.
+
+Normalmente, nos ocuparemos de eventos con mayor o menor nivel de complejidad en vez de concentrarnos en resultados.
+
+Dicho de otro modo, si tenemos un espacio muestral \(\Omega\), cada evento es un elemento de \(\PS{\Omega}\), el conjunto potencia de \(\Omega\).
+
+De esta manera, la probabilidad se define como una función \(\prob: \PS{\Omega} \to [0,1]\) que cumple con ciertas características, los axiomas de probabilidad (que veremos más adelante).
+
+\informal
+\section{Probabilidad condicional}
+
+Imaginemos que tenemos una baraja de naipes. Esta baraja tiene \(52\) cartas (son 13 cartas por pinta y dejamos fuera a los jokers). Supongamos que saco dos cartas y que gano el juego si la segunda carta es el as de picas.
+
+\begin{enumerate}[label=\alph*)]
+	\item\label{item:ejemploa} ¿Cuál es la probabilidad de ganar?
+	\item\label{item:ejemplob} Si doy vuelta la primera carta y es el 6 de corazones, ¿cuál es la probabilidad de ganar?
+\end{enumerate}
+
+En la parte \ref{item:ejemploa}, la primera carta no importa reallmente. Podemos dar vuelta la segunda carta inmediatamente. Por lo tanto, como tengo \(52\) cartas a disposición, mi probabilidad de ganar es \(1/52\) (o \qty{1.92}{\percent}).
+
+En la parte \ref{item:ejemplob}, ya no tengo \(52\) cartas que \enquote{repartir}; sólo tengo \(51\). Esto ocurre porque ya sé que la primera carta es el 6 de corazones. Por lo tanto, mi probabilidad de ganar es \(1/51\) (o \qty{1.96}{\percent}).
+
+Esta segunda probabilidad es lo que se conoce como \emph{probabilidad condicional}. El problema pone una condición en la primera carta: tiene que ser el 6 de corazones.
+
+\formal
+En símbolos, \[\prob\giventhat{\text{As de picas}}{\text{6 de corazones}} = \frac{1}{51}\]
+
 
 %----------------------------------------------------------------------------------------
 %	BIBLIOGRAPHY
