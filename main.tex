@@ -259,6 +259,104 @@ Otro ejemplo. En nuestro ejemplo de la baraja de naipes de la sección \nrefsec{
 \end{align*}
 Esta probabilidad es pequeña, aproximadamente 4 en \num{10000}.
 
+¿Qué pasaría si nos preguntáramos por la probabilidad de sacar dos ases? La probabilidad de sacar el primer as es \(4/52\). Dado que la primera carta fue un as, la probabilidad de que la segunda carta también sea un as es \(3/51\). Por lo tanto, la probabilidad de sacar dos ases es \[\frac{4}{52} \cdot \frac{3}{51} = \frac{12}{2652}.\] Esta probabilidad es aproximadamente 1 en 200.
+
+Otro ejemplo. Una moneda se lanza dos veces. ¿Cuál es la probabilidad de sacar cara y luego sello de una moneda justa\sidenote{una moneda justa es aquella que tiene la misma probabilidad de caer en cara o en sello (y 0 de otra forma, como caer de canto)}?
+
+La probabilidad de que el primer lanzamiento sea cara es \(1/2\). No importa cómo salga este primer lanzamiento, la probabilidad de que el segundo lanzamiento sea sello es \(1/2\). Por lo tanto, la probabilidad de que el primer lanzamiento sea cara y el segundo sello es \[\frac{1}{2} \cdot \frac{1}{2} = \frac{1}{4}.\]
+
+\section{Independencia}
+\labsec{independencia}
+
+La idea de independencia es una que va a aparecer repetidamente dentro de este texto.
+
+\begin{definition}[Independencia]
+\labdef{independencia}
+Dos eventos son independientes si la probabilidad de que ocurra el segundo dado el primero son iguales, sin importar qué haya ocurrido con el primero. En caso contrario, los eventos son \emph{dependientes.}
+\end{definition}
+
+Un ejemplo. Supongamos que lanzamos una moneda dos veces y ganamos si la segunda vez sale cara.
+\begin{enumerate}[label=\alph*)]
+	\item Si en el primer lanzamiento salió cara, ¿cuál es la probabilidad de ganar?
+	\item Si en el primer lanzamiento salió sello, ¿cuál es la probabilidad de	 ganar?
+	\item ¿Los lanzamientos son independientes?
+\end{enumerate}
+
+En la parte a), la probabilidad de ganar es \qty{50}{\percent} (la probabilidad de que salga cara en el segundo lanzamiento). En la parte b), la probabilidad de ganar es también \qty{50}{\percent}. La probabilidad de ganar no se ve influida por el resultado del primer lanzamiento. Eso es independencia.
+
+Otro ejemplo. Se sacan dos fichas con reposición de la siguiente caja
+
+\def\labels{1, 1, 2, 2, 3}
+
+\begin{center}
+	\begin{tikzpicture}[scale=0.7, every node/.style={scale=0.7}]
+		% Dibuja los cuadrados con etiquetas y colores
+		\foreach [count=\i] \lab in \labels {
+			\node[sq] (box\i) at ({(\i-1)*(\sqsize+\gap)},0) {\lab};
+		}
+		
+
+		% Bandeja inferior (U-shape tray)
+		\def\traydepth{0.1cm}
+		\draw[line width=1pt]
+			([xshift=-0.1cm]box1.north west) -- ([xshift=-0.1cm, yshift=-\traydepth]box1.south west) --
+			([xshift=0.1cm, yshift=-\traydepth]box5.south east) -- ([xshift=0.1cm]box5.north east);
+	\end{tikzpicture}
+\end{center}
+
+\begin{enumerate}[label=\alph*)]
+	\item Supongamos que la primera ficha tiene una etiqueta \(1\). ¿Cuál es la probabilidad de que la segunda ficha tenga una etiqueta \(2\)?
+	\item Supongamos que la primera ficha tiene una etiqueta \(2\). ¿Cuál es la probabilidad de que la segunda ficha tenga una etiqueta \(2\)?
+	\item Es independiente el resultado de la primera ficha del resultado de la segunda?
+\end{enumerate}
+
+Si la primera ficha tiene etiqueta \(1\),  \(2\) o \(3\), la probabilidad de que la segunda ficha tenga una etiqueta \(2\) es siempre\sidenote{porque hay reposición} 2 de 5 o \qty{40}{\percent}. Por lo tanto, los resultados son independientes.
+
+Otro ejemplo. Tenemos la misma caja del ejemplo anterior, pero ahora sacamos dos fichas sin reposición.
+
+Si la primera ficha tiene etiqueta \(1\), nos quedamos con la caja 
+\begin{center}
+	\begin{tikzpicture}[scale=0.7, every node/.style={scale=0.7}]
+		% Dibuja los cuadrados con etiquetas y colores
+		\foreach [count=\i] \lab in \labels {
+			\node[sq] (box\i) at ({(\i-1)*(\sqsize+\gap)},0) {\lab};
+		}
+		
+		\node[sq, fill=white, draw=white, very thick] (box1) at (0,0) {};
+
+		% Bandeja inferior (U-shape tray)
+		\def\traydepth{0.1cm}
+		\draw[line width=1pt]
+			([xshift=-0.1cm]box1.north west) -- ([xshift=-0.1cm, yshift=-\traydepth]box1.south west) --
+			([xshift=0.1cm, yshift=-\traydepth]box5.south east) -- ([xshift=0.1cm]box5.north east);
+	\end{tikzpicture}
+\end{center}
+y la probabilidad de que la segunda ficha tenga etiqueta \(2\) es \(2/4 = 1/2\) o \qty{50}{\percent}. Si la primera ficha tiene etiqueta \(2\), nos quedamos con la caja
+\begin{center}
+	\begin{tikzpicture}[scale=0.7, every node/.style={scale=0.7}]
+		% Dibuja los cuadrados con etiquetas y colores
+		\foreach [count=\i] \lab in \labels {
+			\node[sq] (box\i) at ({(\i-1)*(\sqsize+\gap)},0) {\lab};
+		}
+		\node[sq, fill=white, draw=white, very thick] (box3) at (2.2,0) {};
+
+		% Bandeja inferior (U-shape tray)
+		\def\traydepth{0.1cm}
+		\draw[line width=1pt]
+			([xshift=-0.1cm]box1.north west) -- ([xshift=-0.1cm, yshift=-\traydepth]box1.south west) --
+			([xshift=0.1cm, yshift=-\traydepth]box5.south east) -- ([xshift=0.1cm]box5.north east);
+	\end{tikzpicture}
+\end{center} y la probabilidad de que la segunda ficha tenga etiqueta \(2\) es \(1/4\) o \qty{25}{\percent}. Por lo tanto, los resultados no son independientes.
+
+\begin{remark}
+	Cuando el muestreo es con reposición, los eventos son independientes. Cuando el muestreo es sin reposición, los eventos son dependientes.
+\end{remark}
+
+\formal
+La versión en símbolos de la definición de independencia es la siguiente. Si \(A\) y \(B\) son eventos independientes, entonces \[\prob\giventhat{B}{A} = \prob\giventhat{B}{\comp{A}}= \prob(B).\] Sin embargo, esa no es la definición que aparece en los libros. 
+
+Para encontrar la versión popular de la definición, tenemos que recordar que \[\prob\left(A \cap B\right) = \prob(A)  \prob\giventhat{B}{A}.\] Por lo tanto, si \(A\) y \(B\) son independientes, entonces \[\prob\left(A \cap B\right) = \prob(A)  \prob(B).\] Esta es la versión más común de la definición de independencia.
+
 %----------------------------------------------------------------------------------------
 %	BIBLIOGRAPHY
 %----------------------------------------------------------------------------------------
