@@ -38,6 +38,9 @@
 
 \usepackage{enumitem}
 
+\usepackage{tikz}
+\usetikzlibrary{shapes, positioning, calc} % Load TikZ libraries for shapes and positioning
+
 \newcommand{\formal}{\color{MidnightBlue}} % Define a command for formal text color
 \newcommand{\informal}{\color{black}} % Define a command for informal text color
 % Command for the power set: usage \PS{A} → 𝒫(A)
@@ -46,6 +49,8 @@
 
 \DeclareMathOperator{\prob}{P}
 \newcommand{\giventhat}[2]{\left(#1\;\middle|\;#2\right)}
+
+\newcommand{\comp}[1]{{#1}^{\mathsf{c}}}
 
 %----------------------------------------------------------------------------------------
 %	BOOK INFORMATION
@@ -148,8 +153,11 @@ Dicho de otro modo, si tenemos un espacio muestral \(\Omega\), cada evento es un
 
 De esta manera, la probabilidad se define como una función \(\prob: \PS{\Omega} \to [0,1]\) que cumple con ciertas características, los axiomas de probabilidad (que veremos más adelante).
 
+En la sección anterior hablamos acerca del \enquote{opuesto} de un evento. En la literatura, esto se conoce como el \emph{complemento} de un evento. Hay varias formas de escribirlo simbólicamente; una de las más comunes es \(\comp{A}\) para el complemento del evento \(A\).
+
 \informal
 \section{Probabilidad condicional}
+\labsec{probabilidad-condicional}
 
 Imaginemos que tenemos una baraja de naipes. Esta baraja tiene \(52\) cartas (son 13 cartas por pinta y dejamos fuera a los jokers). Supongamos que saco dos cartas y que gano el juego si la segunda carta es el as de picas.
 
@@ -158,15 +166,98 @@ Imaginemos que tenemos una baraja de naipes. Esta baraja tiene \(52\) cartas (so
 	\item\label{item:ejemplob} Si doy vuelta la primera carta y es el 6 de corazones, ¿cuál es la probabilidad de ganar?
 \end{enumerate}
 
-En la parte \ref{item:ejemploa}, la primera carta no importa reallmente. Podemos dar vuelta la segunda carta inmediatamente. Por lo tanto, como tengo \(52\) cartas a disposición, mi probabilidad de ganar es \(1/52\) (o \qty{1.92}{\percent}).
+En la parte \ref{item:ejemploa}, la primera carta no importa realmente. Podemos dar vuelta la segunda carta inmediatamente. Por lo tanto, como tengo \(52\) cartas a disposición, mi probabilidad de ganar es \(1/52\) (o \qty{1.92}{\percent}).
 
 En la parte \ref{item:ejemplob}, ya no tengo \(52\) cartas que \enquote{repartir}; sólo tengo \(51\). Esto ocurre porque ya sé que la primera carta es el 6 de corazones. Por lo tanto, mi probabilidad de ganar es \(1/51\) (o \qty{1.96}{\percent}).
 
 Esta segunda probabilidad es lo que se conoce como \emph{probabilidad condicional}. El problema pone una condición en la primera carta: tiene que ser el 6 de corazones.
 
 \formal
-En símbolos, \[\prob\giventhat{\text{As de picas}}{\text{6 de corazones}} = \frac{1}{51}\]
+En símbolos, \[\prob\giventhat{\text{As de picas}}{\text{6 de corazones}} = \frac{1}{51}\] (la barra se lee \enquote{dado}).
 
+\informal
+\section{Principio multiplicativo}
+
+Una caja contiene tres fichas, una roja, una azul y una verde. 
+
+% 1. Parámetros
+\def\labels{R,A,V}
+\def\colors{red,blue,green}
+\def\sqsize{1cm}
+\def\gap{0.1cm}
+
+% 2. Estilo de nodos
+\tikzset{
+  sq/.style={
+    draw,
+    minimum size=\sqsize,
+    inner sep=0pt,
+    font=\sffamily\bfseries,
+    align=center,
+    text=black
+  }
+}
+
+% 3. Dibujo
+\begin{center}
+	\begin{tikzpicture}[scale=0.7, every node/.style={scale=0.7}]
+		% Dibuja los cuadrados con etiquetas y colores
+		\foreach [count=\i] \lab in \labels {
+			\node[sq] (box\i) at ({(\i-1)*(\sqsize+\gap)},0) {\lab};
+		}
+
+		% Bandeja inferior (U-shape tray)
+		\def\traydepth{0.1cm}
+		\draw[line width=1pt]
+			([xshift=-0.1cm]box1.north west) -- ([xshift=-0.1cm, yshift=-\traydepth]box1.south west) --
+			([xshift=0.1cm, yshift=-\traydepth]box3.south east) -- ([xshift=0.1cm]box3.north east);
+	\end{tikzpicture}
+\end{center}
+
+Vamos a sacar dos fichas de la caja, sin reemplazo. ¿Cuál es la probabilidad de sacar primero la ficha roja y luego la azul?
+
+Imaginemos que tenemos un grupo grande de personas, digamos 600 personas, cada una de ellas con una caja como la de arriba. Alrededor de 200 de ellas van a sacar la ficha roja la primera vez. De esas doscientas personas, alrededor de 100 van a sacar la ficha azul la segunda vez. Así que \(100/600 = 1/6\) o \qty{16.67}{\percent} de las personas van a sacar la ficha roja primero y la azul después.
+
+En otras palabras, la cantidad de personas que van a sacar primero la ficha roja es alrededor de \(1/3\) de la cantidad original de personas, las que se quedan con 
+\begin{center}
+	\begin{tikzpicture}[scale=0.7, every node/.style={scale=0.7}]
+		% Dibuja los cuadrados con etiquetas y colores
+		\foreach [count=\i] \lab in \labels {
+			\node[sq] (box\i) at ({(\i-1)*(\sqsize+\gap)},0) {\lab};
+		}
+		\draw[fill=white, draw=white, very thick] (box1.north west) rectangle ++(\sqsize,-\sqsize);
+
+		% Bandeja inferior (U-shape tray)
+		\def\traydepth{0.1cm}
+		\draw[line width=1pt]
+			([xshift=-0.1cm]box1.north west) -- ([xshift=-0.1cm, yshift=-\traydepth]box1.south west) --
+			([xshift=0.1cm, yshift=-\traydepth]box3.south east) -- ([xshift=0.1cm]box3.north east);
+	\end{tikzpicture}
+\end{center}
+
+La segunda vez que sacan una ficha, alrededor de la mitad de las personas van a sacar la ficha azul. La fracción que saca la ficha roja y luego la azul es entonces \[\frac{1}{2} \text{ de } \frac{1}{3} = \frac{1}{2} \cdot \frac{1}{3} = \frac{1}{6}.\]
+
+El método del ejemplo anterior se llama \emph{principio multiplicativo}.
+
+\begin{definition}[Principio multiplicativo]
+\labdef{principio multiplicativo}
+La probabilidad de que, de dos cosas, ambas ocurran es la probabilidad de que ocurra la primera multiplicada por la probabilidad de que ocurra la segunda dado que la primera ya ocurrió.
+\end{definition}
+
+\formal
+En símbolos, si \(A\) y \(B\) son eventos, entonces \[\prob\left(A \cap B\right) = \prob(A)  \prob\giventhat{B}{A}.\]
+
+Podría parecer que tenemos un problema con el orden de los eventos. Sin embargo, si recordamos de teoría de conjuntos que \(A \cap B = B \cap A\), podemos escribir el principio multiplicativo como \[\prob\left(A \cap B\right) = \prob(B)  \prob\giventhat{A}{B}.\]
+
+\informal
+
+Otro ejemplo. En nuestro ejemplo de la baraja de naipes de la sección \nrefsec{probabilidad-condicional}, la probabilidad de sacar primero el seis de corazones y luego el as de picas es 
+\begin{align*}
+\prob\left(\text{6 ♥} \cap \text{As ♠}\right) &= \prob\left(\text{6 ♥}\right)  \prob\giventhat{\text{As ♠}}{\text{6 ♥}} \\
+&= \frac{1}{52} \cdot \frac{1}{51} \\
+&= \frac{1}{\num{2652}}.
+\end{align*}
+Esta probabilidad es pequeña, aproximadamente 4 en \num{10000}.
 
 %----------------------------------------------------------------------------------------
 %	BIBLIOGRAPHY
