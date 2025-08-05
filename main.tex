@@ -41,6 +41,8 @@
 \usepackage{tikz}
 \usetikzlibrary{shapes, positioning, calc} % Load TikZ libraries for shapes and positioning
 
+\usepackage{customdice}
+
 \newcommand{\formal}{\color{MidnightBlue}} % Define a command for formal text color
 \newcommand{\informal}{\color{black}} % Define a command for informal text color
 % Command for the power set: usage \PS{A} → 𝒫(A)
@@ -356,6 +358,59 @@ y la probabilidad de que la segunda ficha tenga etiqueta \(2\) es \(2/4 = 1/2\) 
 La versión en símbolos de la definición de independencia es la siguiente. Si \(A\) y \(B\) son eventos independientes, entonces \[\prob\giventhat{B}{A} = \prob\giventhat{B}{\comp{A}}= \prob(B).\] Sin embargo, esa no es la definición que aparece en los libros. 
 
 Para encontrar la versión popular de la definición, tenemos que recordar que \[\prob\left(A \cap B\right) = \prob(A)  \prob\giventhat{B}{A}.\] Por lo tanto, si \(A\) y \(B\) son independientes, entonces \[\prob\left(A \cap B\right) = \prob(A)  \prob(B).\] Esta es la versión más común de la definición de independencia y es un caso especial del principio multiplicativo.
+
+\informal
+\section{Principio aditivo}
+\labsec{principio-aditivo}
+
+Esta sección trata sobre cómo calcular la probabilidad de que ocurra al menos uno de dos eventos, es decir, que ocurra el primero, el segundo o ambos. Resulta que cuando ocurren ambos, la situación se complica un poco, por lo que haremos una definición.
+
+\begin{definition}[Eventos mutuamente excluyentes]
+\labdef{mutuamente_excluyentes}
+
+Dos cosas son mutuamente excluyentes si la ocurrencia de una impide la ocurrencia de la otra. En otras palabras, si una ocurre, la otra no puede ocurrir.
+\end{definition}
+
+Con esa definición, podemos establecer el principio aditivo.
+\begin{definition}[Principio aditivo]
+\labdef{principio-aditivo}
+Para encontrar la probabilidad de que al menos una de dos cosas ocurra, primero verificamos si son mutuamente excluyentes. Si lo son, entonces simplemente sumamos las probabilidades de cada una.
+\end{definition}
+
+Un ejemplo. La probabilidad de sacar un corazón de una baraja bien revuelta es \(1/4\). La probabilidad de sacar una pica de una baraja bien revuelta es también \(1/4\). ¿Cuál es la probabilidad de sacar un corazón o una pica? Como no es posible sacar una carta que sea a la vez corazón y pica, los eventos son mutuamente excluyentes. Por lo tanto, la probabilidad de sacar un corazón o una pica es \(1/4 + 1/4 = 1/2\) o \qty{50}{\percent}.
+
+Otro ejemplo. Lanzamos dos dados (pensemos en uno blanco y uno negro para diferenciarlos). Tu amigo dice que la probabilidad de sacar al menos un \(1\) es \[\frac{1}{6} + \frac{1}{6} = \frac{1}{3}.\] ¿Tiene razón?
+
+No. La pregunta pide que pase al menos una de estas cosas:
+\begin{itemize}
+	\item Que el dado blanco muestre un \(1\) \dice{1}.
+	\item Que el dado negro muestre un \(1\) \dice[black, white]{1}.
+\end{itemize}
+y que un dado muestre un \(1\) no impide que el otro también muestre un \(1\). Estos eventos no son mutuamente excluyentes así que el principio aditivo no corre: no podemos sumar las probabilidades.
+
+\begin{table}[H]
+\begin{tabular}{c|cccccc}
+ & \dice[black, white]{1} & \dice[black, white]{2} & \dice[black, white]{3} & \dice[black, white]{4} & \dice[black, white]{5} & \dice[black, white]{6} \\\hline
+\dice{1} & \dice{1}\,\dice[black, white]{1} & \dice{1}\,\dice[black, white]{2} & \dice{1}\,\dice[black, white]{3} & \dice{1}\,\dice[black, white]{4} & \dice{1}\,\dice[black, white]{5} & \dice{1}\,\dice[black, white]{6} \\
+\dice{2} & \dice{2}\,\dice[black, white]{1} & \dice{2}\,\dice[black, white]{2} & \dice{2}\,\dice[black, white]{3} & \dice{2}\,\dice[black, white]{4} & \dice{2}\,\dice[black, white]{5} & \dice{2}\,\dice[black, white]{6} \\
+\dice{3} & \dice{3}\,\dice[black, white]{1} & \dice{3}\,\dice[black, white]{2} & \dice{3}\,\dice[black, white]{3} & \dice{3}\,\dice[black, white]{4} & \dice{3}\,\dice[black, white]{5} & \dice{3}\,\dice[black, white]{6} \\
+\dice{4} & \dice{4}\,\dice[black, white]{1} & \dice{4}\,\dice[black, white]{2} & \dice{4}\,\dice[black, white]{3} & \dice{4}\,\dice[black, white]{4} & \dice{4}\,\dice[black, white]{5} & \dice{4}\,\dice[black, white]{6} \\
+\dice{5} & \dice{5}\,\dice[black, white]{1} & \dice{5}\,\dice[black, white]{2} & \dice{5}\,\dice[black, white]{3} & \dice{5}\,\dice[black, white]{4} & \dice{5}\,\dice[black, white]{5} & \dice{5}\,\dice[black, white]{6} \\
+\dice{6} & \dice{6}\,\dice[black, white]{1} & \dice{6}\,\dice[black, white]{2} & \dice{6}\,\dice[black, white]{3} & \dice{6}\,\dice[black, white]{4} & \dice{6}\,\dice[black, white]{5} & \dice{6}\,\dice[black, white]{6}
+\end{tabular}
+\caption{Espacio muestral del lanzamiento de dos dados.}
+\labtab{espacio-muestral-dados}
+\end{table}
+
+El~\reftab{espacio-muestral-dados} nos muestra todos los resultados posibles al lanzar dos dados. Hay seis resultados en los que el dado blanco muestra un \(1\) y seis resultados en los que el dado negro muestra un \(1\). Pero el número de maneras de obtener al menos un \(1\) no es \(6+6\): sumar a la rápida cuenta dos veces el resultado \dice{1}\,\dice[black, white]{1}. La probabilidad de obtener al menos un \(1\) al lanzar dos dados es \[(6+6-1)/36 = 11/36.\]
+
+\begin{remark}
+	Si queremos encontrar la probabilidad de que al menos un evento ocurra, y los eventos no son mutuamente excluyentes, no sumemos las probabilidades individuales: la suma va a ser demasiado grande.
+\end{remark}
+
+\begin{definition}[Principio aditivo II: el regreso]
+Si queremos calcular la probabilidad de que al menos un evento ocurra y los eventos no son mutuamente excluyentes, podemos sumar la probabilidad de cada evento, pero debemos restar la probabilidad de que ocurran ambos eventos conjuntamente. Eso es lo que estamos sumando de más.
+\end{definition}
 
 %----------------------------------------------------------------------------------------
 %	BIBLIOGRAPHY
