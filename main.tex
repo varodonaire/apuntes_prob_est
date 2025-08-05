@@ -84,15 +84,6 @@
 
 \tableofcontents % Output the table of contents
 
-%----------------------------------------------------------------------------------------
-%	PREFACE
-%----------------------------------------------------------------------------------------
-
-
-
-%----------------------------------------------------------------------------------------
-%	PART
-%----------------------------------------------------------------------------------------
 \mainmatter % Start the main matter (Arabic page numbering)
 
 %----------------------------------------------------------------------------------------
@@ -412,6 +403,67 @@ El~\reftab{espacio-muestral-dados} nos muestra todos los resultados posibles al 
 Si queremos calcular la probabilidad de que al menos un evento ocurra y los eventos no son mutuamente excluyentes, podemos sumar la probabilidad de cada evento, pero debemos restar la probabilidad de que ocurran ambos eventos conjuntamente. Eso es lo que estamos sumando de más.
 \end{definition}
 
+\formal
+El principio aditivo es sencillo de escribir simbólicamente: \[\prob\left(A \cup B\right) = \prob(A) + \prob(B) - \prob(A \cap B).\]
+
+Si recordamos que nuestra definición de eventos mutuamente excluyentes es que la ocurrencia de uno impide la ocurrencia del otro, podemos ver que si \(A\) y \(B\) son mutuamente excluyentes, entonces \[\prob(A \cap B) = 0.\] Por lo tanto, en ese caso el principio aditivo se reduce a \[\prob\left(A \cup B\right) = \prob(A) + \prob(B).\]
+
+Evidentemente, esto se puede extender a más de dos eventos. 
+\begin{definition}
+	Si \(A_1, A_2, \ldots, A_n\) son eventos mutuamente excluyentes, entonces \[\prob\left(A_1 \cup A_2 \cup \cdots \cup A_n\right) = \prob(A_1) + \prob(A_2) + \cdots + \prob(A_n).\]
+\end{definition}
+
+Un caso particular de este principio es cuando tenemos una \emph{partición.} Un conjunto de eventos \(\{A_1, A_2, \ldots, A_n\}\) es una partición del espacio muestral si son mutuamente excluyentes y su unión es el espacio muestral. En ese caso, \[\prob\left(A_1 \cup A_2 \cup \cdots \cup A_n\right) = \prob(\Omega) = 1.\] Por lo tanto, si \(A_1, A_2, \ldots, A_n\) es una partición del espacio muestral, entonces \[\prob(A_1) + \prob(A_2) + \cdots + \prob(A_n) = 1.\]
+
+\marginnote{La figura muestra una partición del espacio muestral. En efecto, \[\bigcup_{i=1}^{12} A_i = \Omega\] y \[A_i \cap A_j = \emptyset\text{, }i \neq j\text{.}\]}
+\begin{center}
+\begin{tikzpicture}[scale=0.7, every node/.style={scale=0.7}]
+  % 1. Sample space outline
+  \draw[thick] (0,0) rectangle (6,4);
+  \node at (3,4.3) {\large $\Omega$};
+
+  % 2. Horizontal‐ish Bézier partitions
+  \draw[thick]
+    (0,3) .. controls (1.5,2.5) and (4.5,3.5) .. (6,3);
+  \draw[thick]
+    (0,2) .. controls (1.5,2.2) and (4.5,1.8) .. (6,2);
+  \draw[thick]
+    (0,1) .. controls (1.5,1.5) and (4.5,0.5) .. (6,1);
+
+  % 3. Vertical‐ish Bézier partitions
+  \draw[thick]
+    (2,0) .. controls (1.5,1.2) and (2.5,2.8) .. (2,4);
+  \draw[thick]
+    (4,0) .. controls (3.5,0.8) and (4.5,3.2) .. (4,4);
+
+  % 4. (Optional) Region labels
+   \node at (1,3.5) {$A_1$};   \node at (3,3.5) {$A_2$};   \node at (5,3.5) {$A_3$};
+   \node at (1,2.5) {$A_4$};   \node at (3,2.5) {$A_5$};   \node at (5,2.5) {$A_6$};
+   \node at (1,1.5) {$A_7$};   \node at (3,1.5) {$A_8$};   \node at (5,1.5) {$A_9$};
+   \node at (1,0.5) {$A_{10}$}; \node at (3,0.5) {$A_{11}$}; \node at (5,0.5) {$A_{12}$};
+\end{tikzpicture}
+\end{center}
+
+\section{Preguntas frecuentes}
+
+\begin{enumerate}
+\item ¿Cuál es la diferencia entre dos eventos independientes y mutuamente excluyentes?
+\item ¿Cuándo sumo y cuándo multiplico?
+\end{enumerate}
+
+\begin{enumerate}
+\item Dos eventos son independientes si la ocurrencia de uno no afecta la probabilidad de que ocurra el otro. Dos eventos son mutuamente excluyentes si la ocurrencia de uno impide la ocurrencia del otro. 
+
+De lo anterior se concluye que dos eventos mutuamente excluyentes no pueden ser independientes: la ocurrencia de uno afecta muy directamente la probabilidad de que ocurra el otro, ya que la lleva a 0. 
+
+Por ejemplo, no podemos lanzar una moneda y que salga cara y sello al mismo tiempo. Si sale cara, no puede salir sello. Por lo tanto esos dos eventos son mutuamente excluyentes. Muchas veces los eventos mutuamente excluyentes tienen que ver con la imposibilidad de obtener más de un resultado al realizar una vez un experimento aleatorio. Por ejemplo, al lanzar un dado, no podemos obtener un \(1\) y un \(2\) al mismo tiempo.
+
+En cambio, dos eventos son independientes porque en realidad no se afectan entre sí. Por ejemplo, al lanzar una moneda dos veces, la moneda no tiene memoria por lo que el resultado del segundo lanzamiento no se ve afectado por el resultado del primero.
+
+Muchas veces los eventos independientes tienen que ver, o bien con la repetición de un experimento aleatorio \emph{de manera que una repetición que no afecte a las siguientes}\sidenote{por ejemplo, sacar una pelota de una caja con reposición}, o bien con la realización simultanea de experimentos aleatorios diferentes \emph{que no se afectan entre sí}\sidenote{por ejemplo, lanzar un dado y lanzar una moneda}.
+
+\item Multiplicamos cuando queremos encontrar la probabilidad de que ocurran dos eventos al mismo tiempo. Sumamos cuando queremos encontrar la probabilidad de que ocurra al menos uno de dos eventos. 
+\end{enumerate}
 %----------------------------------------------------------------------------------------
 %	BIBLIOGRAPHY
 %----------------------------------------------------------------------------------------
