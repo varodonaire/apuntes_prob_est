@@ -56,8 +56,8 @@
 
 \newcommand{\comp}[1]{{#1}^{\mathsf{c}}}
 
-\newcommand{\perm}[2]{_{#1}\mathrm{P}_{#2}} % Permutations: usage \perm{n}{k} → Pₙᵏ
-\newcommand{\comb}[2]{_{#1}\mathrm{C}_{#2}} % Combinations: usage \comb{n}{k} → Cₙᵏ
+\newcommand{\perm}[2]{\mathrm{P}^{#1}_{#2}} % Permutations: usage \perm{n}{k} → Pₙᵏ
+\newcommand{\comb}[2]{\mathrm{C}^{#1}_{#2}} % Combinations: usage \comb{n}{k} → Cₙᵏ
 
 %----------------------------------------------------------------------------------------
 %	BOOK INFORMATION
@@ -702,7 +702,7 @@ n \cdot (n-1) \cdots (n-k+1) &= \frac{n \cdot (n-1) \cdots (n-k+1)\cdot (n-k)\cd
 \end{align*}
 
 \informal
-Un ejemplo clásico: Si tenemos un curso con \(37\) estudiantes y queremos elegir un presidente, un secretario y un tesorero, entonces tenemos \(37\) opciones para el presidente, \(36\) para el secretario y \(35\) para el tesorero. Por lo tanto, el número de maneras de elegir a los tres es \[\perm{37}{3} = \frac{37!}{(37-3)!} = 37 \cdot 36 \cdot 35 = \num{46620}.\]
+Un ejemplo clásico: Si tenemos un curso con \(37\) estudiantes y queremos elegir un presidente, un secretario y un tesorero, entonces tenemos \(37\) opciones para el presidente, \(36\) para el secretario y \(35\) para el tesorero. Por lo tanto, el número de maneras de elegir a los tres es \[\perm{37}{3} = \frac{37!}{(37-3)!} = \frac{37!}{34!} = 37 \cdot 36 \cdot 35 = \num{46620}.\]
 
 \subsection{Combinaciones}
 \labsec{combinaciones}
@@ -755,7 +755,7 @@ Un caso especial de permutaciones es cuando debemos organizar los elementos alre
 
 Como podemos hacer \(n\) rotaciones, el número de permutaciones es \((n-1)!\).
 
-Otro caso es cuando tenemos \(n\) elementos, pero algunos de ellos son iguales. Por ejemplo, si tenemos \(n\) letras, pero algunas son iguales, entonces el número de permutaciones es \[\frac{n!}{k_1! \cdot k_2! \cdots k_m!},\] donde \(k_i\) es el número de veces que se repite el elemento \(i\). Esto ocurre porque al contar las permutaciones, cada una de las permutaciones de los elementos iguales se cuenta \(k_i!\) veces, así que debemos dividir por ese número para no contar de más.
+Otro caso es cuando tenemos \(n\) elementos, pero algunos de ellos son iguales. Por ejemplo, si tenemos \(n\) letras, pero algunas son iguales, entonces el número de permutaciones es \[\perm{n}{k_1, k_2, \ldots, k_m} = \frac{n!}{k_1! \cdot k_2! \cdots k_m!},\] donde \(k_i\) es el número de veces que se repite el elemento \(i\). Esto ocurre porque al contar las permutaciones, cada una de las permutaciones de los elementos iguales se cuenta \(k_i!\) veces, así que debemos dividir por ese número para no contar de más.
 
 Ejemplo: contar las permutaciones de la palabra \emph{casada.} Como la palabra tiene \(6\) letras, en principio tendríamos \(6!\) permutaciones. Sin embargo, los siguientes 6 arreglos son indistinguibles:
 \[
