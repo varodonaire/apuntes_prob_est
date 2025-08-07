@@ -737,8 +737,10 @@ Ejemplo: si en vez de elegir un presidente, un secretario y un tesorero, sólo q
 \subsection{Algunos casos extra}
 
 \labsec{algunos-casos-extra}
-Un caso especial de permutaciones es cuando debemos organizar los elementos alrededor de un círculo. En este caso, no son distinguibles dos permutaciones si podemos llegar de una a la otra mediante una rotación. Por ejemplo, si tenemos \(4\) elementos \(a, b, c, d\), entonces las permutaciones \((a, b, c, d)\) y \((b, c, d, a)\) son indistinguibles.
-\begin{center}
+Un caso especial de permutaciones es cuando debemos organizar los elementos alrededor de un círculo. En este caso, no son distinguibles dos permutaciones si podemos llegar de una a la otra mediante una rotación. Por ejemplo, si tenemos \(4\) elementos \(a, b, c, d\), entonces las permutaciones \((a, b, c, d)\) y \((b, c, d, a)\) son indistinguibles (\reffig{permutaciones-circulares}).
+
+\begin{figure}[H]
+\labfig{permutaciones-circulares}
 \begin{tikzpicture}[scale=0.7, every node/.style={scale=0.7}]
 	% First circle arrangement (a,b,c,d)
 	\draw[thick] (0,0) circle (1.5cm);
@@ -756,7 +758,8 @@ Un caso especial de permutaciones es cuando debemos organizar los elementos alre
 	
 \end{scope}
 \end{tikzpicture}
-\end{center}
+\caption{Dos permutaciones circulares indistinguibles.}
+\end{figure}
 
 Como podemos hacer \(n\) rotaciones, el número de permutaciones es \((n-1)!\).
 
