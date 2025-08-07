@@ -634,12 +634,20 @@ Otra visualización es usar un cuadrado de área \(1\) para representar el total
   % Dibuja las subdivisiones
   \draw[thick, fill=blue!20] (0,0) rectangle (0.55,1); %Matemáticas
   \draw[thick, fill=red!20] (0.55,0) rectangle (1,0.5); %Lingüística
-  \draw[thick, fill=green!20] (0,0) rectangle (1,0.5); %Masculino
-  \draw[thick, fill=yellow!20] (0,0.5) rectangle (1,1); %Femenino
+  \draw[thick, fill=green!20] (0,0) rectangle (0.55,0.545454); %Masculino
+  \draw[thick, fill=yellow!20] (0,0.545454) rectangle (0.55,1); %Femenino
   \node at (0.275, 1) [anchor=south] {\(\prob(Mat)\)};
   \node at (0.775, 1) [anchor=south] {\(\prob(\comp{Mat})\)};
   \node at (0, 0.75) [anchor=east] {\(\prob(Fem)\)};
   \node at (0, 0.25) [anchor=east] {\(\prob(\comp{Fem})\)};
+  \node at (0.275, 0.75) {\num{0,25}};
+  \node at (0.775, 0.75) {\num{0,25}};
+  \node at (0.275, 0.25) {\num{0,3}};
+  \node at (0.772, 0.25) {\num{0,2}};
+  \node at (0.275, 0) [anchor=north] {\(\num{0,55}\)};
+  \node at (0.775, 0) [anchor=north] {\(\num{0,45}\)};
+  \node at (1, 0.75) [anchor=west] {\(\num{0,5}\)};
+  \node at (1, 0.25) [anchor=west] {\(\num{0,5}\)};
 \end{tikzpicture}
 \caption{Cuadrado de área \(1\) dividido en áreas proporcionales a
 las probabilidades de estudiantes por género y carrera.}
@@ -747,7 +755,16 @@ Un caso especial de permutaciones es cuando debemos organizar los elementos alre
 
 Como podemos hacer \(n\) rotaciones, el número de permutaciones es \((n-1)!\).
 
-Otro caso es cuando tenemos \(n\) elementos, pero algunos de ellos son iguales. Por ejemplo, si tenemos \(n\) letras, pero algunas son iguales, entonces el número de permutaciones es \[\frac{n!}{k_1! \cdot k_2! \cdots k_m!},\] donde \(k_i\) es el número de veces que se repite el elemento \(i\).
+Otro caso es cuando tenemos \(n\) elementos, pero algunos de ellos son iguales. Por ejemplo, si tenemos \(n\) letras, pero algunas son iguales, entonces el número de permutaciones es \[\frac{n!}{k_1! \cdot k_2! \cdots k_m!},\] donde \(k_i\) es el número de veces que se repite el elemento \(i\). Esto ocurre porque al contar las permutaciones, cada una de las permutaciones de los elementos iguales se cuenta \(k_i!\) veces, así que debemos dividir por ese número para no contar de más.
+
+Ejemplo: contar las permutaciones de la palabra \emph{casada.} Como la palabra tiene \(6\) letras, en principio tendríamos \(6!\) permutaciones. Sin embargo, los siguientes 6 arreglos son indistinguibles:
+\[
+\begin{matrix}
+	ca_1sa_2da_3 & ca_1sa_3da_2 \\
+	ca_2sa_1da_3 & ca_2sa_3da_1\\
+	ca_3sa_1da_2 & ca_3sa_2da_1
+\end{matrix}
+\]que son precisamente las permutaciones de los \(3\) elementos \(a\) que hay en la palabra. Por lo tanto, el número de permutaciones es \[\frac{6!}{3!} = 120.\]
 
 
 \end{document}
