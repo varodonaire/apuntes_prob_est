@@ -15,6 +15,11 @@
 \setdefaultlanguage{spanish} % Set Spanish as the default language
 \usepackage[spanish=mexican]{csquotes}	% Spanish quotes
 
+\addto\captionsspanish{%
+  \renewcommand{\tablename}{Tabla}%
+  \renewcommand{\listtablename}{Índice de tablas}%
+}
+
 % Load packages for testing
 \usepackage{blindtext}
 %\usepackage{showframe} % Uncomment to show boxes around the text area, margin, header and footer
