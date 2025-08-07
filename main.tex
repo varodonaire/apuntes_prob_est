@@ -38,10 +38,10 @@
 
 \usepackage{enumitem}
 
-
+\usepackage{booktabs}
 
 \usepackage{tikz}
-\usetikzlibrary{shapes, positioning, calc} % Load TikZ libraries for shapes and positioning
+\usetikzlibrary{shapes, trees, positioning, calc} % Load TikZ libraries for shapes and positioning
 
 \usepackage{customdice}
 
@@ -232,6 +232,49 @@ En otras palabras, la cantidad de personas que van a sacar primero la ficha roja
 			([xshift=0.1cm, yshift=-\traydepth]box3.south east) -- ([xshift=0.1cm]box3.north east);
 	\end{tikzpicture}
 \end{center}
+
+\begin{marginfigure}
+\begin{tikzpicture}[
+  grow=right,
+  edge from parent/.style={draw, -latex},
+  level distance=2cm,
+  level 1/.style={sibling distance=2cm},
+  level 2/.style={sibling distance=1cm},
+  every node/.style={font=\small, align=center, scale=0.8}, % Scale the nodes
+  scale=0.8 % Scale the entire tree
+]
+\node {Inicio}
+  child { node {R}
+    child { node {A\\$\displaystyle P=1/6$}
+      edge from parent node[below] {$1/2$}
+    }
+    child { node {V\\$\displaystyle P=1/6$}
+      edge from parent node[above] {$1/2$}
+    }
+    edge from parent node[below] {$1/3$}
+  }
+  child { node {A}
+    child { node {R\\$\displaystyle P=1/6$}
+      edge from parent node[below] {$1/2$}
+    }
+    child { node {V\\$\displaystyle P=1/6$}
+      edge from parent node[above] {$1/2$}
+    }
+    edge from parent node[above] {$1/3$}
+  }
+  child { node {V}
+    child { node {R\\$\displaystyle P=1/6$}
+      edge from parent node[below] {$1/2$}
+    }
+    child { node {A\\$\displaystyle P=1/6$}
+      edge from parent node[above] {$1/2$}
+    }
+    edge from parent node[above] {$1/3$}
+  };
+\end{tikzpicture}
+\caption{Diagrama de árbol para el experimento de sacar dos fichas de la caja.}	
+\labfig{diagrama-arbol-fichas}
+\end{marginfigure}
 
 La segunda vez que sacan una ficha, alrededor de la mitad de las personas van a sacar la ficha azul. La fracción que saca la ficha roja y luego la azul es entonces \[\frac{1}{2} \text{ de } \frac{1}{3} = \frac{1}{2} \cdot \frac{1}{3} = \frac{1}{6}.\]
 
@@ -449,6 +492,8 @@ Un caso particular de este principio es cuando tenemos una \emph{partición.} Un
 \end{tikzpicture}
 \end{center}
 \informal
+
+
 \section{Preguntas frecuentes}
 
 \begin{enumerate}
@@ -456,6 +501,18 @@ Un caso particular de este principio es cuando tenemos una \emph{partición.} Un
 \item ¿Cuándo sumo y cuándo multiplico?
 \end{enumerate}
 
+\begin{marginfigure}
+\begin{tikzpicture}[scale=0.7, every node/.style={scale=0.7}]
+  % Espacio muestral
+  \draw[thick] (-3,-1.5) rectangle (3,1.5) node[above left] {$\Omega$};
+  % Conjunto A
+  \draw[thick] (-1.5,0) circle (1cm) node at (-1.5,1.2) {$A$};
+  % Conjunto B
+  \draw[thick] (1.5,0) circle (1cm) node at (1.5,1.2) {$B$};
+\end{tikzpicture}
+\caption{Eventos mutuamente excluyentes.}
+\labfig{mutuamente-excluyentes}
+\end{marginfigure}
 \begin{enumerate}
 \item Dos eventos son independientes si la ocurrencia de uno no afecta la probabilidad de que ocurra el otro. Dos eventos son mutuamente excluyentes si la ocurrencia de uno impide la ocurrencia del otro. 
 
@@ -470,6 +527,124 @@ Muchas veces los eventos independientes tienen que ver, o bien con la repetició
 \item Multiplicamos cuando queremos encontrar la probabilidad de que ocurran dos eventos al mismo tiempo. Sumamos cuando queremos encontrar la probabilidad de que ocurra al menos uno de dos eventos. 
 \end{enumerate}
 
+\subsection{Una nota sobre visualización de eventos}
+
+Muchas veces representamos eventos usando diagramas de Venn, como en la \reffig{mutuamente-excluyentes}. Sin embargo, estos diagramas no son muy útiles para calcular probabilidades.
+
+Una alternativa gráfica más útil son los diagramas de árbol. Usamos uno en la \reffig{diagrama-arbol-fichas} para el experimento de sacar dos fichas de la caja. En este caso, cada rama del árbol representa un resultado posible y las probabilidades se escriben al lado de cada rama.
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+  grow=right,
+  edge from parent/.style={draw, -latex},
+  level distance=2.5cm,
+  level 1/.style={sibling distance=1.5cm},
+  level 2/.style={sibling distance=0.7cm},
+  every node/.style={font=\small, align=center}
+]
+\node {Inicio}
+  child { node {D}
+    child { node {X}
+      edge from parent node[below] {$\prob\giventhat{X}{D}$}
+    }
+    child { node {Y}
+      edge from parent node[above] {$\prob\giventhat{Y}{D}$}
+    }
+    edge from parent node[below] {$\prob(D)$}
+  }
+  child { node {C}
+    child { node {X}
+      edge from parent node[below] {$\prob\giventhat{X}{C}$}
+    }
+    child { node {Y}
+      edge from parent node[above] {$\prob\giventhat{Y}{C}$}
+    }
+    edge from parent node[below] {$\prob(C)$}
+  }
+  child { node {B}
+    child { node {X}
+      edge from parent node[below] {$\prob\giventhat{X}{B}$}
+    }
+    child { node {Y}
+      edge from parent node[above] {$\prob\giventhat{Y}{B}$}
+    }
+    edge from parent node[above] {$\prob(B)$}
+  }
+  child { node {A}
+    child { node {X}
+      edge from parent node[below] {$\prob\giventhat{X}{A}$}
+    }
+    child { node {Y}
+      edge from parent node[above] {$\prob\giventhat{Y}{A}$}
+    }
+    edge from parent node[above] {$\prob(A)$}
+  };
+\end{tikzpicture}
+\caption{Diagrama de árbol con 4 ramas principales y 2 sub-ramas cada una.}
+\labfig{diagrama-arbol-general}
+\end{figure}
+
+Un diagrama de árbol, combinado con los principios aditivo y multiplicativo, nos permite calcular la probabilidad de cualquier evento que involucre los eventos representados en el diagrama. Por ejemplo, para calcular la probabilidad de que ocurra \(A\) y \(X\), podemos seguir la rama que va desde el inicio hasta \(A\) y luego hasta \(X\). La probabilidad de que ocurra ese evento es \(\prob(A) \cdot \prob\giventhat{X}{A}\). También podemos calcular la probabilidad de que ocurra \(Y\) sumando todos los caminos que llevan a \(Y\): 
+\begin{align*}
+\prob(Y) &= \prob(A) \cdot \prob\giventhat{Y}{A} + \prob(B) \cdot \prob\giventhat{Y}{B} +\\
+&\quad + \prob(C) \cdot \prob\giventhat{Y}{C} + \prob(D) \cdot \prob\giventhat{Y}{D}
+\end{align*}
+
+Otra visualización, no tan gráfica pero igualmente útil es usar una simple tabla. Si tenemos una tabla simple o de doble entrada, podemos dividir por el total de elementos (asumiendo equiprobabilidad de cada resultado) para encontrar la probabilidad de cada evento. Por ejemplo, si clasificamos los estudiantes de un campus por carrera y género, podemos tener una tabla como la siguiente:
+\begin{table}[ht]
+  \centering
+  \caption{Distribución de estudiantes por género y carrera}
+  \begin{tabular}{lccr}
+    \toprule
+    & Matemáticas & Lingüística & Total \\
+    \midrule
+    Masculino  & 30 & 20 & 50 \\
+    Femenino   & 25 & 25 & 50 \\
+    \midrule
+    Total      & 55 & 45 & \textbf{100} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Dividiendo por el total obtenemos las probabilidades:
+\begin{table}[ht]
+  \centering
+  \caption{Probabilidades de estudiantes por género y carrera}
+  \begin{tabular}{lccr}
+    \toprule
+    & Matemáticas & Lingüística & Total \\
+    \midrule
+    Masculino  & \num{0,3} & \num{0,2} & \num{0,5} \\
+    Femenino   & \num{0,25} & \num{0,25} & \num{0,5} \\
+    \midrule
+    Total      & \num{0,55} & \num{0,45} & \textbf{1} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+
+Otra visualización es usar un cuadrado de área \(1\) para representar el total de estudiantes. Luego, podemos dividir este cuadrado en áreas proporcionales a las probabilidades de cada evento\marginnote{si lo hacemos a mano simplemente aproximamos}. Por ejemplo, el área correspondiente a los estudiantes masculinos en Matemáticas sería \(0,3\), en Lingüística \(0,2\), y así sucesivamente. Esto nos da una representación visual clara de las probabilidades.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[fill opacity=0.5, scale=3, every node/.style={scale=1}]
+  % Dibuja el cuadrado grande
+  \draw[thick] (0,0) rectangle (1,1);
+  % Dibuja las subdivisiones
+  \draw[thick, fill=blue!20] (0,0) rectangle (0.55,1); %Matemáticas
+  \draw[thick, fill=red!20] (0.55,0) rectangle (1,0.5); %Lingüística
+  \draw[thick, fill=green!20] (0,0) rectangle (1,0.5); %Masculino
+  \draw[thick, fill=yellow!20] (0,0.5) rectangle (1,1); %Femenino
+  \node at (0.275, 1) [anchor=south] {\(\prob(Mat)\)};
+  \node at (0.775, 1) [anchor=south] {\(\prob(\comp{Mat})\)};
+  \node at (0, 0.75) [anchor=east] {\(\prob(Fem)\)};
+  \node at (0, 0.25) [anchor=east] {\(\prob(\comp{Fem})\)};
+\end{tikzpicture}
+\caption{Cuadrado de área \(1\) dividido en áreas proporcionales a
+las probabilidades de estudiantes por género y carrera.}
+\labfig{cuadrado-probabilidades}
+\end{figure}
 
 \section{Conteo}
 \labsec{conteo}
@@ -573,5 +748,6 @@ Un caso especial de permutaciones es cuando debemos organizar los elementos alre
 Como podemos hacer \(n\) rotaciones, el número de permutaciones es \((n-1)!\).
 
 Otro caso es cuando tenemos \(n\) elementos, pero algunos de ellos son iguales. Por ejemplo, si tenemos \(n\) letras, pero algunas son iguales, entonces el número de permutaciones es \[\frac{n!}{k_1! \cdot k_2! \cdots k_m!},\] donde \(k_i\) es el número de veces que se repite el elemento \(i\).
+
 
 \end{document}
