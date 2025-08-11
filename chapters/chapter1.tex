@@ -1,0 +1,673 @@
+\chapter{¿Qué probabilidad hay?}
+
+\section{Introducción}
+
+\marginnote{En este texto, cada vez que el color del mismo sea negro, este texto está más enfocado en las ideas que dan sustento a la teoría.}Todos los días nos encontramos con frases que tienen que ver con probabilidades: ¿Irá a llover? ¡Me encontré con Juanito! No lo veía hace años.
+
+Los matemáticos y científicos también se dieron cuenta que necesitaban hablar de probabilidades pero, a diferencia de nuestro uso cotidiano, es necesario un lenguaje, unas definiciones, más precisas.
+
+El problema es que es difícil. Hay varias formas de ver la probabilidad y ninguna cubre todos los significados que le asignamos de forma cotidiana al término. En este curso, haremos uso de la definición frecuentista de probabilidad. Esta definición opera bajo algunos supuestos, por ejemplo que podemos repetir un proceso varias veces, independientemente y bajo las mismas condiciones.
+
+Esto es algo que suele ocurrir con los juegos de azar. De hecho, uno de los orígenes de la teoría de probabilidad es el estudio de los juegos de azar y apuestas.
+
+Por ejemplo, al lanzar un dado ideal, cada cara tiene la misma probabilidad de aparecer que las otras, \(1/6\) o \(\qty{16.67}{\percent}\). La interpretación es que, al lanzar el dado bajo las mismas condiciones, en el largo plazo cada cara aparecerá \(1/6\) de las veces.
+
+\begin{definition}
+\labdef{probabilidad}
+La probabilidad de algo es el porcentaje de veces que se espera que ocurra en el largo plazo, cuando el proceso que le da origen se repite una y otra vez, de manera independiente y bajo las mismas condiciones.
+\end{definition}
+
+Si algo es imposible que pase, su probabilidad es \(0\). Si algo es seguro, su probabilidad es \qty{100}{\percent}. Esos son lógicamente los casos extremos, por lo que
+\begin{remark}
+	Todas las probabilidades están entre \(0\) y \(1\) (\qty{0}{\percent} y \qty{100}{\percent}).
+\end{remark}
+
+Otro hecho fundamental: supongamos que estamos jugando un juego en el que tenemos un \qty{30}{\percent} de ganar. En otras palabras, esperamos ganar un \qty{30}{\percent} de las veces que jugamos. Por lo tanto, esperamos perder el otro \qty{70}{\percent} de las veces.
+
+\begin{remark}
+	La probabilidad de algo es \qty{100}{\percent} menos la probabilidad de su opuesto.
+\end{remark}
+
+Problema: Apostamos en un juego en el que, al sacar una pelota de una caja, si es roja ganamos y si es azul perdemos. Cada pelota tiene la misma probabilidad de ser escogida.
+
+Si podemos elegir la caja de entre las dos siguientes:
+\begin{description}
+	\item[Caja A:] Contiene \(2\) pelotas rojas y \(3\) pelotas azules.
+	\item[Caja B:] Contiene \(20\) pelotas rojas y \(30\) pelotas azules.
+\end{description}
+¿cuál nos conviene?
+
+Quizás es un experimento un poco tonto, pero lo que sí es muy útil es la idea de escoger pelotas de colores desde una caja. Resulta que muchas situaciones en probabilidad (y estadística) se pueden modelar de esta forma. Este es, entonces, nuestro primer modelo probabilístico.
+
+\formal
+\section{Eventos, espacios muestrales y probabilidad}
+
+\marginnote{En este texto, cada vez que el color del mismo sea azul, este texto está más enfocado en la teoría y en las definiciones.}Un experimento es un procedimiento que puede ser repetido indefinidamente y que tiene un conjunto bien definido de resultados. Si el experimento tiene un resultado, es un experimento determinista. Si tiene más de un resultado, es un experimento aleatorio.\sidenote{En este curso sólo nos ocuparemos de experimentos aleatorios.}
+
+El conjunto de resultados de un experimento aleatorio se llama el \emph{espacio muestral} del experimento aleatorio.
+
+Cada vez que realizamos un experimento aleatorio, se obtiene un y sólo un resultado. Sin embargo, este resultado puede estar incluido en uno o más \emph{eventos.} Un evento es un subconjunto del espacio muestral. Cada evento está compuesto de cero o más resultados.
+
+Normalmente, nos ocuparemos de eventos con mayor o menor nivel de complejidad en vez de concentrarnos en resultados.
+
+Dicho de otro modo, si tenemos un espacio muestral \(\Omega\), cada evento es un elemento de \(\PS{\Omega}\), el conjunto potencia de \(\Omega\).
+
+De esta manera, la probabilidad se define como una función \(\prob: \PS{\Omega} \to [0,1]\) que cumple con ciertas características, los axiomas de probabilidad (que veremos más adelante).
+
+En la sección anterior hablamos acerca del \enquote{opuesto} de un evento. En la literatura, esto se conoce como el \emph{complemento} de un evento. Hay varias formas de escribirlo simbólicamente; una de las más comunes es \(\comp{A}\) para el complemento del evento \(A\).
+
+\informal
+\section{Probabilidad condicional}
+\labsec{probabilidad-condicional}
+
+Imaginemos que tenemos una baraja de naipes. Esta baraja tiene \(52\) cartas (son 13 cartas por pinta y dejamos fuera a los jokers). Supongamos que saco dos cartas y que gano el juego si la segunda carta es el as de picas.
+
+\begin{enumerate}[label=\alph*)]
+	\item\label{item:ejemploa} ¿Cuál es la probabilidad de ganar?
+	\item\label{item:ejemplob} Si doy vuelta la primera carta y es el 6 de corazones, ¿cuál es la probabilidad de ganar?
+\end{enumerate}
+
+En la parte~\ref{item:ejemploa}, la primera carta no importa realmente. Podemos dar vuelta la segunda carta inmediatamente. Por lo tanto, como tengo \(52\) cartas a disposición, mi probabilidad de ganar es \(1/52\) (o \qty{1.92}{\percent}).
+
+En la parte~\ref{item:ejemplob}, ya no tengo \(52\) cartas que \enquote{repartir}; sólo tengo \(51\). Esto ocurre porque ya sé que la primera carta es el 6 de corazones. Por lo tanto, mi probabilidad de ganar es \(1/51\) (o \qty{1.96}{\percent}).
+
+Esta segunda probabilidad es lo que se conoce como \emph{probabilidad condicional}. El problema pone una condición en la primera carta: tiene que ser el 6 de corazones.
+
+\formal
+En símbolos, \[\prob\giventhat{\text{As de picas}}{\text{6 de corazones}} = \frac{1}{51}\] (la barra se lee \enquote{dado}).
+
+\informal
+\section{Principio multiplicativo}
+
+Una caja contiene tres fichas, una roja, una azul y una verde. 
+
+% 1. Parámetros
+\def\labels{R,A,V}
+\def\colors{red,blue,green}
+\def\sqsize{1cm}
+\def\gap{0.1cm}
+
+% 2. Estilo de nodos
+\tikzset{
+  sq/.style={
+    draw,
+    minimum size=\sqsize,
+    inner sep=0pt,
+    font=\sffamily\bfseries,
+    align=center,
+    text=black
+  }
+}
+
+% 3. Dibujo
+\begin{center}
+	\begin{tikzpicture}[scale=0.7, every node/.style={scale=0.7}]
+		% Dibuja los cuadrados con etiquetas y colores
+		\foreach [count=\i] \lab in \labels {
+			\node[sq] (box\i) at ({(\i-1)*(\sqsize+\gap)},0) {\lab};
+		}
+
+		% Bandeja inferior (U-shape tray)
+		\def\traydepth{0.1cm}
+		\draw[line width=1pt]
+			([xshift=-0.1cm]box1.north west) -- ([xshift=-0.1cm, yshift=-\traydepth]box1.south west) --
+			([xshift=0.1cm, yshift=-\traydepth]box3.south east) -- ([xshift=0.1cm]box3.north east);
+	\end{tikzpicture}
+\end{center}
+
+Vamos a sacar dos fichas de la caja, sin reemplazo. ¿Cuál es la probabilidad de sacar primero la ficha roja y luego la azul?
+
+Imaginemos que tenemos un grupo grande de personas, digamos 600 personas, cada una de ellas con una caja como la de arriba. Alrededor de 200 de ellas van a sacar la ficha roja la primera vez. De esas doscientas personas, alrededor de 100 van a sacar la ficha azul la segunda vez. Así que \(100/600 = 1/6\) o \qty{16.67}{\percent} de las personas van a sacar la ficha roja primero y la azul después.
+
+En otras palabras, la cantidad de personas que van a sacar primero la ficha roja es alrededor de \(1/3\) de la cantidad original de personas, las que se quedan con 
+\begin{center}
+	\begin{tikzpicture}[scale=0.7, every node/.style={scale=0.7}]
+		% Dibuja los cuadrados con etiquetas y colores
+		\foreach [count=\i] \lab in \labels {
+			\node[sq] (box\i) at ({(\i-1)*(\sqsize+\gap)},0) {\lab};
+		}
+		\draw[fill=white, draw=white, very thick] (box1.north west) rectangle ++(\sqsize,-\sqsize);
+
+		% Bandeja inferior (U-shape tray)
+		\def\traydepth{0.1cm}
+		\draw[line width=1pt]
+			([xshift=-0.1cm]box1.north west) -- ([xshift=-0.1cm, yshift=-\traydepth]box1.south west) --
+			([xshift=0.1cm, yshift=-\traydepth]box3.south east) -- ([xshift=0.1cm]box3.north east);
+	\end{tikzpicture}
+\end{center}
+
+\begin{marginfigure}
+\begin{tikzpicture}[
+  grow=right,
+  edge from parent/.style={draw, -latex},
+  level distance=2cm,
+  level 1/.style={sibling distance=2cm},
+  level 2/.style={sibling distance=1cm},
+  every node/.style={font=\small, align=center, scale=0.8}, % Scale the nodes
+  scale=0.8 % Scale the entire tree
+]
+\node {Inicio}
+  child { node {R}
+    child { node {A\\$\displaystyle P=1/6$}
+      edge from parent node[below] {$1/2$}
+    }
+    child { node {V\\$\displaystyle P=1/6$}
+      edge from parent node[above] {$1/2$}
+    }
+    edge from parent node[below] {$1/3$}
+  }
+  child { node {A}
+    child { node {R\\$\displaystyle P=1/6$}
+      edge from parent node[below] {$1/2$}
+    }
+    child { node {V\\$\displaystyle P=1/6$}
+      edge from parent node[above] {$1/2$}
+    }
+    edge from parent node[above] {$1/3$}
+  }
+  child { node {V}
+    child { node {R\\$\displaystyle P=1/6$}
+      edge from parent node[below] {$1/2$}
+    }
+    child { node {A\\$\displaystyle P=1/6$}
+      edge from parent node[above] {$1/2$}
+    }
+    edge from parent node[above] {$1/3$}
+  };
+\end{tikzpicture}
+\caption{Diagrama de árbol para el experimento de sacar dos fichas de la caja.}	
+\labfig{diagrama-arbol-fichas}
+\end{marginfigure}
+
+La segunda vez que sacan una ficha, alrededor de la mitad de las personas van a sacar la ficha azul. La fracción que saca la ficha roja y luego la azul es entonces \[\frac{1}{2} \text{ de } \frac{1}{3} = \frac{1}{2} \cdot \frac{1}{3} = \frac{1}{6}.\]
+
+El método del ejemplo anterior se llama \emph{principio multiplicativo}.
+
+\begin{definition}[Principio multiplicativo]
+\labdef{principio multiplicativo}
+La probabilidad de que, de dos cosas, ambas ocurran es la probabilidad de que ocurra la primera multiplicada por la probabilidad de que ocurra la segunda dado que la primera ya ocurrió.
+\end{definition}
+
+\formal
+En símbolos, si \(A\) y \(B\) son eventos, entonces \[\prob\left(A \cap B\right) = \prob(A)  \prob\giventhat{B}{A}.\]
+
+Podría parecer que tenemos un problema con el orden de los eventos. Sin embargo, si recordamos de teoría de conjuntos que \(A \cap B = B \cap A\), podemos escribir el principio multiplicativo como \[\prob\left(A \cap B\right) = \prob(B)  \prob\giventhat{A}{B}.\]
+
+\informal
+
+Otro ejemplo. En nuestro ejemplo de la baraja de naipes de la sección \nrefsec{probabilidad-condicional}, la probabilidad de sacar primero el seis de corazones y luego el as de picas es 
+\begin{align*}
+\prob\left(\text{6 ♥} \cap \text{As ♠}\right) &= \prob\left(\text{6 ♥}\right)  \prob\giventhat{\text{As ♠}}{\text{6 ♥}} \\
+&= \frac{1}{52} \cdot \frac{1}{51} \\
+&= \frac{1}{\num{2652}}.
+\end{align*}
+Esta probabilidad es pequeña, aproximadamente 4 en \num{10000}.
+
+¿Qué pasaría si nos preguntáramos por la probabilidad de sacar dos ases? La probabilidad de sacar el primer as es \(4/52\). Dado que la primera carta fue un as, la probabilidad de que la segunda carta también sea un as es \(3/51\). Por lo tanto, la probabilidad de sacar dos ases es \[\frac{4}{52} \cdot \frac{3}{51} = \frac{12}{2652}.\] Esta probabilidad es aproximadamente 1 en 200.
+
+Otro ejemplo. Una moneda se lanza dos veces. ¿Cuál es la probabilidad de sacar cara y luego sello de una moneda justa\sidenote{una moneda justa es aquella que tiene la misma probabilidad de caer en cara o en sello (y 0 de otra forma, como caer de canto)}?
+
+La probabilidad de que el primer lanzamiento sea cara es \(1/2\). No importa cómo salga este primer lanzamiento, la probabilidad de que el segundo lanzamiento sea sello es \(1/2\). Por lo tanto, la probabilidad de que el primer lanzamiento sea cara y el segundo sello es \[\frac{1}{2} \cdot \frac{1}{2} = \frac{1}{4}.\]
+
+\section{Independencia}
+\labsec{independencia}
+
+La idea de independencia es una que va a aparecer repetidamente dentro de este texto.
+
+\begin{definition}[Independencia]
+\labdef{independencia}
+Dos eventos son independientes si la probabilidad de que ocurra el segundo dado el primero son iguales, sin importar qué haya ocurrido con el primero. En caso contrario, los eventos son \emph{dependientes.}
+\end{definition}
+
+Un ejemplo. Supongamos que lanzamos una moneda dos veces y ganamos si la segunda vez sale cara.
+\begin{enumerate}[label=\alph*)]
+	\item Si en el primer lanzamiento salió cara, ¿cuál es la probabilidad de ganar?
+	\item Si en el primer lanzamiento salió sello, ¿cuál es la probabilidad de	 ganar?
+	\item ¿Los lanzamientos son independientes?
+\end{enumerate}
+
+En la parte a), la probabilidad de ganar es \qty{50}{\percent} (la probabilidad de que salga cara en el segundo lanzamiento). En la parte b), la probabilidad de ganar es también \qty{50}{\percent}. La probabilidad de ganar no se ve influida por el resultado del primer lanzamiento. Eso es independencia.
+
+Otro ejemplo. Se sacan dos fichas con reposición de la siguiente caja
+
+\def\labels{1, 1, 2, 2, 3}
+
+\begin{center}
+	\begin{tikzpicture}[scale=0.7, every node/.style={scale=0.7}]
+		% Dibuja los cuadrados con etiquetas y colores
+		\foreach [count=\i] \lab in \labels {
+			\node[sq] (box\i) at ({(\i-1)*(\sqsize+\gap)},0) {\lab};
+		}
+		
+
+		% Bandeja inferior (U-shape tray)
+		\def\traydepth{0.1cm}
+		\draw[line width=1pt]
+			([xshift=-0.1cm]box1.north west) -- ([xshift=-0.1cm, yshift=-\traydepth]box1.south west) --
+			([xshift=0.1cm, yshift=-\traydepth]box5.south east) -- ([xshift=0.1cm]box5.north east);
+	\end{tikzpicture}
+\end{center}
+
+\begin{enumerate}[label=\alph*)]
+	\item Supongamos que la primera ficha tiene una etiqueta \(1\). ¿Cuál es la probabilidad de que la segunda ficha tenga una etiqueta \(2\)?
+	\item Supongamos que la primera ficha tiene una etiqueta \(2\). ¿Cuál es la probabilidad de que la segunda ficha tenga una etiqueta \(2\)?
+	\item Es independiente el resultado de la primera ficha del resultado de la segunda?
+\end{enumerate}
+
+Si la primera ficha tiene etiqueta \(1\),  \(2\) o \(3\), la probabilidad de que la segunda ficha tenga una etiqueta \(2\) es siempre\sidenote{porque hay reposición} 2 de 5 o \qty{40}{\percent}. Por lo tanto, los resultados son independientes.
+
+Otro ejemplo. Tenemos la misma caja del ejemplo anterior, pero ahora sacamos dos fichas sin reposición.
+
+Si la primera ficha tiene etiqueta \(1\), nos quedamos con la caja 
+\begin{center}
+	\begin{tikzpicture}[scale=0.7, every node/.style={scale=0.7}]
+		% Dibuja los cuadrados con etiquetas y colores
+		\foreach [count=\i] \lab in \labels {
+			\node[sq] (box\i) at ({(\i-1)*(\sqsize+\gap)},0) {\lab};
+		}
+		
+		\node[sq, fill=white, draw=white, very thick] (box1) at (0,0) {};
+
+		% Bandeja inferior (U-shape tray)
+		\def\traydepth{0.1cm}
+		\draw[line width=1pt]
+			([xshift=-0.1cm]box1.north west) -- ([xshift=-0.1cm, yshift=-\traydepth]box1.south west) --
+			([xshift=0.1cm, yshift=-\traydepth]box5.south east) -- ([xshift=0.1cm]box5.north east);
+	\end{tikzpicture}
+\end{center}
+y la probabilidad de que la segunda ficha tenga etiqueta \(2\) es \(2/4 = 1/2\) o \qty{50}{\percent}. Si la primera ficha tiene etiqueta \(2\), nos quedamos con la caja
+\begin{center}
+	\begin{tikzpicture}[scale=0.7, every node/.style={scale=0.7}]
+		% Dibuja los cuadrados con etiquetas y colores
+		\foreach [count=\i] \lab in \labels {
+			\node[sq] (box\i) at ({(\i-1)*(\sqsize+\gap)},0) {\lab};
+		}
+		\node[sq, fill=white, draw=white, very thick] (box3) at (2.2,0) {};
+
+		% Bandeja inferior (U-shape tray)
+		\def\traydepth{0.1cm}
+		\draw[line width=1pt]
+			([xshift=-0.1cm]box1.north west) -- ([xshift=-0.1cm, yshift=-\traydepth]box1.south west) --
+			([xshift=0.1cm, yshift=-\traydepth]box5.south east) -- ([xshift=0.1cm]box5.north east);
+	\end{tikzpicture}
+\end{center} y la probabilidad de que la segunda ficha tenga etiqueta \(2\) es \(1/4\) o \qty{25}{\percent}. Por lo tanto, los resultados no son independientes.
+
+\begin{remark}
+	Cuando el muestreo es con reposición, los eventos son independientes. Cuando el muestreo es sin reposición, los eventos son dependientes.
+\end{remark}
+
+\formal
+La versión en símbolos de la definición de independencia es la siguiente. Si \(A\) y \(B\) son eventos independientes, entonces \[\prob\giventhat{B}{A} = \prob\giventhat{B}{\comp{A}}= \prob(B).\] Sin embargo, esa no es la definición que aparece en los libros. 
+
+Para encontrar la versión popular de la definición, tenemos que recordar que \[\prob\left(A \cap B\right) = \prob(A)  \prob\giventhat{B}{A}.\] Por lo tanto, si \(A\) y \(B\) son independientes, entonces \[\prob\left(A \cap B\right) = \prob(A)  \prob(B).\] Esta es la versión más común de la definición de independencia y es un caso especial del principio multiplicativo.
+
+\informal
+\section{Principio aditivo}
+\labsec{principio-aditivo}
+
+Esta sección trata sobre cómo calcular la probabilidad de que ocurra al menos uno de dos eventos, es decir, que ocurra el primero, el segundo o ambos. Resulta que cuando ocurren ambos, la situación se complica un poco, por lo que haremos una definición.
+
+\begin{definition}[Eventos mutuamente excluyentes]
+\labdef{mutuamente_excluyentes}
+
+Dos cosas son mutuamente excluyentes si la ocurrencia de una impide la ocurrencia de la otra. En otras palabras, si una ocurre, la otra no puede ocurrir.
+\end{definition}
+
+Con esa definición, podemos establecer el principio aditivo.
+\begin{definition}[Principio aditivo]
+\labdef{principio-aditivo}
+Para encontrar la probabilidad de que al menos una de dos cosas ocurra, primero verificamos si son mutuamente excluyentes. Si lo son, entonces simplemente sumamos las probabilidades de cada una.
+\end{definition}
+
+Un ejemplo. La probabilidad de sacar un corazón de una baraja bien revuelta es \(1/4\). La probabilidad de sacar una pica de una baraja bien revuelta es también \(1/4\). ¿Cuál es la probabilidad de sacar un corazón o una pica? Como no es posible sacar una carta que sea a la vez corazón y pica, los eventos son mutuamente excluyentes. Por lo tanto, la probabilidad de sacar un corazón o una pica es \(1/4 + 1/4 = 1/2\) o \qty{50}{\percent}.
+
+Otro ejemplo. Lanzamos dos dados (pensemos en uno blanco y uno negro para diferenciarlos). Tu amigo dice que la probabilidad de sacar al menos un \(1\) es \[\frac{1}{6} + \frac{1}{6} = \frac{1}{3}.\] ¿Tiene razón?
+
+No. La pregunta pide que pase al menos una de estas cosas:
+\begin{itemize}
+	\item Que el dado blanco muestre un \(1\) \dice{1}.
+	\item Que el dado negro muestre un \(1\) \dice[black, white]{1}.
+\end{itemize}
+y que un dado muestre un \(1\) no impide que el otro también muestre un \(1\). Estos eventos no son mutuamente excluyentes así que el principio aditivo no corre: no podemos sumar las probabilidades.
+
+\begin{table}[H]
+\begin{tabular}{c|cccccc}
+ & \dice[black, white]{1} & \dice[black, white]{2} & \dice[black, white]{3} & \dice[black, white]{4} & \dice[black, white]{5} & \dice[black, white]{6} \\\hline
+\dice{1} & \dice{1}\,\dice[black, white]{1} & \dice{1}\,\dice[black, white]{2} & \dice{1}\,\dice[black, white]{3} & \dice{1}\,\dice[black, white]{4} & \dice{1}\,\dice[black, white]{5} & \dice{1}\,\dice[black, white]{6} \\
+\dice{2} & \dice{2}\,\dice[black, white]{1} & \dice{2}\,\dice[black, white]{2} & \dice{2}\,\dice[black, white]{3} & \dice{2}\,\dice[black, white]{4} & \dice{2}\,\dice[black, white]{5} & \dice{2}\,\dice[black, white]{6} \\
+\dice{3} & \dice{3}\,\dice[black, white]{1} & \dice{3}\,\dice[black, white]{2} & \dice{3}\,\dice[black, white]{3} & \dice{3}\,\dice[black, white]{4} & \dice{3}\,\dice[black, white]{5} & \dice{3}\,\dice[black, white]{6} \\
+\dice{4} & \dice{4}\,\dice[black, white]{1} & \dice{4}\,\dice[black, white]{2} & \dice{4}\,\dice[black, white]{3} & \dice{4}\,\dice[black, white]{4} & \dice{4}\,\dice[black, white]{5} & \dice{4}\,\dice[black, white]{6} \\
+\dice{5} & \dice{5}\,\dice[black, white]{1} & \dice{5}\,\dice[black, white]{2} & \dice{5}\,\dice[black, white]{3} & \dice{5}\,\dice[black, white]{4} & \dice{5}\,\dice[black, white]{5} & \dice{5}\,\dice[black, white]{6} \\
+\dice{6} & \dice{6}\,\dice[black, white]{1} & \dice{6}\,\dice[black, white]{2} & \dice{6}\,\dice[black, white]{3} & \dice{6}\,\dice[black, white]{4} & \dice{6}\,\dice[black, white]{5} & \dice{6}\,\dice[black, white]{6}
+\end{tabular}
+\caption{Espacio muestral del lanzamiento de dos dados.}
+\labtab{espacio-muestral-dados}
+\end{table}
+
+El~\reftab{espacio-muestral-dados} nos muestra todos los resultados posibles al lanzar dos dados. Hay seis resultados en los que el dado blanco muestra un \(1\) y seis resultados en los que el dado negro muestra un \(1\). Pero el número de maneras de obtener al menos un \(1\) no es \(6+6\): sumar a la rápida cuenta dos veces el resultado \dice{1}\,\dice[black, white]{1}. La probabilidad de obtener al menos un \(1\) al lanzar dos dados es \[(6+6-1)/36 = 11/36.\]
+
+\begin{remark}
+	Si queremos encontrar la probabilidad de que al menos un evento ocurra, y los eventos no son mutuamente excluyentes, no sumemos las probabilidades individuales: la suma va a ser demasiado grande.
+\end{remark}
+
+\begin{definition}[Principio aditivo II: el regreso]
+Si queremos calcular la probabilidad de que al menos un evento ocurra y los eventos no son mutuamente excluyentes, podemos sumar la probabilidad de cada evento, pero debemos restar la probabilidad de que ocurran ambos eventos conjuntamente. Eso es lo que estamos sumando de más.
+\end{definition}
+
+\formal
+El principio aditivo es sencillo de escribir simbólicamente: \[\prob\left(A \cup B\right) = \prob(A) + \prob(B) - \prob(A \cap B).\]
+
+Si recordamos que nuestra definición de eventos mutuamente excluyentes es que la ocurrencia de uno impide la ocurrencia del otro, podemos ver que si \(A\) y \(B\) son mutuamente excluyentes, entonces \[\prob(A \cap B) = 0.\] Por lo tanto, en ese caso el principio aditivo se reduce a \[\prob\left(A \cup B\right) = \prob(A) + \prob(B).\]
+
+Evidentemente, esto se puede extender a más de dos eventos. 
+\begin{definition}
+	Si \(A_1, A_2, \ldots, A_n\) son eventos mutuamente excluyentes, entonces \[\prob\left(A_1 \cup A_2 \cup \cdots \cup A_n\right) = \prob(A_1) + \prob(A_2) + \cdots + \prob(A_n).\]
+\end{definition}
+
+Un caso particular de este principio es cuando tenemos una \emph{partición.} Un conjunto de eventos \(\{A_1, A_2, \ldots, A_n\}\) es una partición del espacio muestral si son mutuamente excluyentes y su unión es el espacio muestral. En ese caso, \[\prob\left(A_1 \cup A_2 \cup \cdots \cup A_n\right) = \prob(\Omega) = 1.\] Por lo tanto, si \(A_1, A_2, \ldots, A_n\) es una partición del espacio muestral, entonces \[\prob(A_1) + \prob(A_2) + \cdots + \prob(A_n) = 1.\]
+
+\marginnote{La figura muestra una partición del espacio muestral. En efecto, \[\bigcup_{i=1}^{12} A_i = \Omega\] y \[A_i \cap A_j = \emptyset\text{, }i \neq j\text{.}\]}
+\begin{center}
+\begin{tikzpicture}[scale=0.7, every node/.style={scale=0.7}]
+  % 1. Sample space outline
+  \draw[thick] (0,0) rectangle (6,4);
+  \node at (3,4.3) {\large $\Omega$};
+
+  % 2. Horizontal‐ish Bézier partitions
+  \draw[thick]
+    (0,3) .. controls (1.5,2.5) and (4.5,3.5) .. (6,3);
+  \draw[thick]
+    (0,2) .. controls (1.5,2.2) and (4.5,1.8) .. (6,2);
+  \draw[thick]
+    (0,1) .. controls (1.5,1.5) and (4.5,0.5) .. (6,1);
+
+  % 3. Vertical‐ish Bézier partitions
+  \draw[thick]
+    (2,0) .. controls (1.5,1.2) and (2.5,2.8) .. (2,4);
+  \draw[thick]
+    (4,0) .. controls (3.5,0.8) and (4.5,3.2) .. (4,4);
+
+  % 4. (Optional) Region labels
+   \node at (1,3.5) {$A_1$};   \node at (3,3.5) {$A_2$};   \node at (5,3.5) {$A_3$};
+   \node at (1,2.5) {$A_4$};   \node at (3,2.5) {$A_5$};   \node at (5,2.5) {$A_6$};
+   \node at (1,1.5) {$A_7$};   \node at (3,1.5) {$A_8$};   \node at (5,1.5) {$A_9$};
+   \node at (1,0.5) {$A_{10}$}; \node at (3,0.5) {$A_{11}$}; \node at (5,0.5) {$A_{12}$};
+\end{tikzpicture}
+\end{center}
+\informal
+
+
+\section{Preguntas frecuentes}
+
+\begin{enumerate}
+\item ¿Cuál es la diferencia entre dos eventos independientes y mutuamente excluyentes?
+\item ¿Cuándo sumo y cuándo multiplico?
+\end{enumerate}
+
+\begin{marginfigure}
+\begin{tikzpicture}[scale=0.7, every node/.style={scale=0.7}]
+  % Espacio muestral
+  \draw[thick] (-3,-1.5) rectangle (3,1.5) node[above left] {$\Omega$};
+  % Conjunto A
+  \draw[thick] (-1.5,0) circle (1cm) node at (-1.5,1.2) {$A$};
+  % Conjunto B
+  \draw[thick] (1.5,0) circle (1cm) node at (1.5,1.2) {$B$};
+\end{tikzpicture}
+\caption{Eventos mutuamente excluyentes.}
+\labfig{mutuamente-excluyentes}
+\end{marginfigure}
+\begin{enumerate}
+\item Dos eventos son independientes si la ocurrencia de uno no afecta la probabilidad de que ocurra el otro. Dos eventos son mutuamente excluyentes si la ocurrencia de uno impide la ocurrencia del otro. 
+
+De lo anterior se concluye que dos eventos mutuamente excluyentes no pueden ser independientes: la ocurrencia de uno afecta muy directamente la probabilidad de que ocurra el otro, ya que la lleva a 0. 
+
+Por ejemplo, no podemos lanzar una moneda y que salga cara y sello al mismo tiempo. Si sale cara, no puede salir sello. Por lo tanto esos dos eventos son mutuamente excluyentes. Muchas veces los eventos mutuamente excluyentes tienen que ver con la imposibilidad de obtener más de un resultado al realizar una vez un experimento aleatorio. Por ejemplo, al lanzar un dado, no podemos obtener un \(1\) y un \(2\) al mismo tiempo.
+
+En cambio, dos eventos son independientes porque en realidad no se afectan entre sí. Por ejemplo, al lanzar una moneda dos veces, la moneda no tiene memoria por lo que el resultado del segundo lanzamiento no se ve afectado por el resultado del primero.
+
+Muchas veces los eventos independientes tienen que ver, o bien con la repetición de un experimento aleatorio \emph{de manera que una repetición que no afecte a las siguientes}\sidenote{por ejemplo, sacar una pelota de una caja con reposición}, o bien con la realización simultanea de experimentos aleatorios diferentes \emph{que no se afectan entre sí}\sidenote{por ejemplo, lanzar un dado y lanzar una moneda}.
+
+\item Multiplicamos cuando queremos encontrar la probabilidad de que ocurran dos eventos al mismo tiempo. Sumamos cuando queremos encontrar la probabilidad de que ocurra al menos uno de dos eventos. 
+\end{enumerate}
+
+\subsection{Una nota sobre visualización de eventos}
+
+Muchas veces representamos eventos usando diagramas de Venn, como en la \reffig{mutuamente-excluyentes}. Sin embargo, estos diagramas no son muy útiles para calcular probabilidades.
+
+Una alternativa gráfica más útil son los diagramas de árbol. Usamos uno en la \reffig{diagrama-arbol-fichas} para el experimento de sacar dos fichas de la caja. En este caso, cada rama del árbol representa un resultado posible y las probabilidades se escriben al lado de cada rama.
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+  grow=right,
+  edge from parent/.style={draw, -latex},
+  level distance=2.5cm,
+  level 1/.style={sibling distance=1.5cm},
+  level 2/.style={sibling distance=0.7cm},
+  every node/.style={font=\small, align=center}
+]
+\node {Inicio}
+  child { node {D}
+    child { node {X}
+      edge from parent node[below] {$\prob\giventhat{X}{D}$}
+    }
+    child { node {Y}
+      edge from parent node[above] {$\prob\giventhat{Y}{D}$}
+    }
+    edge from parent node[below] {$\prob(D)$}
+  }
+  child { node {C}
+    child { node {X}
+      edge from parent node[below] {$\prob\giventhat{X}{C}$}
+    }
+    child { node {Y}
+      edge from parent node[above] {$\prob\giventhat{Y}{C}$}
+    }
+    edge from parent node[below] {$\prob(C)$}
+  }
+  child { node {B}
+    child { node {X}
+      edge from parent node[below] {$\prob\giventhat{X}{B}$}
+    }
+    child { node {Y}
+      edge from parent node[above] {$\prob\giventhat{Y}{B}$}
+    }
+    edge from parent node[above] {$\prob(B)$}
+  }
+  child { node {A}
+    child { node {X}
+      edge from parent node[below] {$\prob\giventhat{X}{A}$}
+    }
+    child { node {Y}
+      edge from parent node[above] {$\prob\giventhat{Y}{A}$}
+    }
+    edge from parent node[above] {$\prob(A)$}
+  };
+\end{tikzpicture}
+\caption{Diagrama de árbol con 4 ramas principales y 2 sub-ramas cada una.}
+\labfig{diagrama-arbol-general}
+\end{figure}
+
+Un diagrama de árbol, combinado con los principios aditivo y multiplicativo, nos permite calcular la probabilidad de cualquier evento que involucre los eventos representados en el diagrama. Por ejemplo, para calcular la probabilidad de que ocurra \(A\) y \(X\), podemos seguir la rama que va desde el inicio hasta \(A\) y luego hasta \(X\). La probabilidad de que ocurra ese evento es \(\prob(A) \cdot \prob\giventhat{X}{A}\). También podemos calcular la probabilidad de que ocurra \(Y\) sumando todos los caminos que llevan a \(Y\): 
+\begin{align*}
+\prob(Y) &= \prob(A) \cdot \prob\giventhat{Y}{A} + \prob(B) \cdot \prob\giventhat{Y}{B} +\\
+&\quad + \prob(C) \cdot \prob\giventhat{Y}{C} + \prob(D) \cdot \prob\giventhat{Y}{D}
+\end{align*}
+
+Otra visualización, no tan gráfica pero igualmente útil es usar una simple tabla. Si tenemos una tabla simple o de doble entrada, podemos dividir por el total de elementos (asumiendo equiprobabilidad de cada resultado) para encontrar la probabilidad de cada evento. Por ejemplo, si clasificamos los estudiantes de un campus por carrera y género, podemos tener una tabla como la siguiente:
+\begin{table}[ht]
+  \centering
+  \caption{Distribución de estudiantes por género y carrera}
+  \begin{tabular}{lccr}
+    \toprule
+    & Matemáticas & Lingüística & Total \\
+    \midrule
+    Masculino  & 30 & 20 & 50 \\
+    Femenino   & 25 & 25 & 50 \\
+    \midrule
+    Total      & 55 & 45 & \textbf{100} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Dividiendo por el total obtenemos las probabilidades:
+\begin{table}[ht]
+  \centering
+  \caption{Probabilidades de estudiantes por género y carrera}
+  \begin{tabular}{lccr}
+    \toprule
+    & Matemáticas & Lingüística & Total \\
+    \midrule
+    Masculino  & \num{0,3} & \num{0,2} & \num{0,5} \\
+    Femenino   & \num{0,25} & \num{0,25} & \num{0,5} \\
+    \midrule
+    Total      & \num{0,55} & \num{0,45} & \textbf{1} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+
+Otra visualización es usar un cuadrado de área \(1\) para representar el total de estudiantes. Luego, podemos dividir este cuadrado en áreas proporcionales a las probabilidades de cada evento\marginnote{si lo hacemos a mano simplemente aproximamos}. Por ejemplo, el área correspondiente a los estudiantes masculinos en Matemáticas sería \(\num{0,3}\), en Lingüística \(\num{0,2}\), y así sucesivamente. Esto nos da una representación visual clara de las probabilidades.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[fill opacity=0.5, scale=3, every node/.style={scale=1}]
+  % Dibuja el cuadrado grande
+  \draw[thick] (0,0) rectangle (1,1);
+  % Dibuja las subdivisiones
+  \draw[thick, fill=blue!20] (0,0) rectangle (0.55,1); %Matemáticas
+  \draw[thick, fill=red!20] (0.55,0) rectangle (1,0.5); %Lingüística
+  \draw[thick, fill=green!20] (0,0) rectangle (0.55,0.545454); %Masculino
+  \draw[thick, fill=yellow!20] (0,0.545454) rectangle (0.55,1); %Femenino
+  \node at (0.275, 1) [anchor=south] {\(\prob(Mat)\)};
+  \node at (0.775, 1) [anchor=south] {\(\prob(\comp{Mat})\)};
+  \node at (0, 0.75) [anchor=east] {\(\prob(Fem)\)};
+  \node at (0, 0.25) [anchor=east] {\(\prob(\comp{Fem})\)};
+  \node at (0.275, 0.75) {\num{0,25}};
+  \node at (0.775, 0.75) {\num{0,25}};
+  \node at (0.275, 0.25) {\num{0,3}};
+  \node at (0.772, 0.25) {\num{0,2}};
+  \node at (0.275, 0) [anchor=north] {\(\num{0,55}\)};
+  \node at (0.775, 0) [anchor=north] {\(\num{0,45}\)};
+  \node at (1, 0.75) [anchor=west] {\(\num{0,5}\)};
+  \node at (1, 0.25) [anchor=west] {\(\num{0,5}\)};
+\end{tikzpicture}
+\caption{Cuadrado de área \(1\) dividido en áreas proporcionales a
+las probabilidades de estudiantes por género y carrera.}
+\labfig{cuadrado-probabilidades}
+\end{figure}
+
+\section{Conteo}
+\labsec{conteo}
+
+Hasta ahora, hemos usado ejemplos de eventos sencillos, como sacar una o dos cartas de naipes o lanzar un dado. Si queremos progresar a eventos más complejos, necesitaremos saber contar cuántos resultados tiene nuestro espacio muestral y cuántos de ellos son favorables.
+
+El párrafo anterior lleva un supuesto implícito: que cada resultado es igualmente probable\sidenote{o, en palabras elegantes, que los resultados son \emph{equiprobables}}. Esa suposición no es cierta en todos los casos, pero es una buena aproximación. Además, podemos simular situaciones donde se cumple o donde no usando un modelo de cajas apropiado.
+
+Volviendo al tema, el principio básico del conteo es que si tenemos \(n\) formas de hacer una cosa y \(m\) formas de hacer otra, entonces tenemos \(n \cdot m\) formas de hacer ambas cosas. Esto es el principio multiplicativo que vimos antes. En general, podemos extenderlo a un proceso que tenga varias etapas.
+
+\formal
+\begin{definition}[Principio multiplicativo]
+Si una primera etapa de un proceso puede ejecutarse de \(n_1\) formas, una segunda etapa de \(n_2\) formas para cada una de las formas anteriores, y así sucesivamente hasta una \(k\)-ésima etapa de \(n_k\) formas para cada una de las formas anteriores, entonces el número total de formas de ejecutar el proceso es \(n_1 \cdot n_2 \cdots n_k\).
+\end{definition}
+\informal
+
+El ejemplo clásico es contar las patentes posibles de los autos. En Chile, las patentes están compuestas en dos maneras:
+\begin{itemize}
+	\item Dos letras y cuatro dígitos,
+	\item Cuatro letras y dos dígitos.
+\end{itemize}
+Las letras no incluyen la Ñ, así que hay \(26\) letras posibles. Los dígitos son \(0, 1, 2, \ldots, 9\), así que hay \(10\) dígitos posibles. Por lo tanto, en el primer caso tenemos \[26^2 \cdot 10^4 = \num{6760000}\] y en el segundo caso tenemos \[26^4 \cdot 10^2 = \num{45697600}.\] En total tenemos \[\num{6760000} + \num{45697600} = \num{52457600}\] patentes posibles.\sidenote{En realidad son menos porque hay varias letras que no se usan, como la I y la O, para evitar confusiones con los números 1 y 0.}
+
+Notemos que usamos otro principio, el principio aditivo, para sumar los dos casos. En general, si tenemos \(n\) casos mutuamente excluyentes, entonces el número total de resultados es la suma de los resultados de cada caso.
+
+\subsection{Permutaciones}
+\labsec{permutaciones}
+
+Un caso especial es cuando ordenamos los elementos de un conjunto. Por ejemplo, si queremos ver de cuántas maneras podemos ordenar\sidenote{sin repetición} los elementos de \(\{a, b, c, d\}\) es fácil ver que para la primera posición tenemos \(4\) opciones, para la segunda \(3\), para la tercera \(2\) y para la última \(1\). Por lo tanto, el número total de ordenamientos es \(4 \cdot 3 \cdot 2 \cdot 1 = 24 = 4!\).
+
+\formal
+Esta idea de ordenar los elementos de un conjunto se llama \emph{permutación}.
+
+\begin{definition}[Permutación]
+\labdef{permutacion}
+Una permutación de un conjunto \(S\) es un ordenamiento de todos o algunos de los elementos de \(S\). El número de permutaciones de todos los elementos de un conjunto de \(n\) elementos es
+\[n! = n \cdot (n-1) \cdots 2 \cdot 1.\]
+\end{definition}
+
+\informal
+Sin embargo, como dice la definición, también podemos ordenar sólo algunos de los elementos de un conjunto. Continuando el ejemplo anterior, si tenemos el conjunto \(\{a, b, c, d\}\) y queremos ordenar sólo \(2\) de sus elementos, entonces tenemos \(4\) opciones para el primer elemento y \(3\) para el segundo. Por lo tanto, el número de ordenamientos es \(4 \cdot 3 = 12\).
+
+\formal
+En general, si vamos a ordenar \(k\) elementos de un conjunto de \(n\) elementos, entonces el número de ordenamientos es \[\perm{n}{k} = n \cdot (n-1) \cdots (n-k+1).\] Una forma muy común de escribir esto es reconocer que \begin{align*}
+n \cdot (n-1) \cdots (n-k+1) &= \frac{n \cdot (n-1) \cdots (n-k+1)\cdot (n-k)\cdot(n-k-1)\cdots 2 \cdot 1}{(n-k)\cdot(n-k-1)\cdots 2 \cdot 1} \\
+&= \frac{n!}{(n-k)!}.
+\end{align*}
+
+\informal
+Un ejemplo clásico: Si tenemos un curso con \(37\) estudiantes y queremos elegir un presidente, un secretario y un tesorero, entonces tenemos \(37\) opciones para el presidente, \(36\) para el secretario y \(35\) para el tesorero. Por lo tanto, el número de maneras de elegir a los tres es \[\perm{37}{3} = \frac{37!}{(37-3)!} = \frac{37!}{34!} = 37 \cdot 36 \cdot 35 = \num{46620}.\]
+
+\subsection{Combinaciones}
+\labsec{combinaciones}
+Ahora, una cosa es elegir miembros de un conjunto y otra cosa es elegirlos y ordenarlos. Si no nos importa el orden, entonces estamos hablando de \emph{combinaciones.} Evidentemente, el número de combinaciones es menor que el número de permutaciones, ya que podemos entender una combinación como un conjunto de permutaciones donde el orden no importa.
+
+La pregunta es ¿qué tan menor? Por ejemplo, si escogemos ordenadamente \(2\) elementos de \(\{a, b, c, d\}\), tenemos como resultado
+\[\begin{matrix}
+	ab & ac & ad & bc & bd & cd \\
+	ba & ca & da & cb & db & dc
+\end{matrix}\] pero si no nos importa el orden, podemos colapsar cada columna en un solo elemento, obteniendo \(\{ab, ac, ad, bc, bd, cd\}\). Por lo tanto, el número de combinaciones es \(6\) o, en otras palabras, \(12/2\).
+
+\formal
+\begin{definition}[Combinación]
+\labdef{combinacion}
+Una combinación de un conjunto \(S\) es un subconjunto de \(S\) de \(k\) elementos, sin importar el orden. El número de combinaciones de \(k\) elementos de un conjunto de \(n\) elementos es
+\[\comb{n}{k} = \frac{n!}{k!(n-k)!}.\]
+\end{definition}
+
+Notemos que \[\comb{n}{k} = \frac{1}{k!} \,\perm{n}{k}.\]
+
+Asimismo, gracias a esta definición, podemos darnos cuenta que \[\comb{n}{k} = \binom{n}{k},\] es decir, el número de combinaciones de \(k\) elementos de un conjunto de \(n\) elementos es el coeficiente binomial \(\binom{n}{k}\).
+
+\informal
+
+Ejemplo: si en vez de elegir un presidente, un secretario y un tesorero, sólo queremos elegir \(3\) estudiantes para formar una comisión, entonces el número de maneras de elegir a los \(3\) es \[\comb{37}{3} = \frac{37!}{3!\,(37-3)!} = \frac{37!}{3!\,34!} = \frac{37 \cdot 36 \cdot 35}{3 \cdot 2 \cdot 1} = \num{7770}.\]
+
+\subsection{Algunos casos extra}
+
+\labsec{algunos-casos-extra}
+Un caso especial de permutaciones es cuando debemos organizar los elementos alrededor de un círculo. En este caso, no son distinguibles dos permutaciones si podemos llegar de una a la otra mediante una rotación. Por ejemplo, si tenemos \(4\) elementos \(a, b, c, d\), entonces las permutaciones \((a, b, c, d)\) y \((b, c, d, a)\) son indistinguibles (\reffig{permutaciones-circulares}).
+
+\begin{figure}[H]
+\labfig{permutaciones-circulares}
+\begin{tikzpicture}[scale=0.7, every node/.style={scale=0.7}]
+	% First circle arrangement (a,b,c,d)
+	\draw[thick] (0,0) circle (1.5cm);
+	\foreach[count=\i] \letter in {b,c,d,a} {
+		\node[circle,draw,fill=white,minimum size=0.7cm] 
+			at ({90-\i*90}:1.5cm) {\letter};
+	}
+\begin{scope}[xshift=4cm]
+	% Second circle arrangement (b,c,d,a)
+	\draw[thick] (0,0) circle (1.5cm);
+	\foreach[count=\i] \letter in {a,b,c,d} {
+		\node[circle,draw,fill=white,minimum size=0.7cm] 
+			at ({90-\i*90}:1.5cm) {\letter};
+	}
+	
+\end{scope}
+\end{tikzpicture}
+\caption{Dos permutaciones circulares indistinguibles.}
+\end{figure}
+
+Como podemos hacer \(n\) rotaciones, el número de permutaciones es \((n-1)!\).
+
+Otro caso es cuando tenemos \(n\) elementos, pero algunos de ellos son iguales. Por ejemplo, si tenemos \(n\) letras, pero algunas son iguales, entonces el número de permutaciones es \[\perm{n}{k_1, k_2, \ldots, k_m} = \frac{n!}{k_1! \cdot k_2! \cdots k_m!},\] donde \(k_i\) es el número de veces que se repite el elemento \(i\). Esto ocurre porque al contar las permutaciones, cada una de las permutaciones de los elementos iguales se cuenta \(k_i!\) veces, así que debemos dividir por ese número para no contar de más.
+
+Ejemplo: contar las permutaciones de la palabra \emph{casada.} Como la palabra tiene \(6\) letras, en principio tendríamos \(6!\) permutaciones. Sin embargo, los siguientes 6 arreglos son indistinguibles:
+\[
+\begin{matrix}
+	ca_1sa_2da_3 & ca_1sa_3da_2 \\
+	ca_2sa_1da_3 & ca_2sa_3da_1\\
+	ca_3sa_1da_2 & ca_3sa_2da_1
+\end{matrix}
+\]que son precisamente las permutaciones de los \(3\) elementos \(a\) que hay en la palabra. Por lo tanto, el número de permutaciones es \[\frac{6!}{3!} = 120.\]

@@ -1,0 +1,28 @@
+\chapter{Probabilidades++}
+
+\formal
+\section{Axiomas de probabilidad}
+
+En el capítulo anterior vimos que la probabilidad se define como una función que cumple ciertas condiciones. Definámosla bien de una vez por todas.
+\begin{definition}[Probabilidad]
+\labdef{probabilidad_2}
+Sea \(S\) un espacio muestral y \(E\) un evento cualquiera de éste. Se llamará \emph{función de probabilidad} sobre el espacio muestral \(S\) a \(\prob{(E)}\) si satisface los siguientes axiomas:
+\begin{enumerate}
+    \item \(\prob{(E)} \geq 0\)
+    \item \(\prob{(S)} = 1\)
+    \item Si para los eventos \(E_1, E_2, \ldots\), \(E_i \cap E_j = \emptyset\) para \(i \neq j\), entonces \(\prob{\left(\bigcup_{i} E_i\right)} = \sum_{i} \prob{(E_i)}\).
+\end{enumerate}
+\end{definition}
+
+De esta definición se deducen los teoremas que hemos estado usando en la sección anterior. Por ejemplo, 
+\begin{theorem}
+    \(\prob{(\emptyset)} = 0\).
+\end{theorem}
+
+\begin{proof}
+    \(S \cup \emptyset = S\) y \(S \cap \emptyset = \emptyset\). Por el axioma 3, \[\prob{(S\cup \emptyset)} = \prob{(S)} + \prob{(\emptyset)},\] pero por el axioma 2, \(\prob{(S)} = 1\). Por lo tanto, \[\prob{(\emptyset)} = 0.\]
+\end{proof}
+
+\informal
+
+Podemos demostrar los teoremas de probabilidad usando los axiomas de manera similar. Como dicen los libros, queda como ejercicio al lector.
