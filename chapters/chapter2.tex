@@ -26,3 +26,50 @@ De esta definición se deducen los teoremas que hemos estado usando en la secci�
 \informal
 
 Podemos demostrar los teoremas de probabilidad usando los axiomas de manera similar. Como dicen los libros, queda como ejercicio al lector.
+
+\section{Teorema de Bayes}
+\labsec{teo_bayes}
+
+Nos han descrito a Esteban de la siguiente manera:
+\begin{itemize}
+\item Es organizado.
+\item Le gusta el orden.
+\item Es callado, pero afable.
+\item Es servicial.
+\end{itemize}
+
+La pregunta es si Esteban será un bibliotecario o un campesino (no hay más opciones). En una de las secciones, aproximadamente el \qty{85}{\percent} pensó que Esteban sería un bibliotecario versus un \qty{15}{\percent} que pensó que sería un campesino.
+
+Todo eso está muy bien, pero hay una información que no hemos considerado y que, francamente, debiéramos haber tenido en cuenta: hay muchos más campesinos que bibliotecarios. Como ejemplo, podemos asumir que la razón entre bibliotecarios y campesinos es \(1:20\) (en realidad debe ser algo como \(1:100\)).
+
+Siendo así, podemos tomar una muestra\sidenote{más adelante en el curso definiremos qué es eso} que siga esa proporción (\reffig{muestra_bibliotecarios_campesinos}). 
+
+\begin{figure*}
+    \begin{tikzpicture}[scale=0.5]
+    \foreach \i in {1, ..., 10}{
+        \foreach \j in {1, ..., 20}{
+            \node[text=Peach] at (\j, \i) {\faUser};
+            \node[text=RoyalBlue] at (0, \i) {\faUser};
+        }
+    }
+    \end{tikzpicture}
+    \caption{Muestra de bibliotecarios y campesinos.}
+    \labfig{muestra_bibliotecarios_campesinos}
+\end{figure*}
+
+Supongamos que aproximadamente un \qty{40}{\percent} de los bibliotecaros siguen la descripción de Esteban, pero sólo un \qty{10}{\percent} de los campesinos la siguen. Si fuera así, de nuestros 10 bibliotecarios, 4 serían como Esteban y de los 200 campesinos, 20 serían como Esteban (\reffig{bibl_camp_esteban}).
+
+\begin{figure*}
+    \begin{tikzpicture}[scale=0.5]
+    \foreach \i in {1, ..., 10}{
+        \foreach \j in {1, ..., 20}{
+            \node[text=Peach] at (\j, \i) {\faUser};
+            \node[text=RoyalBlue] at (0, \i) {\faUser};
+        }
+    }
+    \fill[white, opacity=0.6] (-0.5,0) rectangle (0.5,6.5);
+    \fill[white, opacity=0.6] (0.5,0) rectangle (20.5,9.5);
+    \end{tikzpicture}
+    \caption{Bibliotecarios y campesinos como Esteban.}
+    \labfig{bibl_camp_esteban}
+\end{figure*}
