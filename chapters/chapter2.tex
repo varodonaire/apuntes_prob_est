@@ -59,7 +59,7 @@ Siendo así, podemos tomar una muestra\sidenote{más adelante en el curso defini
 
 Supongamos que aproximadamente un \qty{40}{\percent} de los bibliotecaros siguen la descripción de Esteban, pero sólo un \qty{10}{\percent} de los campesinos la siguen. Si fuera así, de nuestros 10 bibliotecarios, 4 serían como Esteban y de los 200 campesinos, 20 serían como Esteban (\reffig{bibl_camp_esteban}).
 
-\begin{figure*}
+\begin{figure*}[h!]
     \begin{tikzpicture}[scale=0.5]
     \foreach \i in {1, ..., 10}{
         \foreach \j in {1, ..., 20}{
@@ -73,3 +73,135 @@ Supongamos que aproximadamente un \qty{40}{\percent} de los bibliotecaros siguen
     \caption{Bibliotecarios y campesinos como Esteban.}
     \labfig{bibl_camp_esteban}
 \end{figure*}
+
+En este caso, la probabilidad de encontrar un bibliotecario dado que es como Esteban es \[\prob{\giventhat{B}{E}} = \frac{4}{4 + 20} = \frac{4}{24} = \frac{1}{6},\] mientras que la probabilidad de encontrar un campesino dado que es como Esteban es \[\prob{\giventhat{C}{E}} = \frac{20}{4 + 20} = \frac{20}{24} = \frac{5}{6}.\] Es decir, es bastante más probable que Esteban sea un campesino, pese a que entre los campesinos personas con su descripción son más difíciles de encontrar.
+
+Lo que nos muestra este ejemplo es que la llegada de nueva información (en este caso, la razón entre bibliotecarios y campesinos en la población general) nos permite actualizar nuestras creencias, expresadas como una probabilidad. 
+
+Podemos desempacar un poco nuestros cálculos. La probabilidad de encontrar un biliotecario entre la gente que es como Esteban era 
+\begin{align*}
+\prob\giventhat{B}{E} &= \frac{4}{4+20}
+\intertext{pero esos números representan}
+&=\frac{\qty{40}{\percent}\text{ de } 10}{\qty{40}{\percent}\text{ de } 10 + \qty{10}{\percent}\text{ de }20}\\
+&=\frac{\qty{40}{\percent}\text{ de } \frac{1}{21}\text{ de }210}{\qty{40}{\percent}\text{ de } \frac{1}{21}\text{ de }210 + \qty{10}{\percent}\text{ de }\frac{20}{21}\text{ de }210}
+\intertext{simplificando los \(210\)}
+&=\frac{\qty{40}{\percent}\text{ de } \frac{1}{21}}{\qty{40}{\percent}\text{ de } \frac{1}{21} + \qty{10}{\percent}\text{ de }\frac{20}{21}}\\
+&=\frac{\num{0,4}\cdot \frac{1}{21}}{\num{0,4}\cdot\frac{1}{21} + \num{0,1}\cdot\frac{20}{21}}
+\intertext{y cada uno de esos números representa una probabilidad}
+&= \frac{\prob\giventhat{E}{B}\prob(B)}{\prob\giventhat{E}{B}\prob(B) + \prob\giventhat{E}{C}\prob(C)}
+\intertext{en resumen}
+\prob\giventhat{B}{E} &= \frac{\prob\giventhat{E}{B}\prob(B)}{\prob\giventhat{E}{B}\prob(B) + \prob\giventhat{E}{C}\prob(C)}
+\end{align*}
+
+\formal
+
+El teorema de Bayes aparece como una derivación bastante inocua del principio multiplicativo.
+
+\begin{align*}
+    \prob\left(A\cap B\right) &= \prob(A)\prob\giventhat{B}{A}\\
+    \prob\left(A\cap B\right) &= \prob(B)\prob\giventhat{A}{B}
+    \intertext{por lo tanto}
+    \prob(A)\prob\giventhat{B}{A} &= \prob(B)\prob\giventhat{A}{B}\\
+    \prob\giventhat{B}{A} &= \frac{\prob(B)\prob\giventhat{A}{B}}{\prob(A)}
+\end{align*}
+
+\begin{theorem}[Teorema de Bayes]
+\[\prob\giventhat{B}{A} = \frac{\prob(B)\prob\giventhat{A}{B}}{\prob(A)}\]
+\end{theorem}
+
+\informal
+Sin embargo, como el mismo ejemplo de Esteban nos muestra, normalmente la probabilidad de \(A\) que encontramos en el denominador no se deja calcular tan directamente. En ese caso, dividimos el denominador en dos partes: los que son bibliotecarios y son como Esteban y los que son campesinos y son como Esteban. En otras palabras usamos una partición.
+
+\formal
+En un caso general, si tenemos una partición \[B_1, B_2, \ldots, B_n\] del espacio muestral \(\Omega\), podemos escribir la probabilidad de \(A\) como \[
+\prob(A) = \sum_{i=1}^n \prob(A \cap B_i) = \sum_{i=1}^n \prob(A \mid B_i) \prob(B_i)
+\]
+
+\begin{center}
+\begin{tikzpicture}[scale=0.7, every node/.style={scale=0.7}]
+  % 1. Sample space outline
+  \draw[thick] (0,0) rectangle (6,4);
+  \node at (3,4.3) {\large $\Omega$};
+
+  % 2. Horizontal‐ish Bézier partitions
+  \draw[thick]
+    (0,3) .. controls (1.5,2.5) and (4.5,3.5) .. (6,3);
+  \draw[thick]
+    (0,2) .. controls (1.5,2.2) and (4.5,1.8) .. (6,2);
+  \draw[thick]
+    (0,1) .. controls (1.5,1.5) and (4.5,0.5) .. (6,1);
+
+  % 3. Vertical‐ish Bézier partitions
+  \draw[thick]
+    (2,0) .. controls (1.5,1.2) and (2.5,2.8) .. (2,4);
+  \draw[thick]
+    (4,0) .. controls (3.5,0.8) and (4.5,3.2) .. (4,4);
+
+  % 4. (Optional) Region labels
+   \node at (1,3.5) {$B_1$};   \node at (3,3.5) {$B_2$};   \node at (5,3.5) {$B_3$};
+   \node at (1,2.5) {$B_4$};   \node at (3,2.5) {$B_5$};   \node at (5,2.5) {$B_6$};
+   \node at (1,1.5) {$B_7$};   \node at (3,1.5) {$B_8$};   \node at (5,1.5) {$B_9$};
+   \node at (1,0.5) {$B_{10}$}; \node at (3,0.5) {$B_{11}$}; \node at (5,0.5) {$B_{12}$};
+% Draw an oval with a black border, tilted 40 degrees
+\draw[black,thick, rotate around={40:(3,2)},pattern={Lines[angle=45, distance=3pt]},pattern color=black!40] (3,2) ellipse (2 and 1);
+\node[black, fill=white!80] at (4,3) {\large $A$};
+\end{tikzpicture}
+\end{center}
+
+Esto es conocido como el teorema de la probabilidad total.
+\begin{theorem}[Teorema de la probabilidad total]
+Si \(\{B_1, B_2, \ldots, B_n\}\) es una partición del espacio muestral \(\Omega\), entonces
+\[
+\prob(A) = \sum_{i=1}^n \prob(A \cap B_i) = \sum_{i=1}^n \prob\giventhat{A}{B_i} \prob(B_i)
+\]
+\end{theorem}
+
+Como corolario, podemos escribir el teorema de Bayes como
+\begin{corollary}
+    Si \(\{B_i\}_{i=1}^n\) es una partición del espacio muestral \(\Omega\), entonces
+    \[\prob\giventhat{B_i}{A} = \frac{\prob\left(B_i\right)\prob\giventhat{A}{B_i}}{\sum_{j=1}^n \prob\giventhat{A}{B_j} \prob\left(B_j\right)}\]
+\end{corollary}
+\informal
+
+\subsection{Enfermedades y exámenes}
+\label{enfermedades_examenes}
+
+Un ejemplo importante del teorema de Bayes consiste en su aplicación a enfermedades y exámenes. Además de su importancia práctica, este tipo de ejemplos nos puede mostrar varios detalles interesantes sobre la probabilidad condicional.
+
+Supongamos que hay una enfermedad que afecta a un porcentaje relativamente pequeño de la población, digamos un \qty{1}{\percent} (eso es la \emph{prevalencia} de la enfermedad). Tenemos un examen para detectar la enfermedad, que el fabricante nos dice que tiene una eficacia \enquote{sobre el \qty{90}{\percent}}. ¿Cuál será la probabilidad de tener la enfermedad si el examen nos da positivo?
+
+Para poder empezar a resolver este problema, debemos considerar que hay cuatro posibilidades
+
+\begin{center}
+{\renewcommand{\arraystretch}{1.6}%
+\begin{tabular}{l | c | c|}
+\multicolumn{1}{c}{} & \multicolumn{1}{c|}{$E$} & \multicolumn{1}{c}{$\comp{E}$}  \\
+\cline{2-3}
+$+$ & $E\text{ y } +$ & $\comp{E}\text{ y } +$  \\
+\hline
+$-$ & $E\text{ y } -$ & $\comp{E}\text{ y } -$  \\
+\cline{2-3}
+\end{tabular}%
+}
+\end{center}
+
+Estas posibilidades tienen nombre
+\begin{center}
+    {\renewcommand{\arraystretch}{1.6}%
+\begin{tabular}{l | c | c|}
+ \multicolumn{1}{c}{} & \multicolumn{1}{c|}{$E$} & \multicolumn{1}{c}{$\comp{E}$}  \\
+\cline{2-3}
+$+$ & Verdadero positivo & Falso positivo  \\
+\hline
+$-$ & Falso negativo & Verdadero negativo  \\
+\cline{2-3}
+\end{tabular}%
+    }
+\end{center}
+
+Además, lo que el fabricante se refería como  \enquote{tiene una eficacia sobre el \qty{90}{\percent}} en realidad son dos números distintos
+\begin{description}
+    \item[Sensibilidad] La probabilidad que el examen dé positivo dado que el paciente tiene la enfermedad: \(\prob\giventhat{+}{E}\).
+    \item[Especificidad] La probabilidad que el examen dé negativo dado que el paciente no tiene la enfermedad: \(\prob\giventhat{-}{\comp{E}}\).
+\end{description}
+En nuestro caso, imaginemos que el examen tiene una sensibilidad de \qty{90}{\percent} y una especificidad de \qty{91}{\percent}.
