@@ -1,4 +1,5 @@
 \chapter{Probabilidades++}
+\labch{probabilidades_mas_mas}
 
 \formal
 \section{Axiomas de probabilidad}
@@ -185,7 +186,7 @@ $-$ & $E\text{ y } -$ & $\comp{E}\text{ y } -$  \\
 }
 \end{center}
 
-Estas posibilidades tienen nombre
+Estas posibilidades tienen nombre\marginnote[50pt]{Esta idea volverá a aparecer cuando estemos haciendo pruebas de hipótesis}
 \begin{center}
     {\renewcommand{\arraystretch}{1.6}%
 \begin{tabular}{l | c | c|}
@@ -205,3 +206,68 @@ Además, lo que el fabricante se refería como  \enquote{tiene una eficacia sobr
     \item[Especificidad] La probabilidad que el examen dé negativo dado que el paciente no tiene la enfermedad: \(\prob\giventhat{-}{\comp{E}}\).
 \end{description}
 En nuestro caso, imaginemos que el examen tiene una sensibilidad de \qty{90}{\percent} y una especificidad de \qty{91}{\percent}.
+
+Podemos calcular nuestra probabilidad haciendo un muestreo imaginario. De mil personas, con una prevalencia del \qty{1}{\percent}, debería haber aproximadamente 10 personas enfermas. De las 10 personas enfermas, como la sensibilidad es un \qty{90}{\percent} debería haber 9 personas que den positivo al examen. De las 990 personas que no tienen la enfermedad, como el test tiene una especificidad del \qty{91}{\percent}, debería haber \(\num{0,91}\cdot990= \num{900,9}\approx\num{901}\) personas que den negativo. Esto quiere decir que, hay \(\num{990}-\num{901}=\num{89}\) personas que no tienen la enfermedad y dan positivo al test.
+
+\begin{figure*}[h!]
+    \begin{tikzpicture}[scale=0.5]
+    % \foreach \i in {1, ..., 10}{
+    %     \foreach \j in {1, ..., 20}{
+    %         \node[text=Peach] at (\j, \i) {\faUser};
+    %         \node[text=RoyalBlue] at (0, \i) {\faUser};
+    %     }
+    % }
+    % \fill[white, opacity=0.6] (-0.5,0) rectangle (0.5,6.5);
+    % \fill[white, opacity=0.6] (0.5,0) rectangle (20.5,9.5);
+    \begin{scope}
+    \foreach \i in {1, ..., 10}{
+        \node[text=Peach] at (0, \i){\faUser};
+    }
+    \foreach \i in {2, ...,10}{
+        \node[text= PineGreen] at (0.7,\i){\(\mathbf{+}\)};
+    }
+    \node[text=PineGreen] at (0.7, 1) {\(\mathbf{-}\)};
+    \end{scope}
+    \begin{scope}[scale=0.5, xshift=100, every node/.style={scale=0.5}]
+    \foreach \i in {1, ..., 40}{
+        \foreach \j in {1, ..., 25}{
+            \node[text=RoyalBlue] at (\i, \j) {\faUser};
+        }
+    }
+    \node[fit={(-5,24) (15.6,26)}, inner sep = 0pt, fill=white] (rect) {};
+    \draw[PineGreen, rounded corners] (0, 26) -- (41, 26) -- (41, 23.5)  {[sharp corners] -- (19.5, 23.5) -- (19.5, 22.4)} -- (0, 22.4) -- cycle;
+    \node[text=PineGreen, anchor= north west, scale=1.5] at (0, 26) {\(\mathbf{+}\)};
+    \end{scope}
+    \end{tikzpicture}
+    \caption{Muestra hipotética para el problema}
+    \labfig{enfermos_positivos}
+\end{figure*}
+
+En otras palabras, si calculamos la probabilidad \(\prob\giventhat{E}{+}\), necesitamos contar a los enfermos de entre quienes dieron positivo en el examen\marginnote[6pt]{una nueva aparición de la probabilidad total, si nos fijamos bien} \[\prob\giventhat{E}{+} = \frac{9}{9+89}\]
+
+Lo ideal en este tipo de cálculo rápido es sacar ideas para hacer el cálculo formal\sidenote{que es lo que se va a evaluar}. En este caso, \(\prob\giventhat{E}{+}\) es 
+\begin{align*}
+    \prob\giventhat{E}{+} &= \frac{\prob\left(E\cap +\right)}{\prob\left(+\right)}\\
+    &= \frac{\prob\left(E\cap +\right)}{\prob\left(E\cap +\right)+\prob\left(\comp{E}\cap +\right)}\\
+    &= \frac{\prob\left(E\right)\prob\giventhat{+}{E}}{\prob\left(E\right)\prob\giventhat{+}{E}+\prob\left(\comp{E}\right)\prob\giventhat{+}{\comp{E}}}\\
+    &= \frac{\num{0,01}\cdot\num{0,9}}{\num{0,01}\cdot\num{0,9} + \num{0,99}\cdot\num{0,09}}\\
+    &= \num{0,0917431193} \approx \qty{9}{\percent}
+\end{align*}
+
+\subsection{Odds}
+\label{odds}
+
+Una versión alternativa de reportar la probabilidad es dar los \emph{odds} de un evento\sidenote{francamente, no sé qué traducción podría ser clara \emph{y} técnica.}. Esto se define como la razón entre la probabilidad de que un evento ocurra a la probabilidad de que el evento no ocurra. Por supuesto, es fácil convertir entre odds y probabilidades. Por ejemplo \[1:4 \rightarrow \frac{1}{1+4}=\frac{1}{5}\] y viceversa.
+
+En el ejemplo de las enfermedades, como la probabilidad de estar enfermo es \qty{1}{\percent}, entonces los odds de estar enfermo son \(1:99\). Lo que queríamos era la probabilidad de estar enfermo dado que nos dio positivo el test, \(\prob\giventhat{E}{+}\). ¿Cómo se ve eso en términos de odds? Eso debería ser la razón entre la probabilidad de estar enfermo dado que el test nos dio positivo y la probabilidad de estar sano dado que nos dio positivo el test \[\frac{\prob\giventhat{E}{+}}{\prob\giventhat{\comp{E}}{+}}.\]
+
+Podemos reemplazar usando el teorema de Bayes
+\begin{align*}
+\frac{\prob\giventhat{E}{+}}{\prob\giventhat{\comp{E}}{+}} &= \frac{\frac{\prob\left(E\right)\prob\giventhat{+}{E}}{\prob\left( + \right)}}{\frac{\prob\left( \comp{E} \right)\prob\giventhat{+}{\comp{D}}}{\prob\left( + \right)}}
+\intertext{La probabilidad de que el test dé positivo se cancela}
+ &= \frac{\prob\left( E \right)\prob\giventhat{+}{E}}{\prob\left( \comp{E} \right)\prob\giventhat{+}{\comp{E}}}
+\end{align*}
+
+Podemos separar la expresión anterior en dos factores \[\underbrace{\frac{\prob\giventhat{E}{+}}{\prob\giventhat{\comp{E}}{+}}}_{\substack{\text{odds de enfermo} \\ \text{dado examen positivo}}} = \underbrace{\frac{\prob\left( E \right)}{\prob\left( \comp{E} \right)}}_{\substack{\text{odds de estar}\\ \text{enfermo}}}\cdot\underbrace{\frac{\prob\giventhat{+}{E}}{\prob\giventhat{+}{\comp{E}}}}_{\substack{\text{factor de}\\ \text{verosimilitud}}}\]
+
+En otras palabras, el teorema de Bayes tiene una versión mucho más sencilla cuando lo expresamos en términos de odds \[\text{odds a posteriori} = \text{odds a priori }\times\text{ factor de verosimilitud.}\] Este factor de verosimilitud es una especie de factor \emph{de actualización} y es la fracción entre los verdaderos positivos y los falsos positivos. En nuestro caso, el factor de verosimilitud es \[\frac{\prob\giventhat{+}{E}}{\prob\giventhat{+}{\comp{E}}} = \frac{\num{0,9}}{\num{0,09}}=10\] lo que significa que cada nuevo test positivo, asumiendo independencia, mejora nuestros odds en 10 veces \[\underbrace{1:99}_{\text{odds originales}} \xrightarrow{\text{test positivo}}10:99\xrightarrow[\text{independiente}]{\text{otro test positivo}}100:99 \xrightarrow[\text{independiente}]{\text{otro test positivo}}1000:99\] lo que en probabilidades se ve como \[\qty{1}{\percent} \rightarrow \qty{9,2}{\percent} \rightarrow \qty{50,25}{\percent} \rightarrow \qty{90,99}{\percent}.\]
