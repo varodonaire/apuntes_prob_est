@@ -1,2 +1,124 @@
 \chapter{Variables aleatorias}
 \labch{variables_aleatorias}
+
+El lenguaje de eventos que hemos usado hasta ahora nos ha servido bien, pero al mismo tiempo es una limitante. En el pequeño juego de los productores de pasta de dientes, expresar todas las probabilidades involucradas en varios pasos ya se volvía tedioso. Es por eso que necesitamos algo que nos permita expresar ideas más complejas de manera más fácil.
+
+Y, en realidad, la idea es sencilla. Antes poníamos nombres a los eventos como \(A\) y era algo como \emph{sacar un cinco al lanzar el dado.} ¿Por qué no le pusimos simplemente algo como \(5\)? ¿Por qué no enfocarnos en el resultado?
+
+Esa es la idea detrás de una \emph{variable aleatoria.} Una variable aleatoria es codificar el resultado de un experimento como un número. Muchas veces será directamente un número, como en el caso de lanzar un dado, pero también podemos codificar cosas como las monedas:
+\begin{align*}
+    \{C, S\} &\to \{0, 1\}\\
+    C &\to 0\\
+    S &\to 1
+\end{align*}
+pero no cuesta mucho ver que esa misma codificación podría ser mucho más general
+\begin{align*}
+    \text{fracaso} &\to 0\\
+    \text{éxito} &\to 1
+\end{align*}
+y eso es parte de la importancia de las variables aleatorias: nos permiten abstraer la idea de experimento aleatorio.
+
+Sin embargo, es importante reconocer qué significa lo de \emph{aleatoria} en variable aleatoria. La aleatoridad \emph{no} está en la variable aleatoria. Fijémonos en la definición anterior: es completamente uno a uno y determinista. Lo aleatorio en esto está en el experimento. 
+
+\formal
+En términos más formales, una variable aleatoria es una función que va del espacio muestral a los reales. Utilizaremos letras mayúsculas para representarlas. 
+
+\informal
+Un ejemplo. Supongamos que nuestro experimento aleatorio es sumar las pintas al lanzar dos dados. Nuestra variable aleatoria es, entonces, algo como lo siguiente
+
+\begin{tikzpicture}[scale=1.41421356, every node/.style={scale=1.41421356}]
+% One color per NW–SE diagonal (sum = 2..12)
+\definecolor{diag2}{RGB}{158,1,66}
+\definecolor{diag3}{RGB}{213,62,79}
+\definecolor{diag4}{RGB}{244,109,67}
+\definecolor{diag5}{RGB}{253,174,97}
+\definecolor{diag6}{RGB}{254,224,139}
+\definecolor{diag7}{RGB}{255,255,191}
+\definecolor{diag8}{RGB}{230,245,152}
+\definecolor{diag9}{RGB}{171,221,164}
+\definecolor{diag10}{RGB}{102,194,165}
+\definecolor{diag11}{RGB}{50,136,189}
+\definecolor{diag12}{RGB}{94,79,162}
+
+\matrix (m) [matrix of nodes,
+    nodes={ minimum size=9mm, inner sep=0, align=center},
+    row sep=0pt, column sep=0pt] {
+(1,6) & (2,6) & (3,6) & (4,6) & (5,6) & (6,6) \\
+(1,5) & (2,5) & (3,5) & (4,5) & (5,5) & (6,5) \\
+(1,4) & (2,4) & (3,4) & (4,4) & (5,4) & (6,4) \\
+(1,3) & (2,3) & (3,3) & (4,3) & (5,3) & (6,3) \\
+(1,2) & (2,2) & (3,2) & (4,2) & (5,2) & (6,2) \\
+(1,1) & (2,1) & (3,1) & (4,1) & (5,1) & (6,1) \\
+};
+
+% Shade NW–SE diagonals (constant sum = 2..12), each with its own color
+\begin{scope}[on background layer]
+  \foreach \r in {1,...,6}{
+    \foreach \c in {1,...,6}{
+      % row r: 1..6 (top to bottom), column c: 1..6 (left to right)
+      % second die = 7 - r  => sum s = c + (7 - r) in 2..12
+      \pgfmathtruncatemacro{\s}{\c + (7 - \r)}
+      \pgfmathtruncatemacro{\k}{\s - 1} % 1..11 index
+
+      \ifcase\k
+        % (unused: s=1)
+      \or \def\cellcolor{diag2!35}   % s=2
+      \or \def\cellcolor{diag3!50}   % s=3
+      \or \def\cellcolor{diag4!80}   % s=4
+      \or \def\cellcolor{diag5}   % s=5
+      \or \def\cellcolor{diag6}   % s=6
+      \or \def\cellcolor{diag7}   % s=7
+      \or \def\cellcolor{diag8}   % s=8
+      \or \def\cellcolor{diag9}   % s=9
+      \or \def\cellcolor{diag10!80}  % s=10
+      \or \def\cellcolor{diag11!50}  % s=11
+      \or \def\cellcolor{diag12!35}  % s=12
+      \fi
+
+      \fill[\cellcolor] (m-\r-\c.north west) rectangle (m-\r-\c.south east);
+    }
+  }
+\end{scope}
+\newcommand{\diagcolor}[1]{diag#1}
+% Labels for diagonal sums on bottom and right edges
+\foreach \s in {2,...,7}{
+  \pgfmathtruncatemacro{\c}{\s - 1}
+  \node[anchor=north, yshift=-2pt, font=\small, text=\diagcolor{\s}]
+       at (m-6-\c.south) {\contour{black}{$X=\s$}};
+}
+\foreach \s in {8,...,12}{
+  \pgfmathtruncatemacro{\r}{13 - \s}
+  \node[anchor=west, xshift=2pt, font=\small, text=\diagcolor{\s}]
+       at (m-\r-6.east) {\contour{black}{$X=\s$}};
+}
+\end{tikzpicture}
+
+Notemos que al considerar nuestra variable aleatoria (la suma de los dos dados) hemos hecho una partición del espacio muestral, en este caso marcada con colores. Además, es muy natural llamar a cada conjunto de la partición por el resultado que marca. Así, por ejemplo, \(X=4\) es el evento compuesto por los resultados \((1, 3), (2, 2), (3, 1)\). 
+
+\begin{figure}
+\begin{tikzpicture}
+    \begin{axis}[surf,
+        view={-30}{30},
+        xlabel={dado 1}, ylabel={dado 2}, zlabel={},
+        domain=1:7, y domain=1:7,
+        samples=48, samples y=48,
+        colormap/viridis,
+        shader=faceted,
+        zmin=2, zmax=12
+    ]
+        \addplot3[surf] {floor(x)+floor(y)};
+    \end{axis}
+\end{tikzpicture}
+\caption{\(X\): suma de dos dados}
+\labfig{var_aleat}
+\end{figure}
+
+\formal
+Si reconocemos que nuestro espacio muestral es \(\left\{ 1, 2, 3, 4, 5, 6 \right\} \times \left\{ 1, 2, 3, 4, 5, 6 \right\}\) entonces nuestra variable aleatoria se puede escribir como
+\begin{align*}
+    X: & \left\{ 1, 2, 3, 4, 5, 6 \right\} \times \left\{  2, 3, 4, 5, 6 \right\} \rightarrow \left\{ 1, 2, \ldots, 11, 12 \right\}\\
+    & (\omega_1, \omega_2) \to \omega_1 + \omega_2
+\end{align*}
+
+\informal
+Ahora bien, como nuestra variable aleatoria divide a nuestro espacio muestral en una partición de eventos, cada uno de ellos tiene una probabilidad asociada.
