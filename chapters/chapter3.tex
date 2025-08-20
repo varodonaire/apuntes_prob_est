@@ -1,6 +1,9 @@
 \chapter{Variables aleatorias}
 \labch{variables_aleatorias}
 
+\section{Introducción}
+\labsec{introduccion}
+
 El lenguaje de eventos que hemos usado hasta ahora nos ha servido bien, pero al mismo tiempo es una limitante. En el pequeño juego de los productores de pasta de dientes, expresar todas las probabilidades involucradas en varios pasos ya se volvía tedioso. Es por eso que necesitamos algo que nos permita expresar ideas más complejas de manera más fácil.
 
 Y, en realidad, la idea es sencilla. Antes poníamos nombres a los eventos como \(A\) y era algo como \emph{sacar un cinco al lanzar el dado.} ¿Por qué no le pusimos simplemente algo como \(5\)? ¿Por qué no enfocarnos en el resultado?
@@ -121,4 +124,62 @@ Si reconocemos que nuestro espacio muestral es \(\left\{ 1, 2, 3, 4, 5, 6 \right
 \end{align*}
 
 \informal
-Ahora bien, como nuestra variable aleatoria divide a nuestro espacio muestral en una partición de eventos, cada uno de ellos tiene una probabilidad asociada.
+Ahora bien, como nuestra variable aleatoria divide a nuestro espacio muestral en una partición de eventos, cada uno de ellos tiene una probabilidad asociada. Sin embargo, aquí debemos empezar a hacer una distinción entre dos tipos de variables, las discretas y las continuas.
+
+\subsection{Variables aleatorias discretas}
+
+Una variable aleatoria discreta es una variable aleatoria cuyo recorrido es un conjunto finito o infinito numerable (típicamente los enteros o un subconjunto de ellos). Hasta ahora, nuestros eventos se pueden identificar con variables aleatorias discretas. 
+
+Cuando tenemos una \va\sidenote{abreviaremos así variable aleatoria} discreta \(X\), podemos definir una función \(f(x)\) como \[f(x) = \prob(X=x),\] es decir, la probabilidad de que la \va\ \(X\) tome el valor \(x\). Esta función se conoce como \emph{función de masa de probabilidad} o como función de cuantía.
+
+Un ejemplo. En una librería, la mayoría de la gente que entra no compra libros, supongamos un \qty{70}{\percent}, la gente que compra un libro es alrededor del \qty{25}{\percent} y los que compran 2 libros son el resto (aproximadamente nadie compra 3 o más libros). Tenemos entonces que \[X = \text{número de libros comprados}\] es una variable aleatoria y su función de masa de probabilidad viene dada por 
+\begin{center}
+\begin{tabular}{rSSS}
+\toprule
+\(i\) & {0} & {1} & {2}\\
+\midrule
+\(P(X=i)\) & 0.7 & 0.25 & 0.05\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{marginfigure}[-4.5cm]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+  axis lines=left,
+  ycomb,
+  ymin=0, ymax=1,
+  ylabel={\(P(X=x)\)},
+  xlabel={\(X\)},
+  xtick={0,1,2},
+  xticklabels={0,1,2},
+  ylabel style = {at={(-0.2,1)}, rotate=-90, anchor=south west},
+  nodes near coords,
+  nodes near coords align={vertical},
+  nodes near coords style = {
+    /pgf/number format/.cd,
+    fixed,
+    precision=2,
+    fixed zerofill
+  },
+  enlarge x limits=0.5,
+  width=1.4\textwidth,
+  height=5cm,
+]
+\addplot+[draw=black, fill=blue!60] coordinates {(0,0.7) (1,0.25) (2,0.05)};
+\end{axis}
+\end{tikzpicture}
+\caption{Función de masa de probabilidad de \(X\).}
+\label{fig:pmf_books}
+\end{marginfigure}
+
+La función de masa de probabilidad debe cumplir dos propiedades
+\begin{enumerate}
+  \item \(f(x) \geq 0\).
+  \item \(\sum_{x}f(x)=1\).
+\end{enumerate}
+
+También resulta útil calcular la función de probabilidad acumulada, \(F(x)\). Esta función viene definida por \[F(x) = \prob(X\leq x) = \sum_{t\leq x}f(t).\]
+
+\subsection{Variables aleatorias continuas}

@@ -52,6 +52,10 @@
 \usetikzlibrary{shapes, trees, positioning, calc, patterns, patterns.meta, fit, matrix, backgrounds} % Load TikZ libraries for shapes and positioning
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
+
+\pgfkeys{/pgf/number format/.cd, use comma, 1000 sep={.}}	
+\pgfplotsset{/pgf/number format/.cd, use comma, 1000 sep={.}}
+
 \usepackage{contour}
 \contourlength{0.1pt} % outline thickness
 
@@ -74,6 +78,8 @@
 
 \newcommand{\perm}[2]{\mathrm{P}^{#1}_{#2}} % Permutations: usage \perm{n}{k} → Pₙᵏ
 \newcommand{\comb}[2]{\mathrm{C}^{#1}_{#2}} % Combinations: usage \comb{n}{k} → Cₙᵏ
+
+\newcommand{\va}{\uppercase{va}}
 
 %----------------------------------------------------------------------------------------
 %	BOOK INFORMATION
