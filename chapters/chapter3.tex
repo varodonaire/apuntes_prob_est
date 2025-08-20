@@ -119,11 +119,7 @@ Notemos que al considerar nuestra variable aleatoria (la suma de los dos dados) 
 \formal
 Si reconocemos que nuestro espacio muestral es \(\left\{ 1, 2, 3, 4, 5, 6 \right\} \times \left\{ 1, 2, 3, 4, 5, 6 \right\}\) entonces nuestra variable aleatoria se puede escribir como
 \begin{align*}
-<<<<<<< HEAD
-    X: & \left\{ 1, 2, 3, 4, 5, 6 \right\} \times \left\{2, 3, 4, 5, 6 \right\} \rightarrow \left\{ 1, 2, \ldots, 11, 12 \right\}\\
-=======
     X: & \left\{ 1, 2, 3, 4, 5, 6 \right\} \times \left\{  2, 3, 4, 5, 6 \right\} \rightarrow \left\{ 2, \ldots, 11, 12 \right\}\\
->>>>>>> origin/main
     & (\omega_1, \omega_2) \to \omega_1 + \omega_2
 \end{align*}
 
@@ -187,3 +183,81 @@ La función de masa de probabilidad debe cumplir dos propiedades
 También resulta útil calcular la función de probabilidad acumulada, \(F(x)\). Esta función viene definida por \[F(x) = \prob(X\leq x) = \sum_{t\leq x}f(t).\]
 
 \subsection{Variables aleatorias continuas}
+
+Las \va\ también pueden ser continuas. Una \va\ es continua si su recorrido es continuo. La gran particularidad de una \va\ continua es que, si \(X\) es una \va\ continua, \[\prob(X=x_0)= 0\] para cualquier valor \(x_0\) de la variable.
+\begin{marginfigure}[-4cm]\centering
+\begin{tikzpicture}[scale=0.5, line cap=butt, line join=bevel, every node/.level/.style={scale=0.5}]
+% radii
+\def\R{3}            % outer radius
+\def\rdout{3.0}      % double ring outer
+\def\rdin{2.6}       % double ring inner
+\def\rtout{2.05}     % triple ring outer
+\def\rtin{1.80}      % triple ring inner
+\def\rmainin{0.50}   % inner single region inner
+\def\rbullout{0.50}  % outer bull (single bull) radius
+\def\rbullin{0.15}   % inner bull (double bull) radius
+
+\foreach \i in {0,...,19} {
+  \pgfmathsetmacro{\a}{\i*18}
+  \pgfmathsetmacro{\b}{(\i+1)*18}
+  \pgfmathtruncatemacro{\odd}{mod(\i,2)}
+  \ifnum\odd=1 \def\col{black!0}\else\def\col{white!0}\fi
+
+  % double ring (rdin..rdout)
+  \path[draw=black!50, fill=\col]
+    (\a:\rdin) arc[start angle=\a, end angle=\b, radius=\rdin]
+    -- (\b:\rdout)
+    arc[start angle=\b, end angle=\a, radius=\rdout]
+    -- cycle;
+
+  % outer single (rtout..rdin)
+  \path[draw=black!50, fill=\col]
+    (\a:\rtout) arc[start angle=\a, end angle=\b, radius=\rtout]
+    -- (\b:\rdin)
+    arc[start angle=\b, end angle=\a, radius=\rdin]
+    -- cycle;
+
+  % triple ring (rtin..rtout)
+  \path[draw=black!50, fill=\col]
+    (\a:\rtin) arc[start angle=\a, end angle=\b, radius=\rtin]
+    -- (\b:\rtout)
+    arc[start angle=\b, end angle=\a, radius=\rtout]
+    -- cycle;
+
+  % inner single (rmainin..rtin)
+  \path[draw=black!50, fill=\col]
+    (\a:\rmainin) arc[start angle=\a, end angle=\b, radius=\rmainin]
+    -- (\b:\rtin)
+    arc[start angle=\b, end angle=\a, radius=\rtin]
+    -- cycle;
+}
+
+% bull
+\filldraw[fill=white!0, draw=black] (0,0) circle (\rbullout);
+\filldraw[fill=black,  draw=black] (0,0) circle (\rbullin);
+
+% radial separators
+\foreach \i in {0,...,19} {
+  \draw[thin, black!50] (\i*18:\rbullin) -- (\i*18:\R);
+}
+
+% outer border
+\draw[thick] (0,0) circle (\R);
+\node[circle, fill=red, inner sep = 0pt, minimum size = 2mm] at (1, 2) {};
+\end{tikzpicture}
+\caption{La probabilidad de que el dardo caiga \emph{exactamente} en el punto rojo es 0, y sin embargo es posible}
+\end{marginfigure}
+
+Esto nos obliga a buscar una manera alternativa de definir la probabilidad. Lo que podemos hacer es darnos cuenta que nos va a interesar obtener la probabilidad en algún tipo de \emph{sección} (un intervalo, un área, una cierta duración, etc). En otras palabras, usaremos una \emph{densidad} de probabilidad.
+
+\begin{definition}
+La función de densidad de probabilidad de una \va\ continua es la función \(f(x)\) que cumple con \[\prob(a\leq x \leq b) = \int_{a}^{b} f(t)\di{t}\]
+\end{definition}
+
+Una función de densidad de probabilidad debe cumplir con dos condiciones
+\begin{enumerate}
+  \item \(f(x)\geq0,\, \forall x \in \mathbb{R}\).
+  \item \(\int_{-\infty}^{\infty}f(x)\di{x}=1\).
+\end{enumerate}
+
+Al igual que en caso discreto, podemos definir la función de probabilidad acumulada como \[F(x) = P(X\leq x) = \int_{-\infty}^{x}f(t)\di{t}\]
