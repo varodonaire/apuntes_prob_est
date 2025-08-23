@@ -126,7 +126,8 @@ Si reconocemos que nuestro espacio muestral es \(\left\{ 1, 2, 3, 4, 5, 6 \right
 \informal
 Ahora bien, como nuestra variable aleatoria divide a nuestro espacio muestral en una partición de eventos, cada uno de ellos tiene una probabilidad asociada. Sin embargo, aquí debemos empezar a hacer una distinción entre dos tipos de variables, las discretas y las continuas.
 
-\subsection{Variables aleatorias discretas}
+\section{Variables aleatorias discretas}
+\labsec{variables_aleatorias_discretas}
 
 Una variable aleatoria discreta es una variable aleatoria cuyo recorrido es un conjunto finito o infinito numerable (típicamente los enteros o un subconjunto de ellos). Hasta ahora, nuestros eventos se pueden identificar con variables aleatorias discretas. 
 
@@ -182,7 +183,8 @@ La función de masa de probabilidad debe cumplir dos propiedades
 
 También resulta útil calcular la función de probabilidad acumulada, \(F(x)\). Esta función viene definida por \[F(x) = \prob(X\leq x) = \sum_{t\leq x}f(t).\]
 
-\subsection{Variables aleatorias continuas}
+\section{Variables aleatorias continuas}
+\labsec{variables_aleatorias_continuas}
 
 Las \va\ también pueden ser continuas. Una \va\ es continua si su recorrido es continuo. La gran particularidad de una \va\ continua es que, si \(X\) es una \va\ continua, \[\prob(X=x_0)= 0\] para cualquier valor \(x_0\) de la variable.
 \begin{marginfigure}[-4cm]\centering
@@ -243,7 +245,7 @@ Las \va\ también pueden ser continuas. Una \va\ es continua si su recorrido es 
 
 % outer border
 \draw[thick] (0,0) circle (\R);
-\node[circle, fill=red, inner sep = 0pt, minimum size = 2mm] at (1, 2) {};
+\node[circle, fill=red, inner sep = 0pt, minimum size = 0.5mm] at (1, 2) {};
 \end{tikzpicture}
 \caption{La probabilidad de que el dardo caiga \emph{exactamente} en el punto rojo es 0, y sin embargo es posible}
 \end{marginfigure}
@@ -261,3 +263,34 @@ Una función de densidad de probabilidad debe cumplir con dos condiciones
 \end{enumerate}
 
 Al igual que en caso discreto, podemos definir la función de probabilidad acumulada como \[F(x) = P(X\leq x) = \int_{-\infty}^{x}f(t)\di{t}\]
+
+\section{Esperanza y varianza}
+\labsec{esperanza_varianza}
+
+Aunque una variable aleatoria no es realmente aleatoria, tampoco sabemos exactamente cuál va a ser su resultado. Lo que sí podemos saber (al menos en teoría) es la distribución de probabilidad de la \va. En base a esa información, podemos aspirar a obtener un resultado \emph{esperado} al ocurrir el experimento o proceso que da origen a la \va.
+
+Ese resultado esperado nos da de alguna manera un \emph{centro} desde el que comenzar a hablar. Es como si entrecerráramos los ojos y viéramos la parte \enquote{más importante} de la distribución. Es la señal que nos manda la variable aleatoria junto con su distribución de probabilidad.
+
+Pero el centro no nos cuenta toda la historia. También es importante hablar del \emph{despliegue} de los datos, ver de qué manera se \enquote{desparraman} las probabilidades. Pero para esto necesitamos un punto de referencia, el que nos va a proveer el centro.
+
+\formal
+\subsection{Definición de la esperanza y sus propiedades}
+Vamos a definir la \emph{esperanza} de una variable aleatoria como el promedio ponderado de los valores posibles de la variable aleatoria, pero ponderados por la probabilidad de cada uno. En el caso de una \va\ discreta, \begin{align*}\esp{X} &= \sum_{i} x_i \prob(X=x_i)\\
+  &=\sum_{\omega \in \Omega}X(\omega)\prob(\omega)\end{align*} donde \(x_i\) se toma a través de todos los valores de la \va. En el caso de una \va\ continua, \[\esp{X} = \int_{-\infty}^{\infty} x f(x)\di{x}\] donde \(f(x)\) es la densidad de probabilidad de la variable aleatoria.
+
+La esperanza es lineal, es decir si \(a\) es una constante y \(X\) e \(Y\) son dos \va, \[\esp{aX+Y} = a\esp{X}+\esp{Y}.\] La demostración es análoga en los casos discreto y continuo, así que haremos la demostración del caso discreto.
+
+\begin{align*}
+  \esp{aX+Y} &= \sum_{\omega \in \Omega} (aX+Y)(\omega)\prob(\omega)\\
+&= \sum_{\omega \in \Omega} (aX(\omega)+Y(\omega))\prob(\omega)\\
+&= \sum_{\omega \in \Omega} aX(\omega)\prob(\omega) + \sum_{\omega \in \Omega}Y(\omega)\prob(\omega)\\
+&= a\sum_{\omega \in \Omega} X(\omega)\prob(\omega) + \sum_{\omega \in \Omega}Y(\omega)\prob(\omega)\\
+&= a\esp{X} + \esp{Y}
+\end{align*}
+
+Otra propiedad de la esperanza es que podemos aplicar funciones a nuesta \va\ y calcular la esperanza de esta composición \[\esp{g(X)}= \sum_{i} g(x_i)\prob(X=x_i).\]
+
+\informal
+Normalmente, simbolizaremos la esperanza de una variable aleatoria por \(\mu\). Si queremos ser específicos, por ejemplo simbolizar que la esperanza se refiere a la \va\ \(Z\) y no a la \va\ \(X\), podemos poner un subíndice como \(\mu_{Z}\).
+
+\subsection{Definición de la varianza y sus propiedades}
