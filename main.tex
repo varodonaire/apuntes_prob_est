@@ -49,12 +49,15 @@
 \usepackage{booktabs}
 
 \usepackage{tikz}
-\usetikzlibrary{shapes, trees, positioning, calc, patterns, patterns.meta, fit, matrix, backgrounds} % Load TikZ libraries for shapes and positioning
+\usetikzlibrary{shapes, trees, positioning, calc, patterns, patterns.meta, fit, matrix, backgrounds, shapes.geometric, decorations.pathreplacing} % Load TikZ libraries for shapes and positioning
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
+\usepgfplotslibrary{fillbetween}
 
 \pgfkeys{/pgf/number format/.cd, use comma, 1000 sep={.}}	
 \pgfplotsset{/pgf/number format/.cd, use comma, 1000 sep={.}}
+
+\usetikzlibrary{pgfplots.groupplots}
 
 \usepackage{contour}
 \contourlength{0.1pt} % outline thickness
@@ -83,7 +86,49 @@
 
 \newcommand{\di}[1]{\mathop{d#1}}
 
-\newcommand{\esp}[1]{\mathrm{E}\left(#1\right)}
+\newcommand{\esp}[1]{\operatorname{E}\left(#1\right)}
+
+\newcommand{\var}[1]{\operatorname{Var}\left(#1\right)}
+
+% Chi-square PDF helper that avoids lnGamma/gamma (works for integer k ≥ 1)
+% Uses factorial identities so it compiles even when PGF Math lacks lnGamma/gamma.
+\pgfmathdeclarefunction{chisqpdf}{2}{%
+  % #1 = x, #2 = k (integer degrees of freedom)
+  \pgfmathparse{
+    (#1 <= 0) ? 0 :
+    (
+      (mod(#2,2) == 0) ?
+      % Even k = 2n: Gamma(k/2) = (n-1)!
+      (
+        ( (#1)^(#2/2 - 1) * exp(-#1/2) ) /
+        ( (2^(#2/2)) * factorial(#2/2 - 1) )
+      )
+      :
+      % Odd k = 2n+1: Gamma(k/2) = Gamma(n+1/2) = ((2n)! / (4^n n!)) * sqrt(pi)
+      (
+        ( (#1)^(#2/2 - 1) * exp(-#1/2) ) *
+        ( factorial( ( (#2 - 1) / 2 ) ) * 2^( ( (#2 - 1) / 2 ) - 0.5 ) ) /
+        ( factorial(#2 - 1) * sqrt(pi) )
+      )
+    )
+  }%
+}
+
+
+% --- Color palette (tweak to taste) ---
+\definecolor{DiceRed}{HTML}{E16B5B}   % salmon-ish red
+\definecolor{DiceBlue}{HTML}{2D8C9F}  % teal-ish blue
+
+% --- Convenience commands ---
+\newcommand{\rdice}[1]{\dice[DiceRed,white]{#1}}
+\newcommand{\bdice}[1]{\dice[DiceBlue,white]{#1}}
+
+% size & spacing of dice inside cells
+\newcommand{\pair}[2]{%
+  \raisebox{0pt}[0pt][0pt]{\scalebox{0.70}{\bdice{#1}}}%
+  \hspace{0.25em}%
+  \raisebox{0pt}[0pt][0pt]{\scalebox{0.70}{\rdice{#2}}}%
+}
 
 %----------------------------------------------------------------------------------------
 %	BOOK INFORMATION

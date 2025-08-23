@@ -119,7 +119,7 @@ Notemos que al considerar nuestra variable aleatoria (la suma de los dos dados) 
 \formal
 Si reconocemos que nuestro espacio muestral es \(\left\{ 1, 2, 3, 4, 5, 6 \right\} \times \left\{ 1, 2, 3, 4, 5, 6 \right\}\) entonces nuestra variable aleatoria se puede escribir como
 \begin{align*}
-    X: & \left\{ 1, 2, 3, 4, 5, 6 \right\} \times \left\{  2, 3, 4, 5, 6 \right\} \rightarrow \left\{ 2, \ldots, 11, 12 \right\}\\
+    X: & \left\{ 1, 2, 3, 4, 5, 6 \right\} \times \left\{1,  2, 3, 4, 5, 6 \right\} \rightarrow \left\{ 2, \ldots, 11, 12 \right\}\\
     & (\omega_1, \omega_2) \to \omega_1 + \omega_2
 \end{align*}
 
@@ -293,4 +293,483 @@ Otra propiedad de la esperanza es que podemos aplicar funciones a nuesta \va\ y 
 \informal
 Normalmente, simbolizaremos la esperanza de una variable aleatoria por \(\mu\). Si queremos ser específicos, por ejemplo simbolizar que la esperanza se refiere a la \va\ \(Z\) y no a la \va\ \(X\), podemos poner un subíndice como \(\mu_{Z}\).
 
+La propiedad más importante de la esperanza, sin embargo, es su significado. La esperanza actúa como el \emph{centro de masa} de la distribución de probabilidad. ¿Qué significa esto? Imaginemos que tenemos una \va\ que representa la cantidad de autos vendidos por día en una distribuidora con la siguiente distribución de probabilidad
+\begin{center}
+  \begin{tabular}{rSSSS}
+    \(x\) & 0 & 1 & 2 & 3 \\
+    \midrule
+    \(P(X=x)\) & 0.2 & 0.4 & 0.3 & 0.1 \\
+  \end{tabular}
+\end{center}
+
+La esperanza de esta variable aleatoria nos diría, en promedio, cuántos autos se venden por día. En este caso, podemos calcular la esperanza como
+
+\[
+\esp{X} = \sum_{i=0}^{3} x_i P(X=x_i) = 0 \cdot \num{0.2} + 1 \cdot \num{0.4} + 2 \cdot \num{0.3} + 3 \cdot \num{0.1} = \num{1.3}.
+\]
+
+Si graficamos la función de masa de probabilidad junto con la esperanza, tenemos lo siguiente
+
+\begin{center}
+\begin{tikzpicture}
+    \begin{axis}[
+      ybar,
+      axis x line*=middle,
+      axis y line=none,
+      xlabel={Autos vendidos},
+      xtick=data,
+      xticklabel style={font=\small},
+      ymin=-0.05, ymax=0.45,
+      ytick=\empty,
+      bar width=15pt,
+      enlarge x limits=0.25,
+      nodes near coords,
+      nodes near coords align={vertical},
+      nodes near coords style={
+        font=\small,
+        anchor=south,
+        yshift=2pt,
+        /pgf/number format/.cd,
+        fixed,
+        precision=1,
+        fixed zerofill
+      }
+    ]
+      \addplot+[draw=black, fill=blue!60] coordinates {(0,0.2) (1,0.4) (2,0.3) (3,0.1)};
+      % Marca de la esperanza (triángulo apuntando al eje en x=1.6)
+      \node[isosceles triangle, draw, fill=red, rotate=90, inner sep=0pt, minimum size=6pt, anchor=apex]
+        at (axis cs:1.3,0) {};
+    \end{axis}
+  \end{tikzpicture}
+\end{center}
+
+Si ponemos el punto de apoyo de un balancín con esas masa en la esperanza, el balancín estará equilibrado. ¿Qué pasaría si tuviéramos una distribución más \enquote{cargada} para un lado?
+
+\begin{center}
+  \begin{tabular}{rSSSSSS}
+  \(x\) & 1 & 2 & 3 & 4 & 5 & 6 \\\midrule
+  \(P(X=x)\) & 0.05 & 0.1 & 0.05 & 0.2 & 0.25 & 0.35
+  \end{tabular}
+\end{center}
+
+Grafiquemos esta distribución \sidenote{La esperanza de esta distribución es \begin{multline*}1\cdot\num{0.05} + 2\cdot\num{0,1} + 3\cdot\num{0,05} +\\ + 4\cdot\num{0,2} + 5\cdot\num{0,25}+ 6\cdot\num{0,35} = \num{4,55}\end{multline*}} de probabilidad
+\begin{center}
+  \begin{tikzpicture}
+    \begin{axis}[
+      ybar,
+      axis x line*=middle,
+      axis y line=none,
+      xlabel={Número en el dado},
+      xtick=data,
+      xticklabel style={font=\small},
+      ymin=-0.05, ymax=0.4,
+      ytick=\empty,
+      bar width=15pt,
+      enlarge x limits=0.25,
+      nodes near coords,
+      nodes near coords align={vertical},
+      nodes near coords style={
+        font=\small,
+        anchor=south,
+        yshift=2pt,
+        /pgf/number format/.cd,
+        fixed,
+        precision=2,
+        fixed zerofill
+      }
+    ]
+      \addplot+[draw=black, fill=blue!60] coordinates {(1,0.05) (2,0.1) (3,0.05) (4,0.2) (5,0.25) (6,0.35)};
+      % Marca de la esperanza (triángulo apuntando al eje en x=4.55)
+      \node[isosceles triangle, draw, fill=red, rotate=90, inner sep=0pt, minimum size=6pt, anchor= apex]
+        at (axis cs:4.55,0) {};
+    \end{axis}
+    \end{tikzpicture}
+\end{center}
+
+La esperanza está más cerca de los valores con mayor probabilidad. Estos \enquote{pesan} más, pero los valores que pesan menos los equilibran (piense en el torque).
+
+En el caso de una \va\ continua ocurre básicamente lo mismo. Si graficamos una función de densidad de probabilidad podemos ver que la esperanza \enquote{equilibra} la lámina de color que está puesta encima del eje. En este caso, aunque el gráfico termina en \(x=20\) la distribución está definida para \(x\in[0, \infty[\).
+
+\begin{center}
+\begin{tikzpicture}
+  \begin{axis}[
+    xlabel={$x$},
+    ymin=-0.01,
+    ymax=0.25,
+    domain=0:20,
+    samples=400,
+    axis lines=middle,
+    legend pos=north east,
+    tick align=outside,
+    grid=both,
+    scaled y ticks=false, % disable 10^k scaling
+    yticklabel style={/pgf/number format/fixed} % force fixed (non-scientific) formatting
+  ]
+    % Draw the chi-square pdf as a line only (no sample points)
+    \addplot[name path=chisq, thick, mark=none] { chisqpdf(x,3) };
+
+    % Define the baseline y=0 (invisible line)
+    \addplot[name path=baseline, draw=none] {0};
+
+    % Shade the area between the curve and the baseline
+    \addplot[fill=blue!20] fill between[of=chisq and baseline];
+    \node[isosceles triangle, draw, fill=red, rotate=90, inner sep = 0mm, minimum size = 6pt, anchor=apex] at (axis cs:3, 0) {};
+  \end{axis}
+\end{tikzpicture}
+\end{center}
+
 \subsection{Definición de la varianza y sus propiedades}
+
+\formal
+La varianza de una \va\ \(X\) se define como \[\var{X}=\esp{(X-\mu)^2}\] donde \(\mu=\esp{X}\). Se simboliza como \(\var{X}\) o bien \(\sigma^2_X\) (el subíndice se puede omitir si es claro a qué \va\ nos referimos).
+
+\informal
+Notemos\marginnote{Hay que considerar algo: ni la esperanza es la única definición posible de centro de una distribución ni la varianza la única definición de dispersión. Sin embargo, son las más útiles, al menos para partir.} algunas cosas. Primero, la varianza depende del valor de la esperanza. De hecho, la varianza \emph{es} un tipo de esperanza. El término \((X-\mu)^2\) es una especie de distancia para cada valor de \(X\) a la esperanza y al tomar la esperanza de este término, estamos tomando la distancia esperada a la esperanza o, en otras palabras la \emph{distancia promedio} al centro de la distribución.
+
+Si calculamos la varianza del ejemplo de los autos vendidos que vimos en la esperanza, 
+\begin{center}
+  \begin{tabular}{rSSSS}
+    \(x\) & 0 & 1 & 2 & 3 \\
+    \midrule
+    \(P(X=x)\) & 0.2 & 0.4 & 0.3 & 0.1 \\
+  \end{tabular}
+\end{center}
+cuya esperanza era \num{1,3} entonces podríamos calcular la varianza como
+\begin{align*}
+  \var{X} &= \esp{(X-\num{1,3})^2}\\
+  &= \sum_{i=0}^{3} (x_i - \num{1,3})^2 \prob(X=x_i)\\
+  &= (0 - \num{1,3})^2 \cdot \num{0,2} + (1 - \num{1,3})^2 \cdot \num{0,4} + (2 - \num{1,3})^2 \cdot \num{0,3} + (3 - \num{1,3})^2 \cdot \num{0,1}\\
+  &= \num{1,69} \cdot \num{0,2} + \num{0,09} \cdot \num{0,4} + \num{0,49} \cdot \num{0,3} + \num{2,89} \cdot \num{0,1}\\
+  &= \num{0,338} + \num{0,036} + \num{0,147} + \num{0,289}\\
+  &= \num{0,81}
+\end{align*}
+
+Claramente es bastante largo. Sin embargo, hay una forma más sencilla de calcular la varianza. Notemos que
+\begin{align*}
+  \var{X} &= \esp{(X-\mu)^2}\\
+  &= \esp{X^2 - 2X\mu + \mu^2}\\
+  &= \esp{X^2} - 2\mu\esp{X} + \mu^2\\
+  &= \esp{X^2} - \mu^2
+\end{align*}
+donde \(\mu=\esp{X}\).\marginnote{En el ejemplo, \begin{multline*}0^2\cdot\num{0,2} + 1^2\cdot\num{0,4} + 2^2\cdot\num{0,3} +\\ + 3^2\cdot\num{0,1} - \num{1,3}^2 = \num{0,81}\end{multline*}} En otras palabras, la varianza es también la diferencia entre la esperanza del cuadrado de la variable aleatoria y el cuadrado de la esperanza de la variable aleatoria.
+
+Un problema que tiene la varianza es que la unidad de medida es el cuadrado de la unidad de medida de la variable aleatoria. En nuestro ejemplo, la medida de la variable aleatoria es \emph{autos vendidos}, pero la unidad de medida de la varianza es \emph{autos vendidos al cuadrado}. Para evitar este problema, normalmente trabajamos con la desviación estándar, que es simplemente la raíz cuadrada de la varianza. En nuestro ejemplo, la desviación estándar sería \(\sqrt{\num{0,81}} = \num{0,9}\) autos vendidos.
+
+\formal
+La desviación estándar de una \va\ \(X\) se define como \(\sigma_X = \sqrt{\var{X}}\).
+
+\informal
+La gran ventaja de la desviación estándar es que está en la misma unidad de medida que la variable aleatoria. Esto permite interpretarla y graficarla. En el ejemplo, \[\sigma_X = \sqrt{\num{0,81}} = \num{0,9}\] autos vendidos. Podemos graficar la distribución de probabilidad junto con la esperanza y la desviación estándar.
+
+\begin{tikzpicture}
+  \begin{axis}[
+      ybar,
+      axis x line=middle,
+      axis y line=none,
+      xlabel={Autos vendidos},
+      xtick=data,
+      xticklabel style={font=\small},
+      ymin=-0.1, ymax=0.45,
+      ytick=\empty,
+      bar width=15pt,
+      enlarge x limits=0.25,
+      nodes near coords,
+      nodes near coords align={vertical},
+      nodes near coords style={
+        font=\small,
+        anchor=south,
+        yshift=2pt,
+        /pgf/number format/.cd,
+        fixed,
+        precision=1,
+        fixed zerofill
+      }
+    ]
+
+
+    % ====== (2) Barras de la pmf ======
+    % Puedes mantener un único \addplot; si prefieres, separa las barras interiores
+    % para darles un color distinto. Aquí lo dejamos uniforme para simplicidad.
+    \addplot+[draw=black, fill=blue!60] coordinates {(0,0.2) (1,0.4) (2,0.3) (3,0.1)};
+
+    \draw[Mahogany, thin] (axis cs:1.3,-0.05) -- (axis cs:1.3,0.45);
+    \draw[ForestGreen, thin] (axis cs:2.2,-0.05) -- (axis cs:2.2,0.45);
+    \draw[ForestGreen, thin] (axis cs:0.4,-0.05) -- (axis cs:0.4,0.45);
+    % ====== (4) Media (triángulo rojo) ======
+    \node[isosceles triangle, draw, fill=red, rotate=90, inner sep=0pt, minimum size=6pt, anchor=apex]
+      at (axis cs:1.3,0) {};
+
+    % ====== (Braces limpias a la izquierda y derecha de la media) ======
+    % Izquierda: [mu-sigma, mu] = [0.4, 1.3]
+    \draw[decorate, decoration={brace, mirror, amplitude=5pt}]
+      (axis cs:0.4,-0.05) -- (axis cs:1.3,-0.05)
+        node[midway, yshift=-10pt] {\small $-\sigma$};
+
+    % Derecha: [mu, mu+sigma] = [1.3, 2.2]
+    \draw[decorate, decoration={brace, mirror, amplitude=5pt}]
+      (axis cs:1.3,-0.05) -- (axis cs:2.2,-0.05)
+        node[midway, yshift=-10pt] {\small $\sigma$};
+
+  \end{axis}
+\end{tikzpicture}
+
+¿Cómo interpretamos esto? Tenemos que interpretarlo en conjunto. La esperanza es \num{1,3} y la desviación estándar es \num{0,9}. Esto quiere decir que esperamos vender \num{1,3} autos por día, pero que la mayoría de los días vamos a vender entre \num{0,4} y \num{2,2} autos (es decir, entre \(\mu - \sigma\) y \(\mu + \sigma\)).
+
+\subsubsection{Desigualdad de Chebyshev}
+
+Una forma muy general para entender la desviación estándar es a través de la desigualdad de Chebyshev. Si tenemos una \va\ con varianza finita \(\sigma^2\) (y por lo tanto esperanza finita), la probabilidad de que la variable aleatoria se aleje de su esperanza en más de \(k\) veces la desviación estándar es al menos \(1-1/k^2\). En otras palabras, \[\prob(\mu-k\sigma< X < \mu+k\sigma) \geq 1-\frac{1}{k^2}.\]
+
+Esto es \emph{muy general.} Es tan general que, de hecho, cuando \(k=1\) no nos dice nada \[\prob(\mu-\sigma< X < \mu+\sigma) \geq 1-\frac{1}{1^2} = 0\] lo que ya\ldots\ sabíamos. Cuando \(k=2\), la desigualdad nos dice que al menos el \(75\%\) de los valores están dentro de dos desviaciones estándar de la media y eso ya es más útil. Sin embargo, cuando conozcamos distribuciones particulares, generalmente podremos decir cosas más precisas.
+
+\section{¿Qué significa sumar variables aleatorias? (opcional)}
+\labsec{suma_variables_aleatorias}
+
+Partimos este capítulo con la variable aleatoria que nace al sumar los puntos de tirar los dados
+\begin{align*}
+    X: & \left\{ 1, 2, 3, 4, 5, 6 \right\} \times \left\{1,  2, 3, 4, 5, 6 \right\} \rightarrow \left\{ 2, \ldots, 11, 12 \right\}\\
+    & (\omega_1, \omega_2) \to \omega_1 + \omega_2
+\end{align*}
+y en algún momento se comentó\sidenote{en clase} que podemos entender esta \va\ como la suma de dos variables aleatorias \[X=X_1+X_2\] donde \(X_i\) es el resultado al lanzar el dado \(i\). Sin embargo, cada una de esas variables aleatorias tiene un dominio distinto del de \(X\): el dominio de \(X_1\) es \(\{1, 2, 3, 4, 5, 6\}\). ¿Cómo entonces la suma puede darnos un dominio como \(\left\{ 1, 2, 3, 4, 5, 6 \right\} \times \left\{1,  2, 3, 4, 5, 6 \right\}\)?
+
+Primero, al lanzar los dos dados efectivamente nuestro espacio muestral es \(\left\{ 1, 2, 3, 4, 5, 6 \right\} \times \left\{1,  2, 3, 4, 5, 6 \right\} \).
+
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{
+   >{\centering\arraybackslash}m{2.4em}|
+   *{6}{>{\centering\arraybackslash}m{3.6em}|}
+}
+  \hline
+  % Row for red=6
+  \rdice{6} & \pair{1}{6} & \pair{2}{6} & \pair{3}{6} & \pair{4}{6} & \pair{5}{6} & \pair{6}{6} \\\hline
+  % Row for red=5
+  \rdice{5} & \pair{1}{5} & \pair{2}{5} & \pair{3}{5} & \pair{4}{5} & \pair{5}{5} & \pair{6}{5} \\\hline
+  % Row for red=4
+  \rdice{4} & \pair{1}{4} & \pair{2}{4} & \pair{3}{4} & \pair{4}{4} & \pair{5}{4} & \pair{6}{4} \\\hline
+  % Row for red=3
+  \rdice{3} & \pair{1}{3} & \pair{2}{3} & \pair{3}{3} & \pair{4}{3} & \pair{5}{3} & \pair{6}{3} \\\hline
+  % Row for red=2
+  \rdice{2} & \pair{1}{2} & \pair{2}{2} & \pair{3}{2} & \pair{4}{2} & \pair{5}{2} & \pair{6}{2} \\\hline
+  % Row for red=1
+  \rdice{1} & \pair{1}{1} & \pair{2}{1} & \pair{3}{1} & \pair{4}{1} & \pair{5}{1} & \pair{6}{1} \\\hline
+  % Bottom labels (blue dice)
+  & \bdice{1} & \bdice{2} & \bdice{3} & \bdice{4} & \bdice{5} & \bdice{6} \\
+\end{tabular}
+
+Si los dados son justos y los lanzamientos son independientes, la probabilidad de obtener un resultado cualquiera es \(1/36\). Esto podemos obtenerlo, por ejemplo, como \[\prob(\pair{4}{3}) = \prob(\bdice{4})\cdot\prob(\rdice{3})=\frac16\cdot\frac16.\]
+
+Ahora bien, nuestra variable aleatoria era el resultado de esta operación, y eso tiene distintas probabilidades. En particular, la probabilidad de obtener un resultado va a ser sumar las probabilidades de todas las posibles configuraciones que dan lugar a ese resultado.
+
+La figura muestra la probabilidad de obtener una suma igual a 7
+
+\begin{tikzpicture}[every node/.style={align=center}]
+  % --- matriz 6x6 con celdas vacías (solo bordes) ---
+  \matrix (m) [matrix of nodes,
+    nodes={draw, minimum width=11mm, minimum height=11mm, inner sep=1pt},
+    row sep=0pt, column sep=0pt] {
+      & & & & & \\
+      & & & & & \\
+      & & & & & \\
+      & & & & & \\
+      & & & & & \\
+      & & & & & \\
+  };
+
+  % --- Rellenar cada celda: par de dados + 1/36 debajo ---
+  % Convención: fila r (1 arriba..6 abajo) => rojo = 7-r
+  %             columna c (1 izq..6 der)   => azul = c
+  \foreach \r in {1,...,6}{
+    \foreach \c in {1,...,6}{
+      \pgfmathtruncatemacro{\red}{7-\r}
+      \node at (m-\r-\c)
+        {\shortstack{\pair{\c}{\red}\\[-2pt]{\scriptsize$1/36$}}};
+    }
+  }
+
+  % --- Resaltar la diagonal principal (c = r) ---
+  \begin{scope}[on background layer]
+    \foreach \i in {1,...,6}{
+      \fill[yellow!70, opacity=0.25, rounded corners=2pt]
+        (m-\i-\i.north west) rectangle (m-\i-\i.south east);
+    }
+  \end{scope}
+\end{tikzpicture}
+
+Con eso obtenemos \(\prob(X=7)= 6/36 = 1/6\). 
+
+¿Cómo podríamos obtener esa probabilidad a partir de las probabilidades de cada dado?
+
+\begin{tikzpicture}
+\begin{axis}[
+  view={45}{45},
+  xlabel={Dado azul}, ylabel={Dado rojo}, zlabel={$P$},
+  xmin=0.5, xmax=6.5, ymin=0.5, ymax=6.5,
+  xtick={1,...,6}, ytick={1,...,6},
+  zmin=0, zmax=0.2,
+  grid=both,
+  bar width=8pt,                % grosor de las barras              % para que (1,6) esté arriba izq. como en tu matriz
+  z buffer=sort,                % orden correcto en 3D
+]
+
+% --- Paleta por diagonales (d = x - y en -5..5) ---
+\definecolor{diffm5}{RGB}{158,1,66}
+\definecolor{diffm4}{RGB}{213,62,79}
+\definecolor{diffm3}{RGB}{244,109,67}
+\definecolor{diffm2}{RGB}{253,174,97}
+\definecolor{diffm1}{RGB}{254,224,139}
+\definecolor{diff0}{RGB}{255,255,191}
+\definecolor{diffp1}{RGB}{230,245,152}
+\definecolor{diffp2}{RGB}{171,221,164}
+\definecolor{diffp3}{RGB}{102,194,165}
+\definecolor{diffp4}{RGB}{50,136,189}
+\definecolor{diffp5}{RGB}{94,79,162}
+
+% --- Barras 3D coloreadas por diagonales (x - y = d) ---
+% d = -5
+\addplot3[ybar, draw=black, fill=diffm5]
+  coordinates {(1,6,1/36)};
+% d = -4
+\addplot3[ybar, draw=black, fill=diffm4]
+  coordinates {(1,5,1/36) (2,6,1/36)};
+% d = -3
+\addplot3[ybar, draw=black, fill=diffm3]
+  coordinates {(1,4,1/36) (2,5,1/36) (3,6,1/36)};
+% d = -2
+\addplot3[ybar, draw=black, fill=diffm2]
+  coordinates {(1,3,1/36) (2,4,1/36) (3,5,1/36) (4,6,1/36)};
+% d = -1
+\addplot3[ybar, draw=black, fill=diffm1]
+  coordinates {(1,2,1/36) (2,3,1/36) (3,4,1/36) (4,5,1/36) (5,6,1/36)};
+% d = 0
+\addplot3[ybar, draw=black, fill=diff0]
+  coordinates {(1,1,1/36) (2,2,1/36) (3,3,1/36) (4,4,1/36) (5,5,1/36) (6,6,1/36)};
+% d = +1
+\addplot3[ybar, draw=black, fill=diffp1]
+  coordinates {(2,1,1/36) (3,2,1/36) (4,3,1/36) (5,4,1/36) (6,5,1/36)};
+% d = +2
+\addplot3[ybar, draw=black, fill=diffp2]
+  coordinates {(3,1,1/36) (4,2,1/36) (5,3,1/36) (6,4,1/36)};
+% d = +3
+\addplot3[ybar, draw=black, fill=diffp3]
+  coordinates {(4,1,1/36) (5,2,1/36) (6,3,1/36)};
+% d = +4
+\addplot3[ybar, draw=black, fill=diffp4]
+  coordinates {(5,1,1/36) (6,2,1/36)};
+% d = +5
+\addplot3[ybar, draw=black, fill=diffp5]
+  coordinates {(6,1,1/36)};
+\end{axis}
+\end{tikzpicture}
+
+Podemos sumar las probabilidades de cada par de dados para un resultado fijo
+
+% ===== Barras apiladas por diagonales (d = x1 - x2) =====
+% Cada segmento vale 1/36 y representa un par (i,j) tal que i+j = x y i-j = d
+% Usamos ybar stacked para construir la pmf por suma a partir de las celdas
+\begin{tikzpicture}
+  \definecolor{diffm5}{RGB}{158,1,66}
+\definecolor{diffm4}{RGB}{213,62,79}
+\definecolor{diffm3}{RGB}{244,109,67}
+\definecolor{diffm2}{RGB}{253,174,97}
+\definecolor{diffm1}{RGB}{254,224,139}
+\definecolor{diff0}{RGB}{255,255,191}
+\definecolor{diffp1}{RGB}{230,245,152}
+\definecolor{diffp2}{RGB}{171,221,164}
+\definecolor{diffp3}{RGB}{102,194,165}
+\definecolor{diffp4}{RGB}{50,136,189}
+\definecolor{diffp5}{RGB}{94,79,162}
+\begin{axis}[
+  ybar stacked,
+  xlabel={$x$}, ylabel={$P(X=x)$},
+  xtick={2,...,12},
+  ymin=0, ymax=0.18,
+  scaled y ticks=false,
+  yticklabel style={/pgf/number format/fixed, /pgf/number format/precision=3},
+  grid=both,
+  bar width=14pt,
+  enlarge x limits=1,
+  axis lines=left
+]
+% d = -5 : only x=7
+\addplot+[draw=black, fill=diffm5]
+  coordinates {(2,0) (3,0) (4,0) (5,0) (6,0) (7,1/36) (8,0) (9,0) (10,0) (11,0) (12,0)};
+% d = -4 : x=6,8
+\addplot+[draw=black, fill=diffm4]
+  coordinates {(2,0) (3,0) (4,0) (5,0) (6,1/36) (7,0) (8,1/36) (9,0) (10,0) (11,0) (12,0)};
+% d = -3 : x=5,7,9
+\addplot+[draw=black, fill=diffm3]
+  coordinates {(2,0) (3,0) (4,0) (5,1/36) (6,0) (7,1/36) (8,0) (9,1/36) (10,0) (11,0) (12,0)};
+% d = -2 : x=4,6,8,10
+\addplot+[draw=black, fill=diffm2]
+  coordinates {(2,0) (3,0) (4,1/36) (5,0) (6,1/36) (7,0) (8,1/36) (9,0) (10,1/36) (11,0) (12,0)};
+% d = -1 : x=3,5,7,9,11
+\addplot+[draw=black, fill=diffm1]
+  coordinates {(2,0) (3,1/36) (4,0) (5,1/36) (6,0) (7,1/36) (8,0) (9,1/36) (10,0) (11,1/36) (12,0)};
+% d = 0 : x=2,4,6,8,10,12
+\addplot+[draw=black, fill=diff0]
+  coordinates {(2,1/36) (3,0) (4,1/36) (5,0) (6,1/36) (7,0) (8,1/36) (9,0) (10,1/36) (11,0) (12,1/36)};
+% d = +1 : x=3,5,7,9,11
+\addplot+[draw=black, fill=diffp1]
+  coordinates {(2,0) (3,1/36) (4,0) (5,1/36) (6,0) (7,1/36) (8,0) (9,1/36) (10,0) (11,1/36) (12,0)};
+% d = +2 : x=4,6,8,10
+\addplot+[draw=black, fill=diffp2]
+  coordinates {(2,0) (3,0) (4,1/36) (5,0) (6,1/36) (7,0) (8,1/36) (9,0) (10,1/36) (11,0) (12,0)};
+% d = +3 : x=5,7,9
+\addplot+[draw=black, fill=diffp3]
+  coordinates {(2,0) (3,0) (4,0) (5,1/36) (6,0) (7,1/36) (8,0) (9,1/36) (10,0) (11,0) (12,0)};
+% d = +4 : x=6,8
+\addplot+[draw=black, fill=diffp4]
+  coordinates {(2,0) (3,0) (4,0) (5,0) (6,1/36) (7,0) (8,1/36) (9,0) (10,0) (11,0) (12,0)};
+% d = +5 : only x=7
+\addplot+[draw=black, fill=diffp5]
+  coordinates {(2,0) (3,0) (4,0) (5,0) (6,0) (7,1/36) (8,0) (9,0) (10,0) (11,0) (12,0)};
+\end{axis}
+\end{tikzpicture}
+
+Ahora bien, podemos hacerlo de otra forma que explica mejor el dominio. Imaginemos que tenemos las dos distribuciones, una para cada dado, pero \emph{damos vuelta} una de ellas, digamos la del dado rojo
+
+\begin{tikzpicture}
+  \begin{axis}[ybar, name=arriba, axis y line = none, axis x line = middle, xmin=0, xmax=7, restrict x to domain=0:6, ymin=0, ymax=0.18, height = 2.5cm, width = 8cm, xtick={1,2,3,4,5,6}]
+    \addplot[draw=black, fill=DiceBlue] coordinates {(1, 1/6) (2, 1/6) (3, 1/6) (4, 1/6) (5, 1/6) (6, 1/6)};
+  \end{axis}
+  \begin{axis}[ybar, name=abajo, at={(arriba.south west)}, yshift=-1cm, anchor = north west, axis y line = none, axis x line = middle, xmin=0, xmax=7, restrict x to domain=0:6, ymin=0, ymax=0.18, height = 2.5cm, width = 8cm, x dir=reverse, xtick={1,2,3,4,5,6}]
+    \addplot[draw=black, fill=DiceRed] coordinates {(1, 1/6) (2, 1/6) (3, 1/6) (4, 1/6) (5, 1/6) (6, 1/6)};
+  \end{axis}
+\end{tikzpicture}
+
+y ahora corremos los ejes de manera de obtener siempre un valor fijo, por ejemplo \(x=5\).
+
+\begin{tikzpicture}
+  \begin{axis}[ybar, name=arriba, axis y line = none, axis x line = middle, xmin=0, xmax=7, restrict x to domain=0:6, ymin=0, ymax=0.18, height = 2.5cm, width = 8cm, xtick={1,2,3,4,5,6}]
+    \addplot[draw=black, fill=DiceBlue] coordinates {(1, 1/6) (2, 1/6) (3, 1/6) (4, 1/6) (5, 1/6) (6, 1/6)};
+  \end{axis}
+  \begin{axis}[ybar, name=abajo, at={(arriba.south west)}, yshift=-1cm, xshift = -1.8cm, anchor = north west, axis y line = none, axis x line = middle, xmin=0, xmax=7, restrict x to domain=0:6, ymin=0, ymax=0.18, height = 2.5cm, width = 8cm, x dir=reverse, xtick={1,2,3,4,5,6}]
+    \addplot[draw=black, fill=DiceRed] coordinates {(1, 1/6) (2, 1/6) (3, 1/6) (4, 1/6) (5, 1/6) (6, 1/6)};
+  \end{axis}
+\end{tikzpicture}
+
+y multiplicamos la columna de arriba con la de abajo
+
+\begin{tikzpicture}
+  \begin{axis}[ybar, name=arriba, axis y line = none, axis x line = middle, xmin=0, xmax=7, restrict x to domain=0:6, ymin=0, ymax=0.18, height = 2.5cm, width = 8cm, xtick={1,2,3,4,5,6}]
+    \addplot[draw=black, fill=DiceBlue] coordinates {(1, 1/6) (2, 1/6) (3, 1/6) (4, 1/6) (5, 1/6) (6, 1/6)};
+  \end{axis}
+  \begin{axis}[ybar, name=abajo, at={(arriba.south west)}, yshift=-1cm, xshift = -1.8cm, anchor = north west, axis y line = none, axis x line = middle, xmin=0, xmax=7, restrict x to domain=0:6, ymin=0, ymax=0.18, height = 2.5cm, width = 8cm, x dir=reverse, xtick={1,2,3,4,5,6}]
+    \addplot[draw=black, fill=DiceRed] coordinates {(1, 1/6) (2, 1/6) (3, 1/6) (4, 1/6) (5, 1/6) (6, 1/6)};
+  \end{axis}
+  \begin{axis}[ybar, name=muyabajo, at={(abajo.south west)}, yshift=-1cm, anchor = north west, axis y line = none, axis x line = middle, xmin=0, xmax=9, restrict x to domain=0:8, ymin=0, ymax=0.18, height = 2.5cm, width = 9.8cm, xtick={1,2,3,4,5,6, 7, 8}, xticklabels={(6,),(5, ),(4,1),(3,2),(2,3),(1,4),(,5),(,6),(,7),(,8)}]
+    \addplot[draw=black, fill=DiceRed] coordinates {(1, 0) (2, 0) (3, 1/36) (4, 1/36) (5, 1/36) (6, 1/36) (7, 0) (8, 0)};
+  \end{axis}
+\end{tikzpicture}
+
+y ahora sumamos: \(4\cdot\frac{1}{36} = \frac{4}{36}\).
+
+Podemos simbolizar esto que acabamos de hacer como
+\[
+\sum_{i=1}^{6}  \prob(X=i) \cdot \prob(Y=5-i) = 4\cdot\frac{1}{36} = \frac{4}{36}
+\] y si variamos el valor fijo \(5\) por cualquier otro valor \(x\), obtenemos la probabilidad de obtener ese valor \(x\) al sumar las dos variables aleatorias \(X\) e \(Y\)
+\[\prob(X+Y=x) = \sum_{i=1}^{6}  \prob(X=i) \cdot \prob(Y=x-i)\]
+
+Esta operación se llama \emph{convolución} y es una operación muy importante en probabilidad. En particular, si \(X\) e \(Y\) son independientes, la probabilidad de la suma es la convolución de las probabilidades individuales.
+
+La convolución de dos funciones es una operación que no sólo se usa en probabilidades, si no que también en otros campos, como procesamiento de imágenes y de señales, procesamiendo digital, etc. Por ejemplo, un filtro como el de desenfoque de imágenes es una convolución. 
