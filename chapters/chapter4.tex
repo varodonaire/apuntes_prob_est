@@ -332,3 +332,22 @@ La varianza de una distribución geométrica es \[\var{X} = \frac{1-p}{p^2}.\]
 \caption{Distribución geométrica con distintos $p$.}
 \labfig{geometrica-varios-p}
 \end{figure*}
+
+Además, no cuesta mucho notar la similaridad de este gráfico con los de funciones del estilo \(a/b^x\). De ahí viene el nombre de geométrica.
+
+Hay autores que definen la distribución geométrica no como el número de intentos para el primer éxito, si no como el número de fracasos antes del primer éxito. No cuesta mucho ver que estas dos definiciones son equivalentes, pero con la definición que usamos acá la \va\ está definida para \(x=1, 2, 3,\ldots\) mientras que con esta otra definición la \va\ está definida para \(x=0, 1, 2, \ldots\). Python usa la definición que usamos nosotros (usando la librería NumPy), mientras que R y Mathematica usan la definición con el número de fracasos.
+
+\section{Distribución binomial negativa}
+\labsec{binomial-negativa}
+
+Una distribución binomial negativa es una generalización de la distribución geométrica. La diferencia es que, en vez de esperar el primer éxito, esperamos obtener un número \(k\) de éxitos. A diferencia de la binomial, donde el número de intentos era fijo, aquí repetiremos los experimentos hasta obtener el número deseado de intentos. La distribución geométrica, por lo tanto, es un caso particular cuando \(k=1\).
+
+Al igual que la geométrica, podemos definirla de una forma alternativa: como el número de fracasos antes de obtener \(k\) éxitos. Nos quedaremos en este texto con la definición del párrafo anterior.
+
+Para encontrar la función de masa de probabilidad, pensemos que nuestro número de éxitos \(k\) y la probabilidad de éxito de cada intento son parámetros de nuestra distribución. Si tuvimos que hacer \(n\) intentos, entonces la probabilidad de obtener \(k\) éxitos \emph{de una forma particular} es \[p^kq^{n-k}.\] Pero, además, tenemos que obtener el último de nuestros \(k\) éxitos en el intento \(n\). Por lo tanto, podemos repartir \(k-1\) éxitos en \(n-1\) intentos. Como no importa el orden, tenemos \[\binom{n-1}{k-1}\] maneras de hacerlo. Por lo tanto, si \(X\sim\NegBin(k, p)\) tenemos \[P(X=n)=\binom{n-1}{k-1}p^kq^{n-k}.\]
+
+Podemos entender la distribución binomial negativa como una suma de distribuciones geométricas independientes. En efecto, nuestra situación es algo como \[\underbrace{FFFFE}_{\text{geom}}\underbrace{FFFFFFFE}_{\text{geom}}\underbrace{\cdots E}_{\text{geoms}}\underbrace{FFE}_{\text{geom}}\] por lo que si \(X\sim\NegBin(k, p)\) entonces \[X=X_1+X_2+\cdots+X_k\] con cada \(X_i\sim\Geom(p)\). Esto hace muy fácil el cálculo de la esperanza y la varianza:
+\begin{gather*}
+  \esp{X}= k\frac{1}{p}\\
+  \var{X} = k\frac{1-p}{p^2}
+\end{gather*}
