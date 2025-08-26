@@ -351,3 +351,7 @@ Podemos entender la distribución binomial negativa como una suma de distribucio
   \esp{X}= k\frac{1}{p}\\
   \var{X} = k\frac{1-p}{p^2}
 \end{gather*}
+
+Por ejemplo, un encuestador telefónico puede terminar su jornada cuando ha completado veinte encuestas. El problema es que la probabilidad que alguien complete la encuesta es baja, digamos \num{0,2}. ¿Cuál será la probabilidad que logre completar sus encuestas cuando ha llamado a 50 personas?
+
+Tenemos aquí que \(X\), el número de intentos para completar 20 encuestas, sigue una distribución binomial negativa, \[X\sim\NegBin(20; 0,2).\] Queremos encontrar \[P(X=50)\] y para eso no necesitamos hacer nada más que \[P(X=50) = \binom{49}{19}\num{0,2}^{20}\cdot\num{0,8}^{30} = \num{0.000245}\] lo que es bastante bajo. ¿Por qué? Si calculamos la esperanza, \[E(X) = 20\frac{1}{0,2} = 100.\] Parece que el encuestador va a tener que hacer muchas llamadas antes de poder terminar la jornada.
