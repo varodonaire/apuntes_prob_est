@@ -355,3 +355,41 @@ Podemos entender la distribución binomial negativa como una suma de distribucio
 Por ejemplo, un encuestador telefónico puede terminar su jornada cuando ha completado veinte encuestas. El problema es que la probabilidad que alguien complete la encuesta es baja, digamos \num{0,2}. ¿Cuál será la probabilidad que logre completar sus encuestas cuando ha llamado a 50 personas?
 
 Tenemos aquí que \(X\), el número de intentos para completar 20 encuestas, sigue una distribución binomial negativa, \[X\sim\NegBin(20; 0,2).\] Queremos encontrar \[P(X=50)\] y para eso no necesitamos hacer nada más que \[P(X=50) = \binom{49}{19}\num{0,2}^{20}\cdot\num{0,8}^{30} = \num{0.000245}\] lo que es bastante bajo. ¿Por qué? Si calculamos la esperanza, \[E(X) = 20\frac{1}{0,2} = 100.\] Parece que el encuestador va a tener que hacer muchas llamadas antes de poder terminar la jornada.
+
+\section{Distribución hipergeométrica}
+\labsec{hipergeometrica}
+
+Así como la distribución binomial representa la probabilidad de obtener \(k\) éxitos en \(n\) intentos \emph{con independencia entre cada intento,} podemos calcular  pero sin suponer independencia. En otras palabras, la distribución binomial saca pelotas de cajas \emph{con reposición} y ahora vamos a sacar las pelotas de la caja \emph{sin reposición.}
+
+Volvamos un poco a nuestra infancia y supongamos que luego de una piñata, nos quedamos con 9 dulces, de los que 4 son con sabor a manzana. Los papás nos dejan sacar 3 dulces a la vez. ¿Cuál será la probabilidad de sacar exactamente 2 dulces de manzana?
+
+Para sacar 3 dulces de 9 tenemos \(\binom{9}{3}\) formas y necesitamos 2 dulces de manzana de 4, lo que da \(\binom{4}{2}\) formas, mientras que de los otros cinco dulces, necesitamos uno de ellos, que podemos escoger de \(\binom{5}{1}\) formas. Por lo tanto, \[\prob(X=2) = \frac{\binom{4}{2}\binom{5}{1}}{\binom{9}{3}}\]
+
+Extrapolando de este ejemplo, diremos que la \va\ \(X\), la cantidad de éxitos que obtenemos al sacar \(n\) elementos de una bolsa con \(N\) elementos, de los que \(r\) son éxitos y lo hacemos sin reemplazo sigue una distribución de probabilidad hipergeométrica: \(X \sim \Hip(N, r, n)\) cuya función de masa viene dada por \[\prob(X=x) = \frac{\binom{r}{x}\binom{N-r}{n-x}}{\binom{N}{n}},\, 0\leq x\leq r,\, 0\leq n-x\leq N-r.\]
+
+La esperanza de esta distribución viene dada por \[\esp{X} = n\frac{r}{N}.\] mientras que la varianza viene dada por \[\var{X} = n\frac{r}{N}\frac{N-r}{N-1}.\]
+
+\section{Distribución de Poisson}
+\labsec{poisson}
+
+La distribución de Poisson es una de esas ideas que, siendo simple en la superficie, tiene conexiones profundas con otras áreas. Una manera de llegar a ella es definiendo un \emph{proceso de Poisson.} Un proceso de Poisson es un proceso estocástico (una sucesión de variables aleatorias) indexadas por \(t\in\mathbb{R}^+_0\), de manera que \(X(t)\) es la cantidad de sucesos que ocurre en el intervalo \([0, t]\) que cumple las siguientes condiciones:
+\begin{enumerate}
+  \item Los eventos ocurren de manera independiente entre sí.
+  \item La tasa promedio de ocurrencia de eventos es constante en el tiempo.
+  \item La probabilidad de que ocurran dos o más eventos en un intervalo de tiempo infinitesimal es despreciable.
+  \item En el tiempo \(0\), no ha ocurrido ningún evento: \(X(0)=0\).
+\end{enumerate}
+
+De un proceso de este tipo emergen dos \va s, el tiempo entre eventos (que estudiaremos más adelante) y la cantidad de eventos en un periodo dado. Esta última \va\ sigue una distribución de probabilidad de Poisson.
+
+El punto 2 es importante: si la tasa de eventos es constante en el tiempo, ese será nuestro parámetro. Es un parámetro un poco exótico, si lo pensamos bien. Por ejemplo, una tasa constante en el tiempo es 5 eventos \emph{por hora.} Es decir, hay un espacio de tiempo en que estos eventos ocurren.\sidenote{un ejercicio favorito es decir \enquote{si ocurren en promedio 5 eventos por hora, ¿cuál es la probabilidad de que ocurran 100 en un día?} lo que implica ajustar el parámetro.} 
+
+La función de masa de probabilidad se puede derivar desde la de la distribución binomial (!). En efecto, un proceso de Poisson corresponde al límite cuando mantenemos una relación constante entre \(n\), el número de eventos, y \(p\), la probabilidad de éxito. Si \(\lambda = np\), tomando el límite \[\lim_{n\to\infty}\Bin\left(n, \frac{\lambda}{n}\right)\] obtenemos una nueva distribución. Esta es la distribución de Poisson con parámetro \(\lambda\) \[X\sim\Poi(\lambda).\]
+
+La función de masa de probabilidad viene dada por \[\prob(X=x) = \frac{\lambda^x}{x!}e^{-\lambda}.\] Su esperanza es \(\lambda\) y su varianza también es \(\lambda\).
+
+Supongamos que en Santiago nacen dos guaguas cada media hora. ¿Cuál será la cantidad esperada de guaguas que nazcan en un día? ¿Y qué probabilidad habrá de que en una hora nazcan 6?
+
+Para responder la primera pregunta, debemos encontrar \emph{el parámetro que corresponde.} En principio \(\lambda\) es 2, pero eso es \emph{cada media hora.} Por lo tanto, \[\frac{2\text{ nacimientos}}{1\text{ media hora}}\cdot\frac{48\text{ medias horas}}{1\text{ día}}=96\frac{\text{nacimientos}}{\text{día}},\] por lo que esperamos 96 nacimientos en un día.
+
+Del mismo modo, no cuesta ver que \(\lambda=4\) nacimientos por hora. Por lo tanto, la probabilidad de que en una hora nazcan 6 guaguas es \[P(X=6)=\frac{4^6}{6!}e^{-4}=\frac{\num{4096}}{720}\num{0,0183156389}=\num{5,6888888889}\cdot\num{0,0183156389}=\num{0,1041956346}.\]
