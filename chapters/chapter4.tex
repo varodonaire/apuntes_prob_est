@@ -388,6 +388,29 @@ La función de masa de probabilidad se puede derivar desde la de la distribució
 
 La función de masa de probabilidad viene dada por \[\prob(X=x) = \frac{\lambda^x}{x!}e^{-\lambda}.\] Su esperanza es \(\lambda\) y su varianza también es \(\lambda\).
 
+\formal
+Podemos calcular la esperanza como sigue
+\begin{align*}
+  \esp{X} &= \sum_{x=0}^{\infty} x \frac{\lambda^x}{x!}e^{-\lambda}\\
+  &= \sum_{x=1}^{\infty}  \frac{\lambda^x}{(x-1)!}e^{-\lambda}\\
+  &= \sum_{x=1}^{\infty}  \lambda\frac{\lambda^{x-1}}{(x-1)!}e^{-\lambda}\\
+  &= \lambda \sum_{x=1}^{\infty}  \frac{\lambda^{x-1}}{(x-1)!}e^{-\lambda}
+  \intertext{pero esta última expresión no es más que reescribir la suma de la función de masa a través de todo el dominio}
+  &= \lambda\cdot 1 = \lambda
+\end{align*}
+
+Para calcular la varianza, podemos notar que \[\esp{X^2} = \esp{X(X-1)} + \esp{X}\] por la linealidad de la esperanza. Además, 
+\begin{align*}
+  \esp{X(X-1)} &= \sum_{x=0}^{\infty} x(x-1) \frac{\lambda^x}{x!}e^{\lambda}\\
+  &= \sum_{x=2}^{\infty}  \frac{\lambda^x}{(x-2)!}e^{\lambda}\\
+  &= \lambda^2\sum_{x=2}^{\infty}  \frac{\lambda^{x-2}}{(x-2)!}e^{\lambda}
+  \intertext{pero por el mismo argumento anterior}
+  &= \lambda^2
+\end{align*}
+
+Por lo tanto, \(\esp{X(X-1)} +\esp{X}= \lambda^2 + \lambda\) y entonces \[\var{X}=\esp{X^2}-\esp{X}^2= \esp{X(X-1)} +\esp{X}-\esp{X}^2=\lambda^2+\lambda-\lambda^2=\lambda\]
+
+\informal
 Supongamos que en Santiago nacen dos guaguas cada media hora. ¿Cuál será la cantidad esperada de guaguas que nazcan en un día? ¿Y qué probabilidad habrá de que en una hora nazcan 6?
 
 Para responder la primera pregunta, debemos encontrar \emph{el parámetro que corresponde.} En principio \(\lambda\) es 2, pero eso es \emph{cada media hora.} Por lo tanto, \[\frac{2\text{ nacimientos}}{1\text{ media hora}}\cdot\frac{48\text{ medias horas}}{1\text{ día}}=96\frac{\text{nacimientos}}{\text{día}},\] por lo que esperamos 96 nacimientos en un día.
