@@ -1,0 +1,73 @@
+\chapter{El zoológico de variables aleatorias, parte 2}
+\labch{zoologico2}
+
+\section{Distribución uniforme}
+\labsec{distr-unif}
+
+Como reintroducción a las variables continuas, recordemos que a diferencia de las variables discretas, no podemos asignar una probabilidad \emph{a un valor particular} de la variable. En lugar de eso, sólo tiene sentido asignar una probabilidad a un \emph{intervalo.} Esto tiene como consecuencia que no podamos describir una función de probabilidad, como antes, si no que una función de \emph{densidad} de probabilidad.
+
+Una función de densidad de probabilidad nos describirá cómo funcionará la probabilidad en un intervalo a través de su integral. Es decir, si \(f(x)\) es una función de densidad de probabilidad, entonces \[\prob\left(a\leq X\leq b\right) = \int_{a}^{b} f(x)\,dx.\]
+
+Esto tiene algunas implicancias para \(f\), en particular
+\begin{enumerate}
+\item \(f(x) \geq 0\) para todo \(x\) en el dominio.
+\item \(\int_{-\infty}^{\infty}f(x)\,dx = 1\).
+\end{enumerate}
+
+Un caso muy sencillo de variable aleatoria continua es la distribución uniforme. ¿Qué significa que sea uniforme? Significa que si tengo dos intervalos del mismo largo dentro de su dominio, su probabilidad es la misma. Esto implica que si un intervalo es el doble del largo del otro, su probabilidad es el doble y así en general.
+
+El caso más simple de esta variable es la uniforme entre \(0\) y \(1\). No cuesta mucho ver que el gráfico de esta distribución es 
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    width=8cm,
+    height=6cm,
+    xlabel={$x$},
+    ylabel={$f(x)$},
+    xmin=-0.5, xmax=1.5,
+    ymin=-0.2, ymax=1.3,
+    xtick={0,1},
+    ytick={0,1},
+    axis lines=center,
+    axis line style=->
+]
+    % Function plot: uniform distribution
+    \addplot[thick, const plot, mark=none] 
+        coordinates {(-0.4,0) (0,0) (0,1) (1,1) (1,0) (1.4,0)};
+    
+    % Vertical dashed lines at discontinuities
+    \addplot[dashed, mark=none] coordinates {(0,0) (0,1)};
+    \addplot[dashed, mark=none] coordinates {(1,0) (1,1)};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+y que, por ejemplo, el gráfico de una distribución uniforme entre \num{1} y \num{1,5} es 
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    width=8cm,
+    height=6cm,
+    xlabel={$x$},
+    ylabel={$f(x)$},
+    xmin=-0.5, xmax=2,
+    ymin=-0.2, ymax=2.3,
+    xtick={0,1,1.5},
+    ytick={0,2},
+    axis lines=center,
+    axis line style=->
+]
+    % Function plot: uniform distribution
+    \addplot[thick, const plot, mark=none] 
+        coordinates {(-0.4,0) (1,0) (1,2) (1.5,2) (1.5,0) (2,0)};
+    
+    % Vertical dashed lines at discontinuities
+    \addplot[dashed, mark=none] coordinates {(0,0) (0,1)};
+    \addplot[dashed, mark=none] coordinates {(1,0) (1,1)};
+    \addplot[dashed, mark=none] coordinates {(0,2) (1.5,2)};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+¿Qué pasó en ese gráfico? ¿Por qué da una función \emph{más grande que} \num{1}? Recordemos que en la página anterior mencionábamos que la integral de esta función debe ser \num{1} en todo su dominio. Si integramos la función del último gráfico, vemos que el área bajo la curva es \[\num{2}\cdot\left( \num{1,5} - \num{1} \right) = \num{2}\cdot\num{0,5} = \num{1}.\]
+
+Aquí es importante recordar que la función de densidad de probabilidad representa algo como \emph{probabilidad por unidad de largo.} Es decir, si el eje \(x\) hubiera estado en centímetros, podríamos haber interpretado el cálculo anterior como \[\qty{2}{\probabilidad\per\centi\meter} \cdot\qty{0,5}{\centi\meter} = \qty{1}{\probabilidad}\] con una unidad de probabilidad inventada.
