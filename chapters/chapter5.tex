@@ -71,3 +71,215 @@ y que, por ejemplo, el gráfico de una distribución uniforme entre \num{1} y \n
 ¿Qué pasó en ese gráfico? ¿Por qué da una función \emph{más grande que} \num{1}? Recordemos que en la página anterior mencionábamos que la integral de esta función debe ser \num{1} en todo su dominio. Si integramos la función del último gráfico, vemos que el área bajo la curva es \[\num{2}\cdot\left( \num{1,5} - \num{1} \right) = \num{2}\cdot\num{0,5} = \num{1}.\]
 
 Aquí es importante recordar que la función de densidad de probabilidad representa algo como \emph{probabilidad por unidad de largo.} Es decir, si el eje \(x\) hubiera estado en centímetros, podríamos haber interpretado el cálculo anterior como \[\qty{2}{\probabilidad\per\centi\meter} \cdot\qty{0,5}{\centi\meter} = \qty{1}{\probabilidad}\] con una unidad de probabilidad inventada.
+
+En general, si tenemos una \va\ \(X\) que sigue una distribución de probabilidad uniforme en el intervalo \([a, b]\), su función de densidad vendrá dada por \[\frac1{b-a}.\] No cuesta mucho integrar para encontrar que \(\esp{X} = (a+b)/2\) y que \(\var{X}=(b-a)^2/12\).
+
+\section{Distribución normal}
+\labsec{distr-normal}
+
+\begin{marginfigure}
+\includegraphics{images/meme-normal.jpeg}
+\end{marginfigure}
+La distribución normal es usada y sobreusada por estadísticos y no-estadísticos. La vemos aparecer en cosas tan diversas como memes y el censo. Es natural (por no decir normal) que eso ocurra: aunque nace en un contexto acotado, resulta que aparece en todas las áreas de la estadística. Y si no aparece directamente, aparece aproximadamente.
+
+El origen de la distribución normal tiene que ver con la teoría de errores. En el renacimiento, ya Galileo se daba cuenta que al hacer experimentos, por más que los repitamos con cuidado, no obtendremos los mismos valores. La pregunta es entonces cuál es el valor verdadero. A lo largo de la historia, ha habido varias respuestas. Galileo recomendaba la mediana de las mediciones, mientras que Daniel Bernoulli daba cuenta de la práctica más común de la época, la media.
+
+Sin embargo es claro que los errores, en principio, tienden a aparecer en torno al valor verdadero de lo medido. En ese contexto, y en base a distintas ideas matemáticas, Thomas Simpson\sidenote{el de la regla de Simpson} propuso una familia de distribuciones de error, una de ellas una función que hoy diríamos triangular.
+\begin{marginfigure}
+\begin{tikzpicture}[scale=0.6]
+\begin{axis}[
+    width=8cm, height=6cm,
+    xlabel={$x$}, ylabel={$f(x)$},
+    xmin=-1.5, xmax=1.5, ymin=-0.2, ymax=1.2,
+    xtick={-1,0,1}, xticklabels={$-a$,$0$,$a$},
+    ytick={0},
+    axis lines=center, axis line style=->,
+]
+    % filled triangular density with peak at 0 and base at -1 and 1
+    \addplot[thick,black] coordinates {(-1,0) (0,1) (1,0)};
+\end{axis}
+\end{tikzpicture}
+\end{marginfigure}
+Por otra parte, Pierre-Simon Laplace propuso un par de funciones, \(\phi(x)= \frac{m}{2}e^{-m|x|}\)
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    width=8cm,
+    height=6cm,
+    xlabel={$x$},
+    ylabel={$y$},
+    xmin=-4, xmax=4,
+    ymin=0, ymax=0.6,
+    xtick={0},
+    ytick={0,0.5}, yticklabels={$0$, $\frac{m}{2}$},
+    axis lines=center,
+    axis line style=->,
+    samples=200,
+]
+    \addplot[thick,black,domain=-4:4] {0.5*exp(-abs(x))};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+(aparentemente no le molestó que no fuera diferenciable en \(0\)) y \(y=\frac{1}{2a}\ln\left( \frac{a}{|x|} \right)\)
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    width=8cm, height=6cm,
+    xlabel={$x$}, ylabel={$y$},
+    xmin=-1.1, xmax=1.1, ymin=0, ymax=3,
+    xtick={-1,0,1}, xticklabels = {$-a$, $0$, $a$},
+    ytick={0},
+    axis lines=center, axis line style=->,
+    samples=200,
+]
+    \addplot[thick,black,domain=-1:-0.01] {0.5*ln(1/abs(x))};
+    \addplot[thick,black,domain=0.01:1] {0.5*ln(1/abs(x))};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+(aparentemente no le molestó que no fuera acotada). Al parecer, Laplace se interesó más en la derivación matemática que en la aplicación. 
+
+Eventualmente, Gauss propone el criterio de los mínimos cuadrados y lo usa para identificar con exactitud la posición del recién descubierto asteroide Ceres, luego que se ocultara tras el Sol (y otros matemáticos y astrónomos predijeran que aparecería por otra parte del cielo). Ese método lleva ciertas suposiciones sobre los errores:
+\begin{enumerate}
+\item Los errores pequeños son más probables que los grandes.
+\item Para cualquier número real \(\varepsilon\) la probabilidad de tener errores de magnitudes \(\varepsilon\) y \(-\varepsilon\) es igual.
+\item Cuando hay varias mediciones de la misma cantidad, el valor más probable de la cantidad medida es el promedio.
+\end{enumerate}
+
+En base a estas suposiciones, Gauss dedujo que la curva del error (es decir, la función de densidad de probabilidad de los errores) viene dada por \[\phi(x) = \frac{h}{\sqrt{\pi}}e^{-h^2x^2}\] con \(h\) una constante positiva que Gauss llamó \enquote{la precisión del proceso de medición}. Hoy la reconocemos como una curva normal con media \num{0} y desviación estándar \(1/\sqrt{2}h\).
+
+Gauss hizo esta derivación a principios del siglo ⅩⅨ. Aproximadamente 40 años después, Adolphe Quetelet,\sidenote{él inventó la frase \enquote{el hombre promedio}} quien empezó su carrera como astrónomo pero luego se cambió a ciencias sociales, realizó una observación importantísima: algunas medidas corporales realizadas a soldados escoceses parecían seguir una distribución normal. Si bien al realizar un test estadístico\sidenote{test que no se conocía en la época de Quetelet} se demuestra que Quetelet estaba equivocado, la idea no dejaba de ser tentadora. 
+
+Más que tentadora, además, justificada por el teorema del límite central. Pero de eso nos ocuparemos más tarde.
+
+\subsection{Trabajando con la distribución normal}
+La distribución normal tiene una de las funciones de densidad de probabilidad más famosas \[f(x) = \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}\] y también una de las más inútiles. No es por un problema en sí misma, si no que porque la función \(f\) no es integrable en términos de funciones elementales.
+
+Nuestro estudio de la función, entonces, debe ir en otros términos. Lo primero que debemos notar a partir del exponente de la exponencial \[-\frac{(x-\mu)^2}{2\sigma^2}\] es que la función es decreciente y simétrica alrededor del valor \(\mu\). Además, el término \(2\sigma^2\) está haciendo la función de escalar horizontalmente la curva. Por otra parte, el término \(1/\sqrt{2\pi\sigma^2}\) está escalando la curva verticalmente de manera que la integral sobre todos los reales dé \num{1}.
+
+El escalamiento horizontal es el más importante. Por terrible que parezca, derivar dos veces la función \(f\) no es complicado y resolver la ecuación \(f''(x)=0\) nos muestra que tenemos dos puntos de inflexión, \(\mu-\sigma\) y \(\mu+\sigma\).
+
+Juntando toda la información anterior, podemos hacer un gráfico de la función (\reffig{normal}). Este gráfico nos muestra la famosa campana de Gauss. Sin embargo, como se dijo en la introducción histórica, personas como Quetelet pensaban que muchas variables siguen una distribución normal y, si uno las grafica, encuentra curvas similares pero que \emph{no} siguen una distribución normal. ¿Cuál es la diferencia?
+\begin{figure*}
+\begin{tikzpicture}
+\begin{axis}[
+  no markers, 
+  domain=0:6, 
+  samples=100,
+  ymin=0,
+  axis lines*=left, 
+  xlabel=$x$,
+  every axis y label/.style={at=(current axis.above origin),anchor=south},
+  every axis x label/.style={at=(current axis.right of origin),anchor=west},
+  height=5cm, 
+  width=12cm,
+  xtick=\empty, 
+  ytick=\empty,
+  enlargelimits=false, 
+  clip=false, 
+  axis on top,
+  grid = major,
+  hide y axis
+  ]
+\addplot [very thick,cyan!50!black] {gauss(x, 3, 1)};
+\pgfmathsetmacro\valueA{gauss(2,3,1)}
+\pgfmathsetmacro\valueB{gauss(3,3,1)}
+\draw [gray] (axis cs:2,0) -- (axis cs:2,\valueA);
+\draw [gray] (axis cs:4,0) -- (axis cs:4,\valueA);
+\draw [gray] (axis cs:3,0) -- (axis cs:3,\valueB);
+\node[below] at (axis cs: 2, 0) {$\mu-\sigma$};
+\node[below] at (axis cs: 3, 0) {$\mu$};
+\node[below] at (axis cs: 4, 0) {$\mu+\sigma$};
+\end{axis}
+\end{tikzpicture}
+\caption{Gráfico de la función de densidad de una distribución normal con media \(\mu\) y varianza \(\sigma^2\).}
+\labfig{normal}
+\end{figure*}
+
+La respuesta es que la curva normal tiene ciertas características especiales. La primera es que ser completamente simétrica en torno a la media implica que la media es al mismo tiempo la mediana. Además, también es el valor máximo (absoluto) de la función, por lo que representa la moda. 
+
+Otra característica es que cualquier distribución normal, sin importar los parámetros, cumple con la llamada \emph{regla empírica,} que dice cómo se distribuye la probabilidad en ciertos intervalos (\reffig{regla-empirica}).
+\begin{figure*}
+\begin{tikzpicture}
+\begin{axis}[
+  no markers, 
+  domain=-0.5:6.5, 
+  samples=100,
+  ymin=0,
+  axis lines*=left, 
+  xlabel=$x$,
+  every axis y label/.style={at=(current axis.above origin),anchor=south},
+  every axis x label/.style={at=(current axis.right of origin),anchor=west},
+  height=5cm, 
+  width=12cm,
+  xtick=\empty, 
+  ytick=\empty,
+  enlargelimits=false, 
+  clip=false, 
+  axis on top,
+  grid = major,
+  hide y axis
+  ]
+
+\draw[gray!50!white, ultra thin] (axis cs:0,0) -- (axis cs: 0, 0.53);
+\draw[gray!50!white, ultra thin] (axis cs:6,0) -- (axis cs: 6, 0.53);
+\draw[gray!50!white, ultra thin] (axis cs:1,0) -- (axis cs: 1, 0.47);
+\draw[gray!50!white, ultra thin] (axis cs:5,0) -- (axis cs: 5, 0.47);
+\draw[gray!50!white, ultra thin] (axis cs:2,0) -- (axis cs: 2, 0.41);
+\draw[gray!50!white, ultra thin] (axis cs:4,0) -- (axis cs: 4, 0.41);
+
+% Fill areas under curve for each interval
+\addplot [fill=cyan!5, draw=none, domain=0:1] {gauss(x, 3, 1)} \closedcycle;
+\addplot [fill=cyan!15, draw=none, domain=1:2] {gauss(x, 3, 1)} \closedcycle;
+\addplot [fill=cyan!30, draw=none, domain=2:3] {gauss(x, 3, 1)} \closedcycle;
+\addplot [fill=cyan!30, draw=none, domain=3:4] {gauss(x, 3, 1)} \closedcycle;
+\addplot [fill=cyan!15, draw=none, domain=4:5] {gauss(x, 3, 1)} \closedcycle;
+\addplot [fill=cyan!5, draw=none, domain=5:6] {gauss(x, 3, 1)} \closedcycle;
+
+% Main curve
+\addplot [very thick,cyan!50!black] {gauss(x, 3, 1)};
+
+% Vertical lines
+\pgfmathsetmacro\valueA{gauss(2,3,1)}
+\pgfmathsetmacro\valueB{gauss(3,3,1)}
+\pgfmathsetmacro\valueC{gauss(1,3,1)}
+\draw [gray] (axis cs:2,0) -- (axis cs:2,\valueA);
+\draw [gray] (axis cs:4,0) -- (axis cs:4,\valueA);
+\draw [gray] (axis cs:3,0) -- (axis cs:3,\valueB);
+\draw [gray] (axis cs:1,0) -- (axis cs:1,\valueC);
+\draw [gray] (axis cs:5,0) -- (axis cs:5,\valueC);
+
+% Empirical rule percentages inside each section
+\node at (axis cs: 0.5, 0.06) {\small \qty{2,1}{\percent}};
+\node at (axis cs: 1.5, 0.06) {\small \qty{13,6}{\percent}};
+\node at (axis cs: 2.5, 0.15) {\small \qty{34,1}{\percent}};
+\node at (axis cs: 3.5, 0.15) {\small \qty{34,1}{\percent}};
+\node at (axis cs: 4.5, 0.06) {\small \qty{13,6}{\percent}};
+\node at (axis cs: 5.5, 0.06) {\small \qty{2,1}{\percent}};
+
+% Arrow annotations for empirical rule areas
+% 68.2% area between μ-σ and μ+σ
+\draw[<->, thick, red!70!black] (axis cs: 2, 0.41) -- (axis cs: 4, 0.41);
+\node[above, red!70!black] at (axis cs: 3, 0.41) {\small \qty{68,2}{\percent}};
+
+% 95.4% area between μ-2σ and μ+2σ
+\draw[<->, thick, blue!70!black] (axis cs: 1, 0.47) -- (axis cs: 5, 0.47);
+\node[above, blue!70!black] at (axis cs: 3, 0.47) {\small \qty{95,4}{\percent}};
+
+% 99.7% area between μ-3σ and μ+3σ
+\draw[<->, thick, green!70!black] (axis cs: 0, 0.53) -- (axis cs: 6, 0.53);
+\node[above, green!70!black] at (axis cs: 3, 0.53) {\small \qty{99,7}{\percent}};
+
+% Labels
+\node[below] at (axis cs: 0, 0) {$\mu-3\sigma$};
+\node[below] at (axis cs: 1, 0) {$\mu-2\sigma$};
+\node[below] at (axis cs: 2, 0) {$\mu-\sigma$};
+\node[below] at (axis cs: 3, 0) {$\mu$};
+\node[below] at (axis cs: 4, 0) {$\mu+\sigma$};
+\node[below] at (axis cs: 5, 0) {$\mu+2\sigma$};
+\node[below] at (axis cs: 6, 0) {$\mu+3\sigma$};
+\end{axis}
+\end{tikzpicture}
+\caption{Regla empírica}
+\labfig{regla-empirica}
+\end{figure*}
