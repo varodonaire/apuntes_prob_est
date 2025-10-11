@@ -41,10 +41,11 @@
          group-digits= integer, % Group digits in thousands only in integer part
          group-separator={.}, % Use dot as group separator
          per-mode=symbol} % Use symbols for units (e.g., m/s instead of m s⁻¹)
-
+\newcolumntype{T}[1]{S[table-format=#1,group-digits=false, retain-negative-zero]}
 \usepackage{enumitem}
 
-\usepackage{icomma}
+%\usepackage{icomma}
+\usepackage{decimalcomma}
 
 \usepackage{booktabs}
 
@@ -156,6 +157,9 @@
 \pgfmathdeclarefunction{gauss}{3}{%
   \pgfmathparse{1/(#3*sqrt(2*pi))*exp(-((#1-#2)^2)/(2*#3^2))}%
 }
+
+\DeclareMathOperator{\Norm}{\mathcal{N}}
+\newcommand{\norm}[2]{\Norm\left( #1, #2 \right)}
 
 %----------------------------------------------------------------------------------------
 %	BOOK INFORMATION
