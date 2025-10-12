@@ -1,0 +1,16 @@
+\documentclass{article}
+\usepackage{microtype}
+\usepackage[misc]{ifsym}
+\ExplSyntaxOn
+\DeclareRobustCommand{\Cube}[1]{\textifsymbol{\int_eval:n {#1+4}}}
+\ExplSyntaxOff
+\begin{document}
+\begin{table}[!ht]
+\centering
+\begin{tabular}{c}
+\Cube{1}\\
+\Cube{2}
+\end{tabular}
+\caption{Prueba}
+\end{table}
+\end{document}

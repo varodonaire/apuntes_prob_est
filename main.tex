@@ -22,7 +22,7 @@
 
 
 % Load packages for testing
-\usepackage{blindtext}
+% \usepackage{blindtext}
 %\usepackage{showframe} % Uncomment to show boxes around the text area, margin, header and footer
 %\usepackage{showlabels} % Uncomment to output the content of \label commands to the document where they are used
 
@@ -33,9 +33,7 @@
 % Load mathematical packages for theorems and related environments
 \usepackage[framed]{kaotheorems}
 
-% Load the package for hyperlinks
-\usepackage{kaorefs}
-\addto\captionsspanish{\renewcommand{\proofname}{Demostración}}
+
 \usepackage{siunitx}
 \sisetup{output-decimal-marker={,}, % Use comma as decimal marker
          group-digits= integer, % Group digits in thousands only in integer part
@@ -63,7 +61,8 @@
 \usepackage{contour}
 \contourlength{0.1pt} % outline thickness
 
-\usepackage{customdice}
+% \usepackage{customdice}
+\usepackage[misc]{ifsym}
 
 \usepackage{fontawesome5}
 
@@ -121,14 +120,14 @@
 \definecolor{DiceBlue}{HTML}{2D8C9F}  % teal-ish blue
 
 % --- Convenience commands ---
-\newcommand{\rdice}[1]{\dice[DiceRed,white]{#1}}
-\newcommand{\bdice}[1]{\dice[DiceBlue,white]{#1}}
+% \DeclareRobustCommand{\rdice}[1]{\dice[DiceRed,white]{#1}}
+% \DeclareRobustCommand{\bdice}[1]{\dice[DiceBlue,white]{#1}}
 
 % size & spacing of dice inside cells
 \newcommand{\pair}[2]{%
-  \raisebox{0pt}[0pt][0pt]{\scalebox{0.70}{\bdice{#1}}}%
+  \raisebox{0pt}[0pt][0pt]{\scalebox{0.70}{\Cube{#1}}}%
   \hspace{0.25em}%
-  \raisebox{0pt}[0pt][0pt]{\scalebox{0.70}{\rdice{#2}}}%
+  \raisebox{0pt}[0pt][0pt]{\scalebox{0.70}{\Cube{#2}}}%
 }
 
 \DeclareMathOperator{\Bin}{Bin}
@@ -165,9 +164,13 @@
 %	BOOK INFORMATION
 %----------------------------------------------------------------------------------------
 
- \includeonly{chapters/chapter5.tex}
+\includeonly{chapters/chapter5.tex}
 
 %----------------------------------------------------------------------------------------
+
+% Load the package for hyperlinks
+\usepackage{kaorefs}
+\addto\captionsspanish{\renewcommand{\proofname}{Demostración}}
 
 \begin{document}
 

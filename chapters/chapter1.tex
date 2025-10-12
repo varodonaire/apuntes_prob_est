@@ -326,26 +326,26 @@ Otro ejemplo. Lanzamos dos dados (pensemos en uno blanco y uno negro para difere
 
 No. La pregunta pide que pase al menos una de estas cosas:
 \begin{itemize}
-	\item Que el dado blanco muestre un \(1\) \dice{1}.
-	\item Que el dado negro muestre un \(1\) \dice[black, white]{1}.
+	\item Que el dado blanco muestre un \(1\) \Cube{1}.
+	\item Que el dado negro muestre un \(1\) \Cube{1}.
 \end{itemize}
 y que un dado muestre un \(1\) no impide que el otro también muestre un \(1\). Estos eventos no son mutuamente excluyentes así que el principio aditivo no corre: no podemos sumar las probabilidades.
 
 \begin{table}[H]
 \begin{tabular}{c|cccccc}
- & \dice[black, white]{1} & \dice[black, white]{2} & \dice[black, white]{3} & \dice[black, white]{4} & \dice[black, white]{5} & \dice[black, white]{6} \\\hline
-\dice{1} & \dice{1}\,\dice[black, white]{1} & \dice{1}\,\dice[black, white]{2} & \dice{1}\,\dice[black, white]{3} & \dice{1}\,\dice[black, white]{4} & \dice{1}\,\dice[black, white]{5} & \dice{1}\,\dice[black, white]{6} \\
-\dice{2} & \dice{2}\,\dice[black, white]{1} & \dice{2}\,\dice[black, white]{2} & \dice{2}\,\dice[black, white]{3} & \dice{2}\,\dice[black, white]{4} & \dice{2}\,\dice[black, white]{5} & \dice{2}\,\dice[black, white]{6} \\
-\dice{3} & \dice{3}\,\dice[black, white]{1} & \dice{3}\,\dice[black, white]{2} & \dice{3}\,\dice[black, white]{3} & \dice{3}\,\dice[black, white]{4} & \dice{3}\,\dice[black, white]{5} & \dice{3}\,\dice[black, white]{6} \\
-\dice{4} & \dice{4}\,\dice[black, white]{1} & \dice{4}\,\dice[black, white]{2} & \dice{4}\,\dice[black, white]{3} & \dice{4}\,\dice[black, white]{4} & \dice{4}\,\dice[black, white]{5} & \dice{4}\,\dice[black, white]{6} \\
-\dice{5} & \dice{5}\,\dice[black, white]{1} & \dice{5}\,\dice[black, white]{2} & \dice{5}\,\dice[black, white]{3} & \dice{5}\,\dice[black, white]{4} & \dice{5}\,\dice[black, white]{5} & \dice{5}\,\dice[black, white]{6} \\
-\dice{6} & \dice{6}\,\dice[black, white]{1} & \dice{6}\,\dice[black, white]{2} & \dice{6}\,\dice[black, white]{3} & \dice{6}\,\dice[black, white]{4} & \dice{6}\,\dice[black, white]{5} & \dice{6}\,\dice[black, white]{6}
+ & \Cube{1} & \Cube{2} & \Cube{3} & \Cube{4} & \Cube{5} & \Cube{6} \\\hline
+\Cube{1} & \Cube{1}\,\Cube{1} & \Cube{1}\,\Cube{2} & \Cube{1}\,\Cube{3} & \Cube{1}\,\Cube{4} & \Cube{1}\,\Cube{5} & \Cube{1}\,\Cube{6} \\
+\Cube{2} & \Cube{2}\,\Cube{1} & \Cube{2}\,\Cube{2} & \Cube{2}\,\Cube{3} & \Cube{2}\,\Cube{4} & \Cube{2}\,\Cube{5} & \Cube{2}\,\Cube{6} \\
+\Cube{3} & \Cube{3}\,\Cube{1} & \Cube{3}\,\Cube{2} & \Cube{3}\,\Cube{3} & \Cube{3}\,\Cube{4} & \Cube{3}\,\Cube{5} & \Cube{3}\,\Cube{6} \\
+\Cube{4} & \Cube{4}\,\Cube{1} & \Cube{4}\,\Cube{2} & \Cube{4}\,\Cube{3} & \Cube{4}\,\Cube{4} & \Cube{4}\,\Cube{5} & \Cube{4}\,\Cube{6} \\
+\Cube{5} & \Cube{5}\,\Cube{1} & \Cube{5}\,\Cube{2} & \Cube{5}\,\Cube{3} & \Cube{5}\,\Cube{4} & \Cube{5}\,\Cube{5} & \Cube{5}\,\Cube{6} \\
+\Cube{6} & \Cube{6}\,\Cube{1} & \Cube{6}\,\Cube{2} & \Cube{6}\,\Cube{3} & \Cube{6}\,\Cube{4} & \Cube{6}\,\Cube{5} & \Cube{6}\,\Cube{6}
 \end{tabular}
-\caption{Espacio muestral del lanzamiento de dos dados.}
+% \caption{Espacio muestral del lanzamiento de dos dados.}
 \labtab{espacio-muestral-dados}
 \end{table}
 
-El~\reftab{espacio-muestral-dados} nos muestra todos los resultados posibles al lanzar dos dados. Hay seis resultados en los que el dado blanco muestra un \(1\) y seis resultados en los que el dado negro muestra un \(1\). Pero el número de maneras de obtener al menos un \(1\) no es \(6+6\): sumar a la rápida cuenta dos veces el resultado \dice{1}\,\dice[black, white]{1}. La probabilidad de obtener al menos un \(1\) al lanzar dos dados es \[(6+6-1)/36 = 11/36.\]
+El~\reftab{espacio-muestral-dados} nos muestra todos los resultados posibles al lanzar dos dados. Hay seis resultados en los que el dado blanco muestra un \(1\) y seis resultados en los que el dado negro muestra un \(1\). Pero el número de maneras de obtener al menos un \(1\) no es \(6+6\): sumar a la rápida cuenta dos veces el resultado \Cube{1}\,\Cube{1}. La probabilidad de obtener al menos un \(1\) al lanzar dos dados es \[(6+6-1)/36 = 11/36.\]
 
 \begin{remark}
 	Si queremos encontrar la probabilidad de que al menos un evento ocurra, y los eventos no son mutuamente excluyentes, no sumemos las probabilidades individuales: la suma va a ser demasiado grande.
@@ -485,7 +485,7 @@ Una alternativa gráfica más útil son los diagramas de árbol. Usamos uno en l
     edge from parent node[above] {$\prob(A)$}
   };
 \end{tikzpicture}
-\caption{Diagrama de árbol con 4 ramas principales y 2 sub-ramas cada una.}
+% \caption{Diagrama de árbol con 4 ramas principales y 2 sub-ramas cada una.}
 \labfig{diagrama-arbol-general}
 \end{figure}
 
@@ -498,7 +498,7 @@ Un diagrama de árbol, combinado con los principios aditivo y multiplicativo, no
 Otra visualización, no tan gráfica pero igualmente útil es usar una simple tabla. Si tenemos una tabla simple o de doble entrada, podemos dividir por el total de elementos (asumiendo equiprobabilidad de cada resultado) para encontrar la probabilidad de cada evento. Por ejemplo, si clasificamos los estudiantes de un campus por carrera y género, podemos tener una tabla como la siguiente:
 \begin{table}[ht]
   \centering
-  \caption{Distribución de estudiantes por género y carrera}
+  % \caption{Distribución de estudiantes por género y carrera}
   \begin{tabular}{lccr}
     \toprule
     & Matemáticas & Lingüística & Total \\
@@ -514,7 +514,7 @@ Otra visualización, no tan gráfica pero igualmente útil es usar una simple ta
 Dividiendo por el total obtenemos las probabilidades:
 \begin{table}[ht]
   \centering
-  \caption{Probabilidades de estudiantes por género y carrera}
+  % \caption{Probabilidades de estudiantes por género y carrera}
   \begin{tabular}{lccr}
     \toprule
     & Matemáticas & Lingüística & Total \\
@@ -553,8 +553,7 @@ Otra visualización es usar un cuadrado de área \(1\) para representar el total
   \node at (1, 0.75) [anchor=west] {\(\num{0,5}\)};
   \node at (1, 0.25) [anchor=west] {\(\num{0,5}\)};
 \end{tikzpicture}
-\caption{Cuadrado de área \(1\) dividido en áreas proporcionales a
-las probabilidades de estudiantes por género y carrera.}
+% \caption{Cuadrado de área \(1\) dividido en áreas proporcionales a las probabilidades de estudiantes por género y carrera.}
 \labfig{cuadrado-probabilidades}
 \end{figure}
 
@@ -657,7 +656,7 @@ Un caso especial de permutaciones es cuando debemos organizar los elementos alre
 	
 \end{scope}
 \end{tikzpicture}
-\caption{Dos permutaciones circulares indistinguibles.}
+% \caption{Dos permutaciones circulares indistinguibles.}
 \end{figure}
 
 Como podemos hacer \(n\) rotaciones, el número de permutaciones es \((n-1)!\).

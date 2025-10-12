@@ -457,7 +457,7 @@ Las siguientes tablas siempre dan la probabilidad acumulada de una distribución
 
 \begin{table*}[h]
 \centering
-\scalebox{0.85}{
+\scalebox{0.6}{
 \begin{tabular}{|T{1.1}|T{1.4}|T{1.4}|T{1.4}|T{1.4}|T{1.4}|T{1.4}|T{1.4}|T{1.4}|T{1.4}|T{1.4}|}
 \hline
 \(x\) & 0.00 & 0.01 & 0.02 & 0.03 & 0.04 & 0.05 & 0.06 & 0.07 & 0.08 & 0.09 \\
@@ -512,7 +512,7 @@ Las siguientes tablas siempre dan la probabilidad acumulada de una distribución
 
 \begin{table*}
 \centering
-\scalebox{0.85}{
+\scalebox{0.6}{
 \begin{tabular}{|T{1.1}|T{1.4}|T{1.4}|T{1.4}|T{1.4}|T{1.4}|T{1.4}|T{1.4}|T{1.4}|T{1.4}|T{1.4}|}
 \hline
 x & 0.00 & 0.01 & 0.02 & 0.03 & 0.04 & 0.05 & 0.06 & 0.07 & 0.08 & 0.09 \\
@@ -568,4 +568,102 @@ x & 0.00 & 0.01 & 0.02 & 0.03 & 0.04 & 0.05 & 0.06 & 0.07 & 0.08 & 0.09 \\
 \section{Distribución χ²}
 \labsec{distribucion-chi-cuadrado}
 
-La distribución \(\chi^2\) nace un poco no para describir fenómenos naturales, si no que para ayudar con la estadística misma. 
+La distribución \(\chi^2\) nace un poco no para describir fenómenos naturales, si no que para ayudar con la estadística misma.\sidenote{lo que no es \qty{100}{\percent} cierto: como todas las cosas interesantes, la \(\chi^2\) nace a partir de varios orígenes que se van entretejiendo} Para comenzar a describirla, lo más sencillo es decir que, si \(X\sim\norm{0}{1}\), es decir una normal estándar, ¿cómo podríamos describir su varianza?
+
+--- ¿Cómo? ¿Describir la varianza? Pero si es uno.
+
+--- Sí, perdón, me refería a cómo saber la varianza si no la supiéramos.
+
+--- Pero la sabemos.
+
+--- Ok, ok. En realidad esa pregunta es para próximos capítulos.
+
+Una idea relacionada con la varianza es la de \emph{elevar algo al cuadrado.} La varianza incluye el elevar al cuadrado la diferencia entre un dato y la media de los datos. Aprovechando que la media en una normal estándar es cero, si elevamos al cuadrado la distribución \(X\)  se ve como en el siguiente gráfico.\marginnote{¡No acotado!}
+
+% The chisqpdf(x,k) function is defined in main.tex
+% It computes the chi-square probability density function with k degrees of freedom
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    domain=0.01:4,
+    samples=200,
+    xlabel={$x$},
+    ylabel={$f(x)$},
+    xmin=0, ymin=0,
+    width=10cm, height=6cm,
+    axis lines=middle,
+    clip=false,
+    legend pos=north east
+]
+    \addplot[very thick,blue] {chisqpdf(x,1)};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+¿Qué pasaría si tuviéramos dos datos obtenidos independientemente? Como son independientes, la varianza total es la suma de las varianzas. Eso nos lleva a pensar que podemos sumar \[\left( \norm{1}{0} \right)^2 + \left( \norm{1}{0} \right)^2\] y obtendríamos la siguiente distribución
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    domain=0.01:6,
+    samples=400,
+    xlabel={$x$},
+    ylabel={$f(x)$},
+    xmin=0, ymin=0, ymax=0.6,
+    width=10cm, height=6cm,
+    axis lines=middle,
+    clip=false,
+    legend pos=north east
+]
+    \addplot[very thick,blue] {chisqpdf(x,2)};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+Podemos repetir el procedimiento pero obtendremos un resultado muy distinto. Cuando sumamos tres normales estándar al cuadrado \[\left( \norm{1}{0} \right)^2 + \left( \norm{1}{0} \right)^2 + \left( \norm{1}{0} \right)^2\] obtenemos
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    domain=0:6,
+    samples=400,
+    xlabel={$x$},
+    ylabel={$f(x)$},
+    xmin=0, ymin=0,
+    width=10cm, height=4cm,
+    axis lines=middle,
+    clip=false,
+    legend pos=north east
+]
+    \addplot[very thick,blue] {chisqpdf(x,3)};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+En general, podemos repetir este proceso cuantas veces queramos. Si sumamos \(k\) cuadrados de normales estándar, obtendremos una distribución de probabilidad llamada \(\chi^2\) con \(k\) grados de libertad. Hasta ahora hemos graficado las \(\chi^2\) con 1, 2 y 3 grados de libertad. Desde \(k=3\) en adelante, las curvas se parecen más entre sí.
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    domain=0:20,
+    samples=400,
+    xlabel={$x$},
+    xmin=0, ymin=0,
+    width=12cm, height=6cm,
+    axis lines=middle,
+    clip=false,
+    legend pos=north east
+]
+    \addplot[very thick,blue] {chisqpdf(x,3)};
+    \addlegendentry{$k=3$}
+    \addplot[very thick,red] {chisqpdf(x,5)};
+    \addlegendentry{$k=5$}
+    \addplot[very thick,green!70!black] {chisqpdf(x,8)};
+    \addlegendentry{$k=8$}
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+En general, si \(k\geq 3\), la curva presenta un máximo (y, por lo tanto, la moda) en \(k-3\). Podemos ver eso reflejado en el gráfico anterior. La media viene dada por \(k\) y la varianza viene dada por \(2k\).
+
+\section{Distribución \emph{t}}
+
+En un mundo ideal, siempre sabríamos lo que pasa con una población completa. En el mundo en que vivimos eso es prácticamente imposible. 

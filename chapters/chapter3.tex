@@ -112,7 +112,7 @@ Notemos que al considerar nuestra variable aleatoria (la suma de los dos dados) 
         \addplot3[surf] {floor(x)+floor(y)};
     \end{axis}
 \end{tikzpicture}
-\caption{\(X\): suma de dos dados}
+% \caption{\(X\): suma de dos dados}
 \labfig{var_aleat}
 \end{figure}
 
@@ -541,22 +541,22 @@ Primero, al lanzar los dos dados efectivamente nuestro espacio muestral es \(\le
 }
   \hline
   % Row for red=6
-  \rdice{6} & \pair{1}{6} & \pair{2}{6} & \pair{3}{6} & \pair{4}{6} & \pair{5}{6} & \pair{6}{6} \\\hline
+  \Cube{6} & \pair{1}{6} & \pair{2}{6} & \pair{3}{6} & \pair{4}{6} & \pair{5}{6} & \pair{6}{6} \\\hline
   % Row for red=5
-  \rdice{5} & \pair{1}{5} & \pair{2}{5} & \pair{3}{5} & \pair{4}{5} & \pair{5}{5} & \pair{6}{5} \\\hline
+  \Cube{5} & \pair{1}{5} & \pair{2}{5} & \pair{3}{5} & \pair{4}{5} & \pair{5}{5} & \pair{6}{5} \\\hline
   % Row for red=4
-  \rdice{4} & \pair{1}{4} & \pair{2}{4} & \pair{3}{4} & \pair{4}{4} & \pair{5}{4} & \pair{6}{4} \\\hline
+  \Cube{4} & \pair{1}{4} & \pair{2}{4} & \pair{3}{4} & \pair{4}{4} & \pair{5}{4} & \pair{6}{4} \\\hline
   % Row for red=3
-  \rdice{3} & \pair{1}{3} & \pair{2}{3} & \pair{3}{3} & \pair{4}{3} & \pair{5}{3} & \pair{6}{3} \\\hline
+  \Cube{3} & \pair{1}{3} & \pair{2}{3} & \pair{3}{3} & \pair{4}{3} & \pair{5}{3} & \pair{6}{3} \\\hline
   % Row for red=2
-  \rdice{2} & \pair{1}{2} & \pair{2}{2} & \pair{3}{2} & \pair{4}{2} & \pair{5}{2} & \pair{6}{2} \\\hline
+  \Cube{2} & \pair{1}{2} & \pair{2}{2} & \pair{3}{2} & \pair{4}{2} & \pair{5}{2} & \pair{6}{2} \\\hline
   % Row for red=1
-  \rdice{1} & \pair{1}{1} & \pair{2}{1} & \pair{3}{1} & \pair{4}{1} & \pair{5}{1} & \pair{6}{1} \\\hline
+  \Cube{1} & \pair{1}{1} & \pair{2}{1} & \pair{3}{1} & \pair{4}{1} & \pair{5}{1} & \pair{6}{1} \\\hline
   % Bottom labels (blue dice)
-  & \bdice{1} & \bdice{2} & \bdice{3} & \bdice{4} & \bdice{5} & \bdice{6} \\
+  & \Cube{1} & \Cube{2} & \Cube{3} & \Cube{4} & \Cube{5} & \Cube{6} \\
 \end{tabular}
 
-Si los dados son justos y los lanzamientos son independientes, la probabilidad de obtener un resultado cualquiera es \(1/36\). Esto podemos obtenerlo, por ejemplo, como \[\prob(\pair{4}{3}) = \prob(\bdice{4})\cdot\prob(\rdice{3})=\frac16\cdot\frac16.\]
+Si los dados son justos y los lanzamientos son independientes, la probabilidad de obtener un resultado cualquiera es \(1/36\). Esto podemos obtenerlo, por ejemplo, como \[\prob(\pair{4}{3}) = \prob(\Cube{4})\cdot\prob(\Cube{3})=\frac16\cdot\frac16.\]
 
 Ahora bien, nuestra variable aleatoria era el resultado de esta operación, y eso tiene distintas probabilidades. En particular, la probabilidad de obtener un resultado va a ser sumar las probabilidades de todas las posibles configuraciones que dan lugar a ese resultado.
 
