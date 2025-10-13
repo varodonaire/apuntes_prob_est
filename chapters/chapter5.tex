@@ -589,7 +589,6 @@ Una idea relacionada con la varianza es la de \emph{elevar algo al cuadrado.} La
     domain=0.01:4,
     samples=200,
     xlabel={$x$},
-    ylabel={$f(x)$},
     xmin=0, ymin=0,
     width=10cm, height=6cm,
     axis lines=middle,
@@ -608,7 +607,6 @@ Una idea relacionada con la varianza es la de \emph{elevar algo al cuadrado.} La
     domain=0.01:6,
     samples=400,
     xlabel={$x$},
-    ylabel={$f(x)$},
     xmin=0, ymin=0, ymax=0.6,
     width=10cm, height=6cm,
     axis lines=middle,
@@ -627,7 +625,6 @@ Podemos repetir el procedimiento pero obtendremos un resultado muy distinto. Cua
     domain=0:6,
     samples=400,
     xlabel={$x$},
-    ylabel={$f(x)$},
     xmin=0, ymin=0,
     width=10cm, height=4cm,
     axis lines=middle,
@@ -650,7 +647,8 @@ En general, podemos repetir este proceso cuantas veces queramos. Si sumamos \(k\
     width=12cm, height=6cm,
     axis lines=middle,
     clip=false,
-    legend pos=north east
+    legend pos=north east,
+    legend style={draw=none}
 ]
     \addplot[very thick,blue] {chisqpdf(x,3)};
     \addlegendentry{$k=3$}
@@ -666,4 +664,37 @@ En general, si \(k\geq 3\), la curva presenta un máximo (y, por lo tanto, la mo
 
 \section{Distribución \emph{t}}
 
-En un mundo ideal, siempre sabríamos lo que pasa con una población completa. En el mundo en que vivimos eso es prácticamente imposible. 
+En un mundo ideal, siempre sabríamos lo que pasa con una población completa. En el mundo en que vivimos eso es prácticamente imposible, por lo que nos vemos obligados a tomar muestras. Al tomar muestras, la intuición nos dice que mientras más, mejor, y en realidad eso pasa pero, como el mundo no es ideal, no siempre podemos tomar muestras grandes.
+
+¿Qué podemos hacer entonces? La solución fue estudiada en 1908 por William Sealy Gosset, pero nadie conoce al autor por ese nombre, si no que por Student. Nuestro buen William trabajaba en Guiness y la compañía no permitía que los trabajadores publicaran bajo su nombre\sidenote{en una de las versiones de la historia, en otras sugería que no para evitar que la competencia se enterara de secretos y hay más versiones}. La distribución que encontró, llamada \(t\), se hace cargo de dos problemas:
+\begin{enumerate}
+\item En una muestra no conocemos la media de la población.
+\item En una muestra no conocemos la varianza de la población.
+\end{enumerate}
+
+Con esto, lo mejor que podemos intentar es hacer una estimación. Para la media de la población, podemos estimarla mediante \(\mean{x}\), la media muestral. La varianza de la población puede estimarse mediante la varianza de la muestra \[s^2 = \frac{1}{n-1}\sum_{i=1}^n (x_i-\mean{x})^2\] donde \(n\) es el tamaño de la muestra.
+
+Con esto, finalmente consideremos la siguiente variable \[t=\frac{\mean{x_n} - \mu}{s/\sqrt{n}}.\] Esta variable se dice que sigue una distribución \(t\) con \(n\) grados de libertad. En el caso de tener \(n\) datos, tenemos \(n-1\) grados de libertad para la distribución \(t\).
+
+La distribución \(t\) tiene un gráfico muy similar al de la distribución normal, pero con colas más anchas (reflejando nuestra mayor incerteza). A medida que \(n\) aumenta, se acerca cada vez más a la normal estándar. Su media siempre es \(0\) y su varianza es \(\frac{n}{n-2}\) cuando \(n>2\). El siguiente gráfico muestra algunas distribuciones para distintos valores de \(n\), junto con una normal estándar.
+
+\begin{tikzpicture}
+    \begin{axis}[
+      thick,
+      no markers, domain=-4:4, samples=400,
+      axis x line*=bottom,
+      axis y line*=middle,
+      xlabel=$x$,
+      height=6cm, width=10cm,
+      xtick={0},
+      ytick={1},
+      enlargelimits=false, clip=false, axis on top,
+                          grid = major
+      ]
+      \addplot{tdist(x,16)};
+      \addplot{tdist(x,8)};
+      \addplot{tdist(x,4)};
+      \addplot [black] {gauss(x, 0, 1)};
+      \legend{16,8,4}
+    \end{axis}
+  \end{tikzpicture}

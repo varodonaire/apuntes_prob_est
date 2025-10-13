@@ -160,11 +160,18 @@
 \DeclareMathOperator{\Norm}{\mathcal{N}}
 \newcommand{\norm}[2]{\Norm\left( #1, #2 \right)}
 
+\newcommand{\mean}[1]{\overline{#1}}
+
+  \tikzset{declare function={
+    gamma(\x)=sqrt(2*pi*\x)*(\x/e)^(\x);
+    tdist(\x,\df)=(gamma(\df/2 + 1/2)/(sqrt(\df*pi)*gamma(\df/2)))*((1 + (\x^2)/\df)^(-\df/2 - 1/2));
+  }}
+
 %----------------------------------------------------------------------------------------
 %	BOOK INFORMATION
 %----------------------------------------------------------------------------------------
 
-\includeonly{chapters/chapter5.tex}
+% \includeonly{chapters/chapter5.tex}
 
 %----------------------------------------------------------------------------------------
 
