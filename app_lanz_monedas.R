@@ -8,7 +8,7 @@ library(scales)
 
 # Cargar las funciones de simulación del archivo lanz_monedas.R
 source("lanz_monedas.R")
-
+  
 # Definir la interfaz de usuario
 ui <- fluidPage(
   theme = shinytheme("flatly"),
