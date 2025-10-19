@@ -1,0 +1,36 @@
+\chapter{Distribuciones muestrales}
+\labch{distribuciones-muestrales}
+
+\section{La ley de los grandes números}
+
+En la clase hicimos un pequeño experimento tirando una moneda diez veces. No recuerdo los resultados, pero aquí lo hice unas cuantas veces
+\begin{table}[!h]
+\centering
+\begin{tabular}[t]{rrS}
+\toprule
+Número de Caras & Frecuencia & Proporción\\
+\midrule
+1 & 1 & 0.05\\
+2 & 1 & 0.05\\
+3 & 1 & 0.05\\
+4 & 6 & 0.30\\
+5 & 7 & 0.35\\
+6 & 3 & 0.15\\
+7 & 1 & 0.05\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+La mayoría de los resultados están dentro del intervalo \([4, 6]\), lo que es más o menos esperable. Si nos metemos en el intervalo \([3, 7]\) ya están casi todos los resultados: sólo faltan dos.
+
+Sin embargo, si hacíamos el experimento 1000, 5000 o más veces la intuición nos decía que esa diferencia tenía que irse achicando, ¿no? NO.
+
+Nuestra intuición no está tan errada, pero hay que afinarla. En general, cuando tenemos una suma (o promedio o conteo) tendremos que \[\text{suma} = \text{valor esperado} + \text{error aleatorio.}\] La pregunta es qué tan grande es ese error aleatorio. Hay una fórmula que nos permite establecer el tamaño de este error, llamado \emph{error estándar.} Cuando contabilicemos la suma de las extracciones de una caja, con reposición, el error estándar de la suma es \[\sqrt{\text{número de extracciones}} \cdot (\text{desviación estándar de la caja})\]
+
+En otras palabras, el error \emph{aumenta} a medida que repetimos nuestro experimento, de manera proporcional a la raíz del número de repeticiones. En ese sentido, nuestra intuición estaba completamente incorrecta. Sin embargo, si consideramos el promedio \[\frac{\sqrt{\text{número de extracciones}} \cdot (\text{SD de la caja})}{\text{número de extracciones}} = \frac{\text{SD de la caja}}{\sqrt{\text{número de extracciones}}} \]
+y cuando el número de extracciones crece, el error estándar decrece. 
+
+Esta idea está representada en la \emph{ley de los grandes números.} Hay varias versiones de esta ley, pero todas son teoremas que hablan de la convergencia de una serie de variables aleatorias.
+
+\formal
+Si \(X_1, X_2, \cdots, X_n\) son variables aleatorias independientes e idénticamente distribuidas, con esperanza \(\mu\) y varianza \(\sigma^2\) finitas, entonces la variable \(\mean{X} = \sum_{i=1}^{n} X_i/n\) cumple que para todo \(\varepsilon >0\), \[\lim_{n\to\infty} \prob\left(|\mean{X} - \mu| \leq \varepsilon\right) = 0\]
