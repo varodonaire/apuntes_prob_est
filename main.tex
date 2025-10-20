@@ -167,6 +167,30 @@
     tdist(\x,\df)=(gamma(\df/2 + 1/2)/(sqrt(\df*pi)*gamma(\df/2)))*((1 + (\x^2)/\df)^(-\df/2 - 1/2));
   }}
 
+% More accurate t-distribution for integer degrees of freedom
+\pgfmathdeclarefunction{tdistint}{2}{%
+  % #1 = x, #2 = df (integer degrees of freedom)
+  \pgfmathparse{
+    (mod(#2,2) == 0) ?
+    % Even degrees of freedom: df = 2k
+    (
+      factorial((#2-1)/2) * (2^((#2-1)/2)) /
+      ( sqrt(#2*pi) * factorial(#2/2-1) )
+    ) * ((1 + (#1)^2/#2)^(-(#2+1)/2))
+    :
+    % Odd degrees of freedom: df = 2k+1
+    (
+      factorial(#2-1) /
+      ( factorial((#2-1)/2) * (2^((#2-1)/2)) * sqrt(pi) )
+    ) * ((1 + (#1)^2/#2)^(-(#2+1)/2))
+  }%
+}
+
+
+\DeclareMathOperator{\Td}{t}
+
+
+
 %----------------------------------------------------------------------------------------
 %	BOOK INFORMATION
 %----------------------------------------------------------------------------------------

@@ -80,3 +80,9 @@ En otras palabras, la proporción muestral \(\hat{p}\) se distribuye según una 
 Volviendo a la media, hasta ahora hemos asumido algo un poco extraño: la varianza poblacional es conocida\sidenote{y que la media poblacional también es conocida}. Esto es raro porque, si conocemos la media y la varianza poblacional, no tiene sentido que nos preocupemos por las muestras. Sin embargo, es donde estamos y pronto ya no conoceremos ninguna de las dos.
 
 Por lo pronto, ¿qué pasa si no conocemos la varianza poblacional, es decir, si sólo tenemos la varianza muestral? Podemos aproximar la distribución de la media muestral, pero no podremos aproximarla mediante una normal. 
+
+Ese fue (parte d)el problema que trató de resolver William Sealy Gosset mientras trabajaba en la cervecería Guiness. En particular, le interesaba ver cómo podía resolver el problema de trabajar con muestras pequeñas. Su trabajo junto con Ronald Fisher\sidenote{básicamente el padre de la estadística moderna} los llevó a postular la distribución \(\Td\).
+
+La distribución \(\Td_{\nu}\) es una distribución que depende sólo de un parámetro: los grados de libertad (\(\nu\)). La media siempre es \(0\) y la varianza es \(\nu/(\nu-2)\) cuando \(\nu >2\).
+
+Para trabajar con esta distribución debemos calcular el score \(T\), de manera análoga a como lo hacíamos con la distribución normal \[T = \frac{\mean{x}-\mu}{s/\sqrt{n}}\] donde \(\mean{x}\) es la media muestral, \(\mu\) es la media poblacional, \(n\) es la cantidad de observaciones de la muestra y \(s\) es la desviación estándar muestral definida por \[s^2 = \frac{1}{n-1}\sum_{i=1}^{n} (x_i - \mean{x}).\] Este score \(T\) sigue entonces una distribución \(t\) con \(n\) grados de libertad \[T \sim \Td_n.\]
