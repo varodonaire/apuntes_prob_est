@@ -13,8 +13,7 @@ ui <- fluidPage(
   # Título de la aplicación
   titlePanel(
     div(
-      h2("📊 Teorema del Límite Central", style = "font-weight: bold;"),
-      h4("Central Limit Theorem Demonstration", style = "color: gray;")
+      h2("Teorema del Límite Central", style = "font-weight: bold;"),
     )
   ),
   
@@ -65,7 +64,7 @@ ui <- fluidPage(
       # Botón para ejecutar simulación
       actionButton(
         "simular",
-        "🎲 Ejecutar Simulación",
+        "Ejecutar Simulación",
         class = "btn-primary btn-lg btn-block",
         style = "font-weight: bold;"
       ),
@@ -99,7 +98,7 @@ ui <- fluidPage(
       ),
       
       helpText(
-        "💡 Tip: Aumenta el tamaño de la muestra (n) para ver cómo mejora la aproximación a la normal."
+        "Tip: Aumenta el tamaño de la muestra (n) para ver cómo mejora la aproximación a la normal."
       )
     ),
     
@@ -113,7 +112,7 @@ ui <- fluidPage(
         
         # Pestaña de gráficos
         tabPanel(
-          "📊 Gráficos",
+          "Gráficos",
           br(),
           fluidRow(
             column(
@@ -131,7 +130,7 @@ ui <- fluidPage(
         
         # Pestaña de estadísticas
         tabPanel(
-          "📈 Estadísticas",
+          "Estadísticas",
           br(),
           fluidRow(
             column(6, wellPanel(
@@ -161,7 +160,7 @@ ui <- fluidPage(
         
         # Pestaña de ayuda
         tabPanel(
-          "❓ Ayuda",
+          "Ayuda",
           br(),
           wellPanel(
             h3("Cómo usar esta aplicación", style = "font-weight: bold;"),
