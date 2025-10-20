@@ -2,6 +2,7 @@
 \labch{distribuciones-muestrales}
 
 \section{La ley de los grandes números}
+\labsec{ley-grandes-numeros}
 
 En la clase hicimos un pequeño experimento tirando una moneda diez veces. No recuerdo los resultados, pero aquí lo hice unas cuantas veces
 \begin{table}[!h]
@@ -34,3 +35,48 @@ Esta idea está representada en la \emph{ley de los grandes números.} Hay varia
 
 \formal
 Si \(X_1, X_2, \cdots, X_n\) son variables aleatorias independientes e idénticamente distribuidas, con esperanza \(\mu\) y varianza \(\sigma^2\) finitas, entonces la variable \(\mean{X} = \sum_{i=1}^{n} X_i/n\) cumple que para todo \(\varepsilon >0\), \[\lim_{n\to\infty} \prob\left(|\mean{X} - \mu| \leq \varepsilon\right) = 0\]
+
+\informal
+Lo que dice este teorema es que, efectivamente, el promedio muestral converge hacia el promedio poblacional a medida que aumenta el tamaño de la muestra. Es posible que esa convergencia no ocurra, pero si la muestra es realmente azarosa, es lo que ocurrirá la mayor, muy mayor, parte del tiempo\sidenote{tan mayor que en realidad casi nunca no ocurre}.
+
+\section{Teorema del límite central}
+\labsec{teo-limite-central}
+
+El teorema del límite central (o teorema central del límite) es quizás el resultado más importante en probabilidad. En cierta manera, es una continuación de la ley de los grandes números. 
+
+\formal
+Si \(X_1, X_2, \cdots, X_n\) son variables aleatorias independientes e idénticamente distribuidas, con esperanza \(\mu\) y varianza \(\sigma^2\) finitas (y la varianza mayor que \(0\)), entonces la \va \[Z_n = \frac{\mean{X} - \mu}{\sigma/\sqrt{n}}\] converge en distribución a la normal estándar cuando \(n\) se va a infinito, es decir, \[\lim_{n\to\infty} P (Z_n \leq x) = P(Z \leq x)\] donde \(Z \sim \norm{0}{1}\).
+
+\informal
+Hay algunas cosas que decir. La primera es una observación menor. Si nos fijamos, la variable \(Z_n\) nos está diciendo el comportamiento de la media muestral. Mediante un truco algebraico bien conocido (amplificar por \(n\)) obtenemos lo siguiente \[Z_n = \frac{\mean{X} - \mu}{\sigma/\sqrt{n}} = \frac{\sum_{i=1}^{n}X_i - n\mu}{\sqrt{n}\sigma}\] y por lo tanto el teorema también nos cuenta acerca de la suma de las variables, lo que puede ser de utilidad.
+
+Una segunda cosa es que si \[\lim_{n\to\infty}Z_n = \norm{0}{1}\] (usando una notación un poco liberal), y recordamos qué es estandarizar una distribución normal, descubriremos que otra forma de enunciar el teorema es \[\mean{X_n} \approx \norm{\mu}{\frac{\sigma^2}{n}}\] (usando una idea todavía más liberal, porque estamos obviando el límite). 
+
+Un tercer punto es que, y esto es lo más increíble, el teorema no puso \emph{ninguna} restricción a la distribución que siguen los \(X_i\), salvo que tuvieran media y varianza finitas y varianza no nula además. 
+
+Por ejemplo, los \(X_i\) podrían provenir de una distribución de Bernoulli (éxito con probabilidad \(p\), fracaso con probabilidad \(1-p\), como tirar una moneda). Si es así, \(\esp{X_i} = p\) y \(\var{X_i} = p(1-p)\). Además, la variable \[Y_n = X_1 + X_2 + \cdots + X_n\] sigue una distribución binomial \[Y_n \sim \Bin(n, p).\] Por lo tanto, \[Z_n = \frac{Yn - np}{\sqrt{np(1-p)}}\] converge hacia una normal estándar.
+
+\section{Distribuciones muestrales}
+\labsec{distribuciones-muestrales}
+
+Las secciones anteriores nos llevan a un resultado: las distribuciones muestrales de la media muestral, la varianza muestral y la proporción muestral. 
+
+\subsection{Distribución muestral de la media muestral}
+
+Básicamente, esta sección es reiterar lo dicho en la anterior. Gracias al teorema del límite central, sabemos que la media muestral sigue una distribución normal con media \(\mu\) y desviación estándar \(\sigma/\sqrt{n}\) \[\mean{X} \sim\norm{\mu}{\frac{\sigma^2}{n}}\] o, equivalentemente, la variable \[Z = \frac{\mean{X} - \mu}{\sigma/\sqrt{n}}\] sigue una distribución normal estándar.
+
+\subsection{Distribución muestral de la proporción muestral}
+
+El teorema del límite central nos dice que la variable puede seguir, básicamente, cualquier distribución. En particular, podría seguir la distribución binomial.
+
+Recordemos que la distribución binomial cuenta la cantidad de \emph{éxitos} registrados dentro de \(n\) intentos. Por ejemplo, si estamos si alguien es zurdo o diestro, podemos usar la distribución binomial para ver la probabilidad de que 5 personas en nuestro curso de 37 sean zurdas. 
+
+Pero una forma equivalente es preguntarnos por la probabilidad de que la proporción de personas zurdas sea 5/37. En otras palabras, al dividir por la cantidad total obtenemos una nueva distribución binomial, pero esta vez con esperanza \(p\) y varianza \(pq\).
+
+En otras palabras, la proporción muestral \(\hat{p}\) se distribuye según una distribución normal \[\hat{p}\sim \norm{p}{\frac{pq}{n}}\] o lo que es lo mismo, la variable \[Z = \frac{\hat{p} - p}{\sqrt{pq/n}}\] sigue una distribución normal estándar.
+
+\subsection{La distribución muestral de la media muestral para poblaciones de varianza desconocida}
+
+Volviendo a la media, hasta ahora hemos asumido algo un poco extraño: la varianza poblacional es conocida\sidenote{y que la media poblacional también es conocida}. Esto es raro porque, si conocemos la media y la varianza poblacional, no tiene sentido que nos preocupemos por las muestras. Sin embargo, es donde estamos y pronto ya no conoceremos ninguna de las dos.
+
+Por lo pronto, ¿qué pasa si no conocemos la varianza poblacional, es decir, si sólo tenemos la varianza muestral? Podemos aproximar la distribución de la media muestral, pero no podremos aproximarla mediante una normal. 
