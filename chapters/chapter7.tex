@@ -85,4 +85,10 @@ Ese fue (parte d)el problema que trató de resolver William Sealy Gosset mientra
 
 La distribución \(\Td_{\nu}\) es una distribución que depende sólo de un parámetro: los grados de libertad (\(\nu\)). La media siempre es \(0\) y la varianza es \(\nu/(\nu-2)\) cuando \(\nu >2\).
 
-Para trabajar con esta distribución debemos calcular el score \(T\), de manera análoga a como lo hacíamos con la distribución normal \[T = \frac{\mean{x}-\mu}{s/\sqrt{n}}\] donde \(\mean{x}\) es la media muestral, \(\mu\) es la media poblacional, \(n\) es la cantidad de observaciones de la muestra y \(s\) es la desviación estándar muestral definida por \[s^2 = \frac{1}{n-1}\sum_{i=1}^{n} (x_i - \mean{x}).\] Este score \(T\) sigue entonces una distribución \(t\) con \(n\) grados de libertad \[T \sim \Td_n.\]
+Para trabajar con esta distribución debemos calcular el score \(T\), de manera análoga a como lo hacíamos con la distribución normal \[T = \frac{\mean{x}-\mu}{s/\sqrt{n}}\] donde \(\mean{x}\) es la media muestral, \(\mu\) es la media poblacional, \(n\) es la cantidad de observaciones de la muestra y \(s\) es la desviación estándar muestral definida por \[s^2 = \frac{1}{n-1}\sum_{i=1}^{n} (x_i - \mean{x}).\] Este score \(T\) sigue entonces una distribución \(t\) con \(n-1\) grados de libertad \[T \sim \Td_{n-1}.\]
+
+\subsection{Distribución muestral de la varianza muestral}
+
+Lamentablemente, el teorema del límite central no nos ayuda con la varianza en general. El TLC está definido para el promedio y se puede extender a otras ideas relacionadas con el  promedio, como sumar o contar, pero la varianza con su suma de diferencias cuadradas no se presta bien para ser adoptada por el TLC. Por si acaso, recordemos que la varianza muestral viene dada por \[s^2 = \frac{1}{n-1}\sum_{i=1}^{n} \]
+
+Sin embargo, hay un caso especial y es cuando sabemos que la muestra proviene de una distribución normal.

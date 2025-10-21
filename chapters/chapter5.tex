@@ -74,6 +74,35 @@ Aquí es importante recordar que la función de densidad de probabilidad represe
 
 En general, si tenemos una \va\ \(X\) que sigue una distribución de probabilidad uniforme en el intervalo \([a, b]\), su función de densidad vendrá dada por \[\frac1{b-a}.\] No cuesta mucho integrar para encontrar que \(\esp{X} = (a+b)/2\) y que \(\var{X}=(b-a)^2/12\).
 
+\section{Distribución exponencial}
+\labsec{distr-exponencial}
+
+La distribución exponencial es otra distribución derivada del proceso de Poisson (ver sección \nrefsec{poisson}). A diferencia de la distribución de Poisson, que contaba la cantidad de eventos en un intervalo, la distribución exponencial mide el tiempo entre eventos que se originan por un proceso de Poisson. 
+
+La relación entre ambas distribuciones es la siguiente. Si \(N_t\) representa el número de sucesos en un intervalo \(t\) y \(X_t\) el tiempo que se demora que ocurra otro suceso asumiendo que en el tiempo \(t\) ocurrió un suceso, entonces los dos siguientes sucesos son equivalentes \[X_t > x \quad\text{y}\quad N_t = N_{t+x}.\] El evento de la izquierda significa que no ha ocurrido ningún suceso en el intervalo \([t, t+x]\). El evento de la derecha significa que el número de eventos ocurridos en el tiempo \(t\) es el mismo que el número de eventos ocurridos en el tiempo \(t+x\).
+
+Usando la regla del complemento obtenemos
+\begin{align*}
+\prob\left( X_t \leq x \right) &= 1- \prob\left( X_t > x \right)
+\intertext{pero esto es equivalente a}
+&= 1 - \prob\left( N_{t+x} - N_t = 0 \right)
+\intertext{pero, por otra parte,}
+\prob\left( N_{t+x} - N_t = 0 \right) &= \prob\left( N_x = 0 \right) = e^{-\lambda x}
+\intertext{sustituyendo en nuestra ecuación original}
+\prob\left( X_t \leq x \right) &= 1- e^{-\lambda x}
+\end{align*}
+que es la distribución acumulada de probabilidad de una distribución exponencial. Al derivar obtenemos la función de densidad de probabilidad \[f(x) = \lambda e^{-\lambda x}.\]
+
+Esta es una de las presentaciones de la distribución exponencial. Sin embargo, usaremos una presentación equivalente, según la cual la función de densidad de probabilidad es \[f(x) = \frac{1}{\lambda} e^{-\frac{x}{\lambda}}\] porque de esta forma obtenemos \[\esp{X} = \lambda,\quad\var{X}= \lambda^2.\]
+
+La función de densidad es fácil de integrar. En efecto, 
+\begin{align*}
+    \int_{0}^{t}\frac{1}{\lambda} e^{-\frac{x}{\lambda}}\,dx &= -e^{-\frac{x}{\lambda}}\bigg|_{0}^{t}\\
+    & = e^{-\frac{x}{\lambda}}\bigg|_{t}^{0}\\
+    &= e^{0} - e^{-\frac{t}{\lambda}}\\
+    &= 1 - e^{-\frac{t}{\lambda}}\\
+\end{align*}
+
 \section{Distribución normal}
 \labsec{distr-normal}
 
