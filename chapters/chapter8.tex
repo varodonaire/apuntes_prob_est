@@ -1,0 +1,8 @@
+\chapter{Estimadores puntuales}
+\labch{estimadores-puntuales}
+
+Como ha venido quedando claro en el capítulo anterior, es un poco raro hablar de la media muestral, varianza muestral o proporción muestral \emph{si conocemos la media, varianza o proporción poblacional.} Sin embargo, básicamente estamos usando el mismo truco que cuando nos enseñaron por primera vez álgebra: usted tiene algo que no conoce, pero haga como que lo conoce y póngale por nombre \(x\).
+
+Lo que haremos será intentar encontrar un buen\sidenote{para alguna definición de bueno} valor para los parámetros poblacionales a partir de una muestra. Teóricamente, podríamos usar cualquier receta que se nos ocurra. Podríamos decir que vamos a estimar la media tomando el promedio de los datos que salieron en orden impar, o que vamos a estimar la varianza elevando cada dato al cuadrado, sumando y dividiendo por \(n^3\). A veces una receta loca puede tener cierto sentido. Sin embargo, primero necesitamos definir cómo vamos a medir la calidad de un estimador. 
+
+Un punto importante a tener en cuenta: ningún estimador es perfecto. Todos los estimadores dependen de la muestra y, por azar, podemos sacar justo la muestra en que todas las personas miden \qty{170}{\centi\meter} de una población cuyas estaturas se distribuyen normalmente, con media \qty{168}{\centi\meter} y desviación estándar \qty{5}{\centi\meter}. ¿Poco probable? Sí, pero no imposible. Un ejemplo menos extremo podría ser más claro, en que sacamos 4 personas que miden más de \qty{170}{\centi\meter} y una que mide \qty{168}{\centi\meter}. Sería difícil achuntarle a que la media poblacional es \num{168}. Además, incluso si resultara con esa muestra, usando la misma manera de estimar con otra muestra puede que dé otro valor. 
