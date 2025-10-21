@@ -89,6 +89,35 @@ Para trabajar con esta distribución debemos calcular el score \(T\), de manera 
 
 \subsection{Distribución muestral de la varianza muestral}
 
-Lamentablemente, el teorema del límite central no nos ayuda con la varianza en general. El TLC está definido para el promedio y se puede extender a otras ideas relacionadas con el  promedio, como sumar o contar, pero la varianza con su suma de diferencias cuadradas no se presta bien para ser adoptada por el TLC. Por si acaso, recordemos que la varianza muestral viene dada por \[s^2 = \frac{1}{n-1}\sum_{i=1}^{n} \]
+Lamentablemente, el teorema del límite central no nos ayuda con la varianza en general. El TLC está definido para el promedio y se puede extender a otras ideas relacionadas con el  promedio, como sumar o contar, pero la varianza con su suma de diferencias cuadradas no se presta bien para ser adoptada por el TLC. Por si acaso, recordemos que la varianza muestral viene dada por \[s^2 = \frac{1}{n-1}\sum_{i=1}^{n} \left( x_i - \mean{x} \right)\]
 
-Sin embargo, hay un caso especial y es cuando sabemos que la muestra proviene de una distribución normal.
+Sin embargo, hay un caso especial y es cuando sabemos que la muestra proviene de una distribución normal. Supongamos que tenemos una muestra  \(X_1, X_2, \ldots, X_n\), es decir, \(n\) variables aleatorias independientes e idénticamente distribuidas según una distribución normal \(\norm{\mu}{\sigma^2}\). Para cada \(X_i\) podemos estandarizarla y obtener \(Z_i=(X_i-\mu)/\sigma\) y por lo tanto \[\sum_{i=1}^{n}\left(\frac{X_i-\mu}{\sigma}\right)^2 = \sum_{i=1}^{n} Z_i^2 \sim \chi^2_n\] por definición de la distribución \(\chi^2_n\).
+
+¿Cómo podemos relacionar la media y varianza muestrales? Partamos por
+\begin{align*}
+\sum_{i=1}^{n}\left(\frac{X_i-\mu}{\sigma}\right)^2 &= \sum_{i=1}^{n}\left(\frac{\left(X_i-\mean{X}\right) + \left(\mean{X}-\mu\right)}{\sigma}\right)^2 
+\intertext{consideremos el numerador}
+&\sum_{i=1}^{n}\left(\left(X_i-\mean{X}\right) + \left(\mean{X}-\mu\right)\right)^2 \\
+\intertext{expandamos el cuadrado}
+&= \sum_{i=1}^{n}\left(\left(X_i-\mean{X}\right)^2 + 2\left( X_i - \mean{X} \right)\left( \mean{X} - \mu \right) + \left(\mean{X}-\mu\right)^2\right) \\
+&= \sum_{i=1}^{n}\left( X_i - \mean{X} \right)^2 + 2\left( \mean{X} - \mu \right)\sum_{i=1}^{n} \left( X_i - \mean{X} \right) + n\left( \mean{X} - \mu \right)^2
+\intertext{consideremos la segunda sumatoria: como es la suma de las diferencias en torno a la media, por propiedades de ésta se hace \(0\)}
+&= \sum_{i=1}^{n}\left( X_i - \mean{X} \right)^2 + 2\left( \mean{X} - \mu \right)\cdot 0 + n\left( \mean{X} - \mu \right)^2\\
+&= \sum_{i=1}^{n}\left( X_i - \mean{X} \right)^2  + n\left( \mean{X} - \mu \right)^2
+\intertext{y considerando la sumatoria restante, podemos ver que es \(s^2\) multiplicado por \(n-1\)}
+&= \left( n-1 \right)s^2  + n\left( \mean{X} - \mu \right)^2
+\intertext{para volver a lo original, debemos dividir por \(\sigma^2\)}
+\sum_{i=1}^{n}\left(\frac{X_i-\mu}{\sigma}\right)^2 &= \frac{\left( n-1 \right)s^2}{\sigma^2}  + \frac{n\left( \mean{X} - \mu \right)^2}{\sigma^2}
+\intertext{observemos el término de la derecha}
+\frac{n\left( \mean{X} - \mu \right)^2}{\sigma^2} &= \frac{\left( \sqrt{n} \right)^2\left( \mean{X} - \mu \right)^2}{\sigma^2} = \left(\frac{ \mean{X} - \mu }{\sigma/\sqrt{n}}\right)^2
+\intertext{por el TLC lo que está dentro del cuadrado sigue una distribución normal estándar y, al estar al cuadrado obtenemos }
+\left(\frac{ \mean{X} - \mu }{\sigma/\sqrt{n}}\right)^2 &\sim \chi^2_1
+\intertext{como resumen, tenemos lo siguiente}
+\sum_{i=1}^{n}\left(\frac{X_i-\mu}{\sigma}\right)^2 &= \frac{\left( n-1 \right)s^2}{\sigma^2}  + \frac{n\left( \mean{X} - \mu \right)^2}{\sigma^2}
+\intertext{el término de la izquierda sigue una distribución \(\chi^2_n\) mientras que el último sumando de la derecha sigue una distribución \(\chi^2_1\)}
+\sum_{i=1}^{n}\left(\frac{X_i-\mu}{\sigma}\right)^2 &\sim \chi^2_n \qquad \frac{n\left( \mean{X} - \mu \right)^2}{\sigma^2} \sim \chi^2_1
+\intertext{aquí tendremos que hacer un pequeño salto de fe: las distribuciones de la suma son independientes. Si esto es cierto (y lo es), entonces tenemos}
+\chi^2_n &= \frac{\left( n-1 \right)s^2}{\sigma^2}  + \chi^2_1
+\intertext{y esto obliga a que}
+\frac{\left( n-1 \right)s^2}{\sigma^2} &\sim \chi^2_{n-1}
+\end{align*}
