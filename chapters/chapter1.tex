@@ -341,11 +341,11 @@ y que un dado muestre un \(1\) no impide que el otro también muestre un \(1\). 
 \Cube{5} & \Cube{5}\,\Cube{1} & \Cube{5}\,\Cube{2} & \Cube{5}\,\Cube{3} & \Cube{5}\,\Cube{4} & \Cube{5}\,\Cube{5} & \Cube{5}\,\Cube{6} \\
 \Cube{6} & \Cube{6}\,\Cube{1} & \Cube{6}\,\Cube{2} & \Cube{6}\,\Cube{3} & \Cube{6}\,\Cube{4} & \Cube{6}\,\Cube{5} & \Cube{6}\,\Cube{6}
 \end{tabular}
-% \caption{Espacio muestral del lanzamiento de dos dados.}
+\caption{Espacio muestral del lanzamiento de dos dados.}
 \labtab{espacio-muestral-dados}
 \end{table}
 
-El~\reftab{espacio-muestral-dados} nos muestra todos los resultados posibles al lanzar dos dados. Hay seis resultados en los que el dado blanco muestra un \(1\) y seis resultados en los que el dado negro muestra un \(1\). Pero el número de maneras de obtener al menos un \(1\) no es \(6+6\): sumar a la rápida cuenta dos veces el resultado \Cube{1}\,\Cube{1}. La probabilidad de obtener al menos un \(1\) al lanzar dos dados es \[(6+6-1)/36 = 11/36.\]
+La~\reftab{espacio-muestral-dados} nos muestra todos los resultados posibles al lanzar dos dados. Hay seis resultados en los que el dado blanco muestra un \(1\) y seis resultados en los que el dado negro muestra un \(1\). Pero el número de maneras de obtener al menos un \(1\) no es \(6+6\): sumar a la rápida cuenta dos veces el resultado \Cube{1}\,\Cube{1}. La probabilidad de obtener al menos un \(1\) al lanzar dos dados es \[(6+6-1)/36 = 11/36.\]
 
 \begin{remark}
 	Si queremos encontrar la probabilidad de que al menos un evento ocurra, y los eventos no son mutuamente excluyentes, no sumemos las probabilidades individuales: la suma va a ser demasiado grande.
@@ -638,7 +638,6 @@ Ejemplo: si en vez de elegir un presidente, un secretario y un tesorero, sólo q
 Un caso especial de permutaciones es cuando debemos organizar los elementos alrededor de un círculo. En este caso, no son distinguibles dos permutaciones si podemos llegar de una a la otra mediante una rotación. Por ejemplo, si tenemos \(4\) elementos \(a, b, c, d\), entonces las permutaciones \((a, b, c, d)\) y \((b, c, d, a)\) son indistinguibles (\reffig{permutaciones-circulares}).
 
 \begin{figure}[H]
-\labfig{permutaciones-circulares}
 \begin{tikzpicture}[scale=0.7, every node/.style={scale=0.7}]
 	% First circle arrangement (a,b,c,d)
 	\draw[thick] (0,0) circle (1.5cm);
@@ -656,7 +655,8 @@ Un caso especial de permutaciones es cuando debemos organizar los elementos alre
 	
 \end{scope}
 \end{tikzpicture}
-% \caption{Dos permutaciones circulares indistinguibles.}
+\caption{Dos permutaciones circulares indistinguibles.}
+\labfig{permutaciones-circulares}
 \end{figure}
 
 Como podemos hacer \(n\) rotaciones, el número de permutaciones es \((n-1)!\).
