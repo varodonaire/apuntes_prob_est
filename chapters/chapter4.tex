@@ -92,6 +92,10 @@ Existe otra relación. ¿Qué pasa si relajamos la necesidad de independencia? P
 
 Una última relación que podemos establecer es cuando tenemos una cantidad promedio fija de eventos independientes que ocurren en una unidad de tiempo (o espacio, área, volumen, etc.). Por ejemplo, si siempre me llegan en promedio 10 correos de spam por hora, podría calcular la probabilidad de que me lleguen 40 en un día. O, si revuelvo de manera suficientemente buena mi masa, la probabilidad de que la galleta que me voy a comer tenga 5 chips de chocolate si en promedio tienen 3. Eventos de este tipo se modelan con una distribución de Poisson. 
 
+\begin{pausa}
+¿Qué cree que le ocurre a una distribución binomial cuando \(n\) crece mucho y \(p\) se achica de manera proporcional, de modo que \(np\) permanece constante?
+\end{pausa}
+
 Hay una relación entre la distribución binomial y la de Poisson. Si hacemos muchos intentos (\(n\to\infty\)) y la probabilidad de éxito de cada uno es pequeña (\(p\to0\)) pero de manera que \(np=\lambda\) sea constante, entonces la distribución de Poisson aparece como un límite de la distribución binomial.
 
 % \begin{tikzpicture}[
@@ -215,6 +219,10 @@ ylabel={}
 \caption{Distribución binomial con $p=0.3$ y distintos $n$.}
 \labfig{binomial-varios-n}
 \end{figure*}
+
+\begin{pausa}
+Si en un experimento binomial \(n = 10\) y \(p = \num{0,3}\), ¿cuántos éxitos esperaría obtener en promedio? ¿Cómo llegaría a ese número intuitivamente?
+\end{pausa}
 
 Para calcular la esperanza y varianza de una binomial, basta pensar que si \(X \sim \Bin(n, k)\), entonces \[X = X_1 + X_2 + \cdots + X_n,\] con cada \(X_i\) una variable aleatoria con distribución de Bernoulli con probabilidad \(p\).
 

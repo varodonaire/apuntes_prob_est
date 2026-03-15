@@ -11,6 +11,10 @@ Lo que haremos será intentar encontrar un buen\sidenote{para alguna definición
 
 Un punto importante a tener en cuenta: ningún estimador es perfecto. Todos los estimadores dependen de la muestra y, por azar, podemos sacar justo la muestra en que todas las personas miden \qty{170}{\centi\meter} de una población cuyas estaturas se distribuyen normalmente, con media \qty{168}{\centi\meter} y desviación estándar \qty{5}{\centi\meter}. ¿Poco probable? Sí, pero no imposible. Un ejemplo menos extremo podría ser más claro, en que sacamos 4 personas que miden más de \qty{170}{\centi\meter} y una que mide \qty{168}{\centi\meter}. Sería difícil achuntarle a que la media poblacional es \num{168}. Además, incluso si resultara con esa muestra, usando la misma manera de estimar con otra muestra puede que dé otro valor. En resumen, un estimador puntual difícilmente nos dará el valor exacto del parámetro que estima, pero idealmente debería estar relativamente cercano para la mayoría de las muestras.
 
+\begin{pausa}
+Antes de ver cómo se evalúan los estimadores: ¿qué propiedades le gustaría que tuviera uno? Intente listar dos o tres características que le parezcan deseables.
+\end{pausa}
+
 Una forma de entender los estimadores es imaginar que son tiradores de dardos. 
 
 \begin{tikzpicture}
@@ -80,6 +84,10 @@ Una forma de entender los estimadores es imaginar que son tiradores de dardos.
         \node at (0,-2) {Tirador 3};
     \end{scope}
 \end{tikzpicture}
+
+\begin{pausa}
+De los tiradores que ve en la figura, ¿cuál preferiría tener? ¿El que en promedio apunta al centro pero con mucha dispersión, o el que se aleja un poco del centro pero con muy poca dispersión?
+\end{pausa}
 
 Cada tirador está tratando de dar en el blanco. Sin embargo, hay varias formas en que se puede fallar y sólo una en que se puede ser perfectamente exitoso \emph{siempre.} En nuestro caso, un estimador está tratando de dar en el blanco. El blanco es algún parámetro de nuestra población. Generalmente, consideraremos la media o varianza, pero podría ser cualquier cosa: mediana, curtosis, simetría, etc. Nuestro ideal sería encontrar un estimador que
 \begin{enumerate}

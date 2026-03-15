@@ -10,6 +10,7 @@
 	%numbers=noenddot, % Comment to output dots after chapter numbers; the most common values for this option are: enddot, noenddot and auto (see the KOMAScript documentation for an in-depth explanation)
 ]{kaobook}
 
+\usepackage[x11names]{xcolor}
 % Choose the language
 \usepackage{polyglossia} % Load characters and hyphenation
 \setdefaultlanguage{spanish} % Set Spanish as the default language
@@ -200,6 +201,26 @@
   \draw[thick] (0,1) .. controls (1.5,1.5) and (4.5,0.5) .. (6,1);
   \draw[thick] (2,0) .. controls (1.5,1.2) and (2.5,2.8) .. (2,4);
   \draw[thick] (4,0) .. controls (3.5,0.8) and (4.5,3.2) .. (4,4);
+}
+
+% Environment for conjecture-before-revelation moments (Eje 3)
+\newtcolorbox{pausa}{
+  enhanced,
+  colback=white,
+  colframe=ForestGreen,
+  arc=1pt,
+  boxrule=0pt,
+  leftrule=0pt,
+  toprule=0.5pt,
+  bottomrule=0.5pt,
+  before skip=\medskipamount,
+  after skip=\medskipamount,
+  left=6pt,
+  right=6pt,
+  top=4pt,
+  bottom=4pt,
+  fontupper=\itshape,
+  title=¡Hey!
 }
 
 % Environment for the central idea of each chapter (Eje 2)

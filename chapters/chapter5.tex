@@ -72,7 +72,13 @@ y que, por ejemplo, el gráfico de una distribución uniforme entre \num{1} y \n
 \end{tikzpicture}
 \end{center}
 
-¿Qué pasó en ese gráfico? ¿Por qué da una función \emph{más grande que} \num{1}? Recordemos que en la página anterior mencionábamos que la integral de esta función debe ser \num{1} en todo su dominio. Si integramos la función del último gráfico, vemos que el área bajo la curva es \[\num{2}\cdot\left( \num{1,5} - \num{1} \right) = \num{2}\cdot\num{0,5} = \num{1}.\]
+¿Qué pasó en ese gráfico? ¿Por qué da una función \emph{más grande que} \num{1}?
+
+\begin{pausa}
+¿Cómo puede ser que una función de probabilidad tome valores mayores que \num{1} sin que eso sea un problema?
+\end{pausa}
+
+Recordemos que en la página anterior mencionábamos que la integral de esta función debe ser \num{1} en todo su dominio. Si integramos la función del último gráfico, vemos que el área bajo la curva es \[\num{2}\cdot\left( \num{1,5} - \num{1} \right) = \num{2}\cdot\num{0,5} = \num{1}.\]
 
 Aquí es importante recordar que la función de densidad de probabilidad representa algo como \emph{probabilidad por unidad de largo.} Es decir, si el eje \(x\) hubiera estado en centímetros, podríamos haber interpretado el cálculo anterior como \[\qty{2}{\probabilidad\per\centi\meter} \cdot\qty{0,5}{\centi\meter} = \qty{1}{\probabilidad}\] con una unidad de probabilidad inventada.
 
@@ -106,6 +112,14 @@ La función de densidad es fácil de integrar. En efecto,
     &= e^{0} - e^{-\frac{t}{\lambda}}\\
     &= 1 - e^{-\frac{t}{\lambda}}\\
 \end{align*}
+
+Una propiedad notable de la distribución exponencial es la llamada \emph{propiedad de falta de memoria.} Supongamos que modelamos con una exponencial el tiempo de espera hasta que ocurra un evento (por ejemplo, el tiempo hasta que llegue el próximo bus). La propiedad dice que \[\prob(X > t + s \mid X > t) = \prob(X > s),\] es decir, saber que ya esperamos \(t\) minutos no cambia la probabilidad de esperar \(s\) minutos más.
+
+\begin{pausa}
+Si un evento sigue una distribución exponencial y ya lleva esperando \(t\) minutos, ¿cree que eso debería afectar su probabilidad de esperar \(s\) minutos más?
+\end{pausa}
+
+La verificación es directa: \[\prob(X > t + s \mid X > t) = \frac{\prob(X > t+s)}{\prob(X > t)} = \frac{e^{-(t+s)/\lambda}}{e^{-t/\lambda}} = e^{-s/\lambda} = \prob(X > s).\] En cierto sentido, la distribución exponencial \enquote{no recuerda} el tiempo ya transcurrido.
 
 \section{Distribución normal}
 \labsec{distr-normal}

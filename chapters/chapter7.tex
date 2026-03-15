@@ -28,7 +28,13 @@ Número de Caras & Frecuencia & Proporción\\
 
 La mayoría de los resultados están dentro del intervalo \([4, 6]\), lo que es más o menos esperable. Si nos metemos en el intervalo \([3, 7]\) ya están casi todos los resultados: sólo faltan dos.
 
-Sin embargo, si hacíamos el experimento 1000, 5000 o más veces la intuición nos decía que esa diferencia tenía que irse achicando, ¿no? NO.
+Sin embargo, si hacíamos el experimento 1000, 5000 o más veces la intuición nos decía que esa diferencia tenía que irse achicando, ¿no?
+
+\begin{pausa}
+¿Está de acuerdo? Al repetir más veces el experimento, ¿se acercaría más la proporción observada a \(\frac{1}{2}\)?
+\end{pausa}
+
+NO.
 
 Nuestra intuición no está tan errada, pero hay que afinarla. En general, cuando tenemos una suma (o promedio o conteo) tendremos que \[\text{suma} = \text{valor esperado} + \text{error aleatorio.}\] La pregunta es qué tan grande es ese error aleatorio. Hay una fórmula que nos permite establecer el tamaño de este error, llamado \emph{error estándar.} Cuando contabilicemos la suma de las extracciones de una caja, con reposición, el error estándar de la suma es \[\sqrt{\text{número de extracciones}} \cdot (\text{desviación estándar de la caja})\]
 
@@ -46,7 +52,11 @@ Lo que dice este teorema es que, efectivamente, el promedio muestral converge ha
 \section{Teorema del límite central}
 \labsec{teo-limite-central}
 
-El teorema del límite central (o teorema central del límite) es quizás el resultado más importante en probabilidad. En cierta manera, es una continuación de la ley de los grandes números. 
+El teorema del límite central (o teorema central del límite) es quizás el resultado más importante en probabilidad. En cierta manera, es una continuación de la ley de los grandes números.
+
+\begin{pausa}
+Si tomara muchas muestras distintas de la misma población y calculara la media de cada una, ¿qué distribución cree que seguirían esas medias?
+\end{pausa}
 
 \formal
 Si \(X_1, X_2, \cdots, X_n\) son variables aleatorias independientes e idénticamente distribuidas, con esperanza \(\mu\) y varianza \(\sigma^2\) finitas (y la varianza mayor que \(0\)), entonces la \va \[Z_n = \frac{\mean{X} - \mu}{\sigma/\sqrt{n}}\] converge en distribución a la normal estándar cuando \(n\) se va a infinito, es decir, \[\lim_{n\to\infty} P (Z_n \leq x) = P(Z \leq x)\] donde \(Z \sim \norm{0}{1}\).
