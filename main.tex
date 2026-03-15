@@ -66,8 +66,6 @@
 
 \usepackage{fontawesome5}
 
-\usepackage{csquotes}
-
 \newcommand{\formal}{\color{MidnightBlue}} % Define a command for formal text color
 \newcommand{\informal}{\color{black}} % Define a command for informal text color
 % Command for the power set: usage \PS{A} → 𝒫(A)
@@ -82,7 +80,7 @@
 \newcommand{\perm}[2]{\mathrm{P}^{#1}_{#2}} % Permutations: usage \perm{n}{k} → Pₙᵏ
 \newcommand{\comb}[2]{\mathrm{C}^{#1}_{#2}} % Combinations: usage \comb{n}{k} → Cₙᵏ
 
-\newcommand{\va}{\uppercase{va}}
+\newcommand{\va}{\textsc{va}}
 
 \newcommand{\di}[1]{\mathop{d#1}}
 
@@ -192,6 +190,35 @@
 \newcommand{\estim}[1]{\widehat{#1}}
 
 \DeclareMathOperator{\ecm}{ECM}
+
+% Shared TikZ frame for partition diagrams (used in chapters 1 and 2)
+\newcommand{\partitionbeziers}{%
+  \draw[thick] (0,0) rectangle (6,4);
+  \node at (3,4.3) {\large $\Omega$};
+  \draw[thick] (0,3) .. controls (1.5,2.5) and (4.5,3.5) .. (6,3);
+  \draw[thick] (0,2) .. controls (1.5,2.2) and (4.5,1.8) .. (6,2);
+  \draw[thick] (0,1) .. controls (1.5,1.5) and (4.5,0.5) .. (6,1);
+  \draw[thick] (2,0) .. controls (1.5,1.2) and (2.5,2.8) .. (2,4);
+  \draw[thick] (4,0) .. controls (3.5,0.8) and (4.5,3.2) .. (4,4);
+}
+
+% Environment for the central idea of each chapter (Eje 2)
+\newtcolorbox{ideanote}{
+  enhanced,
+  colback=gray!7,
+  colframe=gray!40,
+  arc=1pt,
+  boxrule=0.5pt,
+  leftrule=3pt,
+  before skip=\medskipamount,
+  after skip=\bigskipamount,
+  left=8pt,
+  right=6pt,
+  top=4pt,
+  bottom=4pt,
+  fonttitle=\small\bfseries,
+  title=Idea central,
+}
 
 
 %----------------------------------------------------------------------------------------

@@ -1,6 +1,10 @@
 \chapter{¿Qué probabilidad hay?}
 \labch{que_probabilidad_hay}
 
+\begin{ideanote}
+¿Cómo podemos medir, de forma rigurosa, cuán probable es algo? En este capítulo construimos el lenguaje básico de la probabilidad: eventos, espacios muestrales, y las reglas para calcular probabilidades de combinaciones de eventos.
+\end{ideanote}
+
 \section{Introducción}
 
 \marginnote{En este texto, cada vez que el color del mismo sea negro, este texto está más enfocado en las ideas que dan sustento a la teoría.}Todos los días nos encontramos con frases que tienen que ver con probabilidades: ¿Irá a llover? ¡Me encontré con Juanito! No lo veía hace años.
@@ -370,29 +374,11 @@ Un caso particular de este principio es cuando tenemos una \emph{partición.} Un
 \marginnote{La figura muestra una partición del espacio muestral. En efecto, \[\bigcup_{i=1}^{12} A_i = \Omega\] y \[A_i \cap A_j = \emptyset\text{, }i \neq j\text{.}\]}
 \begin{center}
 \begin{tikzpicture}[scale=0.7, every node/.style={scale=0.7}]
-  % 1. Sample space outline
-  \draw[thick] (0,0) rectangle (6,4);
-  \node at (3,4.3) {\large $\Omega$};
-
-  % 2. Horizontal‐ish Bézier partitions
-  \draw[thick]
-    (0,3) .. controls (1.5,2.5) and (4.5,3.5) .. (6,3);
-  \draw[thick]
-    (0,2) .. controls (1.5,2.2) and (4.5,1.8) .. (6,2);
-  \draw[thick]
-    (0,1) .. controls (1.5,1.5) and (4.5,0.5) .. (6,1);
-
-  % 3. Vertical‐ish Bézier partitions
-  \draw[thick]
-    (2,0) .. controls (1.5,1.2) and (2.5,2.8) .. (2,4);
-  \draw[thick]
-    (4,0) .. controls (3.5,0.8) and (4.5,3.2) .. (4,4);
-
-  % 4. (Optional) Region labels
-   \node at (1,3.5) {$A_1$};   \node at (3,3.5) {$A_2$};   \node at (5,3.5) {$A_3$};
-   \node at (1,2.5) {$A_4$};   \node at (3,2.5) {$A_5$};   \node at (5,2.5) {$A_6$};
-   \node at (1,1.5) {$A_7$};   \node at (3,1.5) {$A_8$};   \node at (5,1.5) {$A_9$};
-   \node at (1,0.5) {$A_{10}$}; \node at (3,0.5) {$A_{11}$}; \node at (5,0.5) {$A_{12}$};
+  \partitionbeziers
+  \node at (1,3.5) {$A_1$};   \node at (3,3.5) {$A_2$};   \node at (5,3.5) {$A_3$};
+  \node at (1,2.5) {$A_4$};   \node at (3,2.5) {$A_5$};   \node at (5,2.5) {$A_6$};
+  \node at (1,1.5) {$A_7$};   \node at (3,1.5) {$A_8$};   \node at (5,1.5) {$A_9$};
+  \node at (1,0.5) {$A_{10}$}; \node at (3,0.5) {$A_{11}$}; \node at (5,0.5) {$A_{12}$};
 \end{tikzpicture}
 \end{center}
 \informal

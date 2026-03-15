@@ -1,5 +1,9 @@
-\chapter{Distribuciones muestrales}
+\chapter{La muestra y la población}
 \labch{distribuciones-muestrales}
+
+\begin{ideanote}
+Una muestra es una fracción del todo. ¿Qué podemos inferir de la población a partir de unos pocos datos? La respuesta depende de entender cómo se comportan, como variables aleatorias, los estadísticos que calculamos a partir de muestras.
+\end{ideanote}
 
 \section{La ley de los grandes números}
 \labsec{ley-grandes-numeros}
@@ -34,7 +38,7 @@ y cuando el número de extracciones crece, el error estándar decrece.
 Esta idea está representada en la \emph{ley de los grandes números.} Hay varias versiones de esta ley, pero todas son teoremas que hablan de la convergencia de una serie de variables aleatorias.
 
 \formal
-Si \(X_1, X_2, \cdots, X_n\) son variables aleatorias independientes e idénticamente distribuidas, con esperanza \(\mu\) y varianza \(\sigma^2\) finitas, entonces la variable \(\mean{X} = \sum_{i=1}^{n} X_i/n\) cumple que para todo \(\varepsilon >0\), \[\lim_{n\to\infty} \prob\left(|\mean{X} - \mu| \leq \varepsilon\right) = 0\]
+Si \(X_1, X_2, \cdots, X_n\) son variables aleatorias independientes e idénticamente distribuidas, con esperanza \(\mu\) y varianza \(\sigma^2\) finitas, entonces la variable \(\mean{X} = \sum_{i=1}^{n} X_i/n\) cumple que para todo \(\varepsilon >0\), \[\lim_{n\to\infty} \prob\left(|\mean{X} - \mu| \leq \varepsilon\right) = 1\]
 
 \informal
 Lo que dice este teorema es que, efectivamente, el promedio muestral converge hacia el promedio poblacional a medida que aumenta el tamaño de la muestra. Es posible que esa convergencia no ocurra, pero si la muestra es realmente azarosa, es lo que ocurrirá la mayor, muy mayor, parte del tiempo\sidenote{tan mayor que en realidad casi nunca no ocurre}.
