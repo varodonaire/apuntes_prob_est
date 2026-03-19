@@ -1,16 +1,27 @@
-\chapter{Del evento al número}
+\chapter{¡Resultados! ¡Resultados! ¡Resultados!} 
 \labch{variables_aleatorias}
 
 \begin{ideanote}
-El lenguaje de los eventos es poderoso, pero se vuelve engorroso para problemas complejos. Las variables aleatorias permiten traducir el resultado de cualquier experimento a un número, abriendo la puerta al cálculo y a la abstracción.
+El lenguaje de los eventos es poderoso, pero se vuelve engorroso para problemas (ni tan) complejos. Las variables aleatorias permiten traducir el resultado de cualquier experimento aleatorio a un número, abriendo la puerta al cálculo y a la abstracción.
 \end{ideanote}
 
 \section{Introducción}
 \labsec{introduccion}
 
-El lenguaje de eventos que hemos usado hasta ahora nos ha servido bien, pero al mismo tiempo es una limitante. En el pequeño juego de los productores de pasta de dientes, expresar todas las probabilidades involucradas en varios pasos ya se volvía tedioso. Es por eso que necesitamos algo que nos permita expresar ideas más complejas de manera más fácil.
+El lenguaje de eventos que hemos usado hasta ahora nos ha servido bien, pero al mismo tiempo es una limitante. En situaciones pequeñas ya empieza a dejar de ser útil.
 
-Y, en realidad, la idea es sencilla. Antes poníamos nombres a los eventos como \(A\) y era algo como \emph{sacar un cinco al lanzar el dado.} ¿Por qué no le pusimos simplemente algo como \(5\)? ¿Por qué no enfocarnos en el resultado?
+Por ejemplo, como vimos en clase, ¿qué pasa si tenemos un jefe que quiere saber la probabilidad de que en una muestra de 4 elementos, dos sean defectuosos? Ya sólo escribir eso como evento es complicado\marginnote[-1em]{o tedioso}:
+\[A=\left\{
+ (B, B, D, D),\;
+ (B, D, B, D),\;
+ (B, D, D, B),\;
+ (D, B, B, D),\;
+ (D, B, D, B),\;
+ (D, D, B, B)
+\right\}\]
+y ni hablar de si tuviéramos que escribir lo que pasa con todas las posibilidades.
+
+Y, en realidad, podemos arreglar el problema de forma muy sencilla. Basta con enfocarse en el resultado y escribirlo como número. Es mucho más simple decir \enquote{salieron dos malos.}
 
 Esa es la idea detrás de una \emph{variable aleatoria.} Una variable aleatoria es codificar el resultado de un experimento como un número. Muchas veces será directamente un número, como en el caso de lanzar un dado, pero también podemos codificar cosas como las monedas:
 \begin{align*}
@@ -28,7 +39,9 @@ y eso es parte de la importancia de las variables aleatorias: nos permiten abstr
 Sin embargo, es importante reconocer qué significa lo de \emph{aleatoria} en variable aleatoria. La aleatoridad \emph{no} está en la variable aleatoria. Fijémonos en la definición anterior: es completamente uno a uno y determinista. Lo aleatorio en esto está en el experimento. 
 
 \formal
-En términos más formales, una variable aleatoria es una función que va del espacio muestral a los reales. Utilizaremos letras mayúsculas para representarlas. 
+En términos formales, una variable aleatoria es una función que va del espacio muestral a los reales. Utilizaremos letras mayúsculas para representarlas. Por lo tanto, una variable aleatoria \(X\) es \[X: \Omega \to ℝ.\]
+
+Por ejemplo, si \(X\) representa la cantidad de elementos defectuosos en una muestra de cuatro elementos, lo que el jefe quería saber en el ejemplo anterior es cuando \(X=2\). La probabilidad de que eso ocurra se denota \(\prob\left(X=2\right)\)
 
 \informal
 Un ejemplo. Supongamos que nuestro experimento aleatorio es sumar las pintas al lanzar dos dados. Nuestra variable aleatoria es, entonces, algo como lo siguiente
@@ -568,7 +581,7 @@ Primero, al lanzar los dos dados efectivamente nuestro espacio muestral es \(\le
   & \Cube{1} & \Cube{2} & \Cube{3} & \Cube{4} & \Cube{5} & \Cube{6} \\
 \end{tabular}
 
-Si los dados son justos y los lanzamientos son independientes, la probabilidad de obtener un resultado cualquiera es \(1/36\). Esto podemos obtenerlo, por ejemplo, como \[\prob(\pair{4}{3}) = \prob(\Cube{4})\cdot\prob(\Cube{3})=\frac16\cdot\frac16.\]
+Si los dados son justos y los lanzamientos son independientes, la probabilidad de obtener un resultado cualquiera es \(1/36\). Esto podemos obtenerlo, por ejemplo, como \[\prob(\pair{4}{3}) = \prob(4)\cdot\prob(3)=\frac16\cdot\frac16.\]
 
 Ahora bien, nuestra variable aleatoria era el resultado de esta operación, y eso tiene distintas probabilidades. En particular, la probabilidad de obtener un resultado va a ser sumar las probabilidades de todas las posibles configuraciones que dan lugar a ese resultado.
 
