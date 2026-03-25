@@ -5,7 +5,7 @@
 En la naturaleza y la ingeniería, ciertos patrones de aleatoriedad discreta aparecen una y otra vez. ¿Cuáles son esos patrones y qué tipo de fenómenos modelan? En este capítulo conocemos las distribuciones discretas más importantes.
 \end{ideanote}
 
-En el mundo\sidenote{realidad, naturaleza, universo, cosmos o como quiera llamarlo según su tendencia filosófica} hay una infinidad y variedad de hechos que podrían estudiarse como variables aleatorias. En principio, deberíamos estudiar cada uno de ellos de manera individual, pero no cuesta mucho ver que eso sería demasiado difícil. Además, podemos abstraer detalles para quedarnos con los hechos que marcan más presencia.
+En el mundo\sidenote{realidad, naturaleza, universo, cosmos o como quiera llamarlo según su tendencia filosófica} hay una infinidad y variedad de hechos que podrían estudiarse como variables aleatorias. En principio, deberíamos estudiar cada uno de ellos de manera individual, pero eso sería demasiado difícil. Lo que conviene más es ver si podemos abstraer detalles para quedarnos con los hechos más importantes y generalizar.
 
 De esta manera podemos llegar a varios \emph{modelos de probabilidad} para estudiar diversas variables aleatorias. En este capítulo estudiaremos varios modelos discretos, bajo qué condiciones se pueden aplicar y qué tipo de \va\ quieren modelar. En el siguiente capítulo continuaremos nuestro paseo pero por modelos continuos. Si bien estudiaremos varias distribuciones, hay varias más que quedarán fuera del alcance de este curso. Para los y las interesados, eventualmente habrá un apéndice con alguna descripción de estas distribuciones.
 
@@ -14,9 +14,9 @@ De esta manera podemos llegar a varios \emph{modelos de probabilidad} para estud
 
 Probablemente el modelo de probabilidad más sencillo, la distribución de Bernoulli (o dicotómica) es una con la que, para ser sinceros, nos encontramos desde la primera clase.
 
-Si tenemos un experimento aleatorio, podemos entender su resultado desde el punto de vista de \emph{éxito} o fracaso. El ejemplo clásico es la moneda. Queremos que salga cara y, si sale cara, tenemos un éxito. Si sale sello, tenemos un fracaso.
+Si tenemos un experimento aleatorio, podemos entender su resultado desde el punto de vista de \emph{éxito} o \emph{fracaso.} El ejemplo clásico es la moneda. Queremos que salga cara y, si sale cara, tenemos un éxito. Si sale sello, tenemos un fracaso.
 
-Pero fenómenos más complejos se pueden reducir a esta perspectiva de éxito-fracaso. Me encantó el ejemplo que dio un estudiante: quiero que mi equipo gane el partido. Si no gana (pierda o empate), eso es un fracaso. Imagínense estudiar eso desde el punto de vista de todos los resultados posibles (0-0, 1-0, 0-1, 1-1, 2-0,\ldots). Una locura.
+Pero fenómenos más complejos se pueden reducir a esta perspectiva de éxito-fracaso. Un ejemplo que me dio un estudiante: quiero que mi equipo gane el partido. Si no gana (pierda o empate), eso es un fracaso. Imagínense estudiar eso desde el punto de vista de todos los resultados posibles (0-0, 1-0, 0-1, 1-1, 2-0,\ldots). Sería una locura.
 
 Incluso, este lenguaje de éxito-fracaso puede ser todo lo contrario en la realidad. Puedo definir mi éxito como encontrar un resultado positivo en un examen, lo que seguramente para el paciente sería algo negativo, porque sugeriría\sidenote{después del capítulo de Bayes, ya no podemos decir \enquote{confirmaría}} que tiene la enfermedad.
 
@@ -31,7 +31,7 @@ Además, la probabilidad de esta variable aleatoria será
     p&x=1\\
     1-p=q&x=0.
 \end{cases}\]
-Es muy usual esta notación de \(q=1-p\) para la probabilidad del fracaso. En lo que queda de los apuntes intentaré usarla. 
+Es muy usual esta notación de \(q=1-p\) para la probabilidad del fracaso. En el resto del apunte intentaré usarla. 
 
 La distribución de Bernoulli en sí misma no es muy interesante, pero la importancia que tiene es que varias distribuciones que sí son interesantes están relacionadas con ella. Pero antes de entrar a eso, cerremos nuestro estudio de esta distribución y veamos su esperanza y  varianza.
 
@@ -39,7 +39,7 @@ La esperanza es muy fácil de calcular
 \[\esp{X} = \sum_{x=0}^{1}x\prob(X=x)=0\cdot q+ 1\cdot p = p.\] Es decir, la esperanza de \(X\) es \(p\). La varianza es
 \begin{align*}
     \sigma^2 &= \esp{X^2}-\esp{X}^2\\
-    &= \sum_{x=0}^{1}x^2\prob(X=x) - p^2\\
+    &= \sum_{x=0}^{1}x^2\prob(X=x) - \esp{X}^2\\
     &= 0^2\cdot q + 1^2\cdot p - p^2\\
     &= p-p^2\\
     &= p(1-p) = pq
@@ -50,18 +50,18 @@ Estos resultados nos servirán más adelante.
 \section{Variables aleatorias discretas y su relación con \va s Bernoulli}
 \labsec{relacion-bernoulli}
 
-Una \va\ Bernoulli representa el éxito o fracaso en \emph{una} repetición de un experimento aleatorio. Pero si repetimos el mismo experimento varias veces bajo las siguientes condiciones
+Una \va\ Bernoulli representa el éxito o fracaso en \emph{una} repetición de un experimento aleatorio. Pero si repetimos el mismo experimento varias veces bajo las siguientes condiciones\sidenote{estas condiciones se \enquote{inspiran} en procesos reales, por ejemplo fabricar algún tipo de artículo o por ejemplo enviar paquetes de datos y verificar si llegaron bien o no.}
 \begin{enumerate}
 \item cada repetición es independiente y
 \item la probabilidad de éxito se mantiene constante
 \end{enumerate}
-tenemos tres tipos de \va s que aparecen naturalmente.
+tenemos tres tipos de \va s que aparecen naturalmente como respuesta, cada una, a una pregunta distinta.
 
-Una posibilidad es preguntarnos por la probabilidad de tener \(k\) éxitos si repetimos el experimento \(n\) veces, donde \(n\) es un número fijo y \(k\) va entre 0 y \(n\). Esta pregunta da origen a la distribución de probabilidad \emph{binomial.}
+Una pregunta que podemos hacernos es, si repito el experimento \(n\) veces, ¿cuál es la probabilidad de tener \(k\) éxitos? En este caso, podemos entender que \(n\) es un número fijo y \(k\) varía entre \(0\) y \(n\). Esta pregunta da origen a la distribución de probabilidad \emph{binomial.}
 
-Otra posibilidad es preguntarnos cuánto nos demoraremos en tener nuestro primer éxito. Esta pregunta da origen a la distribución de probabilidad \emph{geométrica.}
+Otra posibilidad es preguntarnos cuántos intentos nos demoraremos en tener nuestro primer éxito. Esta pregunta da origen a la distribución de probabilidad \emph{geométrica.} En este caso \(n\), el número de intentos, es variable y queremos tener un número fijo de éxitos, \(1\).
 
-Una tercera posibilidad es preguntarnos cuánto nos demoraremos en obtener un cierto número (fijo) de éxitos. Esta pregunta da origen a la distribución \emph{binomial negativa.}
+Una tercera posibilidad es preguntarnos cuántos intentos nos tomará  obtener un cierto número fijo de éxitos. Esta pregunta da origen a la distribución \emph{binomial negativa.} En este caso \(n\), el número de intentos, es variable y el número de éxitos, \(k\), es fijo.
 
 Estas relaciones aparecen resumidas en la \reffig{relacion-bernoulli}.
 
@@ -88,9 +88,9 @@ Estas relaciones aparecen resumidas en la \reffig{relacion-bernoulli}.
 \labfig{relacion-bernoulli}
 \end{figure*}
 
-Existe otra relación. ¿Qué pasa si relajamos la necesidad de independencia? Podemos imaginar que tenemos el experimento aleatorio de sacar pelotas de una caja. Con reposición significa que lo hacemos con independencia, porque las probabilidades vuelven a ser las mismas. Pero si lo hacemos sin reposición, las probabilidades van cambiando. En este caso, la distribución de probabilidad que surge al preguntarnos cuál es la probabilidad de tener \(k\) éxitos en \(n\) intentos es la distribución \emph{hipergeométrica.}
+Existe otra relación. ¿Qué pasa si relajamos la necesidad de independencia? Podemos imaginar que tenemos el experimento aleatorio de sacar pelotas de una caja. Con reposición significa que lo hacemos con independencia, porque las probabilidades vuelven a ser las mismas. Pero si lo hacemos sin reposición, las probabilidades van cambiando. En este caso, la distribución de probabilidad que surge al preguntarnos cuál es la probabilidad de tener \(k\) éxitos en \(n\) intentos \emph{sin independencia} es la distribución \emph{hipergeométrica.}
 
-Una última relación que podemos establecer es cuando tenemos una cantidad promedio fija de eventos independientes que ocurren en una unidad de tiempo (o espacio, área, volumen, etc.). Por ejemplo, si siempre me llegan en promedio 10 correos de spam por hora, podría calcular la probabilidad de que me lleguen 40 en un día. O, si revuelvo de manera suficientemente buena mi masa, la probabilidad de que la galleta que me voy a comer tenga 5 chips de chocolate si en promedio tienen 3. Eventos de este tipo se modelan con una distribución de Poisson. 
+Una última relación que podemos establecer es cuando tenemos una cantidad promedio fija de eventos independientes que ocurren en una unidad de tiempo (o espacio, área, volumen, etc.). Por ejemplo, si siempre me llegan en promedio 10 correos de spam por hora, podría calcular la probabilidad de que me lleguen 40 en un día. O, si revuelvo de manera suficientemente buena mi masa, la probabilidad de que la galleta que me voy a comer tenga 5 chips de chocolate si en promedio tienen 3. Eventos de este tipo se modelan con una distribución de \emph{Poisson}. 
 
 \begin{pausa}
 ¿Qué cree que le ocurre a una distribución binomial cuando \(n\) crece mucho y \(p\) se achica de manera proporcional, de modo que \(np\) permanece constante?
@@ -132,7 +132,7 @@ Con eso, entremos más en detalle en cada una de ellas.
 \section{Distribución binomial}
 \labsec{binomial}
 
-Como se dijo en la sección anterior, la distribución binomial modela la probabilidad de obtener \(k\) éxitos en \(n\) repeticiones independientes de un experimento con probabilidad de éxito \(p\). En este caso, \(n\) es un número fijo que se asume sabido de antemano. \(p\) también es un número sabido de antemano. Decimos entonces que \(n\) y \(p\) son \emph{parámetros}\sidenote{la mejor definición de parámetro se la escuché a un físico: una constante que varía} de nuestra distribución. 
+Como se dijo en la sección anterior, la distribución binomial modela la probabilidad de obtener \(k\) éxitos en \(n\) repeticiones independientes de un experimento, donde cada intento tiene probabilidad de éxito \(p\). En este caso, \(n\) es un número fijo que se asume sabido de antemano. \(p\) también es un número sabido de antemano. Decimos entonces que \(n\) y \(p\) son \emph{parámetros}\sidenote{la mejor definición de parámetro se la escuché a un físico: una constante que varía} de nuestra distribución. 
 
 Pensemos qué significa esto. Si tenemos \(n\) intentos y queremos obtener \(k\) éxitos, tendremos \(n-k\) fracasos. La probabilidad que esto ocurra, sabiendo que cada repetición es independiente es, por lo tanto, \[p^kq^{n-k}.\] Sin embargo, ¿de cuántas maneras podemos tener esa cantidad de éxitos y fracasos? Recordando lo que aprendimos en la sección \nrefsec{conteo}, esto es equivalente a obtener \(k\) elementos de un conjunto con \(n\) elementos sin que nos importe el orden \[\binom{n}{k}.\]
 
