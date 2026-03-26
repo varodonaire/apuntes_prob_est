@@ -243,10 +243,11 @@ En este caso, nuestro \(n\) es 10, la probabilidad de éxito (que es que una bic
 \begin{enumerate}
     \item Queremos encontrar \(\prob(X=3)\).
 \begin{align*}
-\prob(X=3) &= \binom{10}{3}\num{0,3}^3\cdot\num{0,7}^7\\
+\prob(X=3) &= \binom{10}{3}\,\num{0,3}^3\cdot\num{0,7}^7\\
 &= \num{0.266828}
 \end{align*}
-\item Lamentablemente, la función de probabilidad acumulada de una binomial no tiene una forma cerrada. Podemos sumar, sin embargo.
+
+\item Lamentablemente, la función de probabilidad acumulada de una binomial no tiene una forma cerrada, es decir, no se puede escribir como una expresión finita de operaciones o funciones simples. Sin embargo, podemos sumar directamente. En este caso, como es más corto sumar desde 0 a 3 (4 sumandos) versus sumar desde 4 a 10 (7 sumandos), usaremos el complemento.
 \begin{align*}
     \prob(X>3) &= 1-\prob(X\leq3)\\
     &= 1-\sum_{i=0}^{3}\binom{10}{i} \num{0,3}^i\cdot\num{0,7}^{10-i}\\
@@ -262,7 +263,7 @@ Supongamos que se eligen 10 bicicletas de forma aleatoria y resulta que 6 presen
 
 La pregunta que debemos hacernos es: ¿es consistente con la estimación de que el \qty{30}{\percent} de las bicicletas presentan defectos? Para responder, podemos calcular la probabilidad de obtener al menos 6 defectuosas en 10 bicicletas, bajo la suposición de que la proporción real es de \qty{30}{\percent}.
 \begin{align*}
-\prob(X\geq6) &= \sum_{i=6}^{10} \binom{10}{i}\num{0,3}^i\cdot\num{0,7}^{10-i}\\
+\prob(\giventhat{X\geq6}{p=\num{0,3}}) &= \sum_{i=6}^{10} \binom{10}{i}\num{0,3}^i\cdot\num{0,7}^{10-i}\\
 &= \num{0.0367569} + \num{0.00900169} + \num{0.0014467} + \num{0.000137781} + \num{5.9049e-6}\\
 &= \num{0.047349} \approx \qty{5}{\percent}
 \end{align*}
