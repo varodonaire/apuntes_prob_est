@@ -267,27 +267,28 @@ La pregunta que debemos hacernos es: ¿es consistente con la estimación de que 
 &= \num{0.0367569} + \num{0.00900169} + \num{0.0014467} + \num{0.000137781} + \num{5.9049e-6}\\
 &= \num{0.047349} \approx \qty{5}{\percent}
 \end{align*}
-Es poco probable que encontremos 6 bicicletas malas dado que la conjetura es cierta, es decir, que el \qty{30}{\percent} de las bicicletas están malas. Esto sugiere que el problema es más grave. 
+Es poco probable que encontremos 6 bicicletas malas dado que la conjetura es cierta, es decir, que el \qty{30}{\percent} de las bicicletas están malas. Esto sugiere que el problema es más grave.\sidenote{exploraremos más esta idea en estadística inferencial}
 
 \section{Distribución geométrica}
 \labsec{geometrica}
 
 Como vimos antes, la distribución geométrica modela la probabilidad de obtener el primer éxito en el intento número \(n\). Tenemos que tener ojo aquí: la variable aleatoria ahora es el número de intentos, lo que en la binomial estaba fijo. 
 
-No cuesta mucho encontrar la función de masa. Si nuestro primer intento exitoso es el intento \(n\), eso quiere decir que los primeros \(n-1\) intentos fueron fracasos. Por lo tanto, \[\Geom(n, p) = pq^{n-1}.\]
+No cuesta mucho encontrar la función de masa. Si nuestro primer intento exitoso es el intento \(n\), eso quiere decir que los primeros \(n-1\) intentos fueron fracasos. Es decir, tenemos \(n-1\) intentos seguidos y \emph{un} éxito justo al final. Por lo tanto, si \(X\sim\geom(n, p)\), entonces \[\prob(X=n) = pq^{n-1}.\]
 
-Podemos calcular la probabilidad acumulada
+También podemos calcular la probabilidad acumulada
 \begin{align*}
 P(X\leq n) &= \sum_{i=1}^{n}pq^{i-1}\\
 &= p\sum_{i=1}^{n}q^{i-1}\\
 &= p\sum_{i=0}^{n-1}q^{i}\\
 &= p \frac{q^n-1}{q-1}\\
 &= p \frac{(1-p)^n-1}{(1-p)-1}\\
-&=1 - (1 - p)^n
+&=1 - (1 - p)^n\\
+&= 1 - q^n
 \end{align*}
-aunque en vez de haber calculado, podríamos haber pensado en lo siguiente: la probabilidad de obtener el primer éxito al menos en el intento \(n\) es \[(1-p)^{n-1}\] porque no hubo ningún éxito en los primeros \(n-1\) intentos. Por lo tanto \[\prob(X\geq n) = (1-p)^{n-1}\] y entonces \[\prob(X\leq n) = 1 - \prob(X\geq n+1) = 1 - (1-p)^n.\]
+aunque en vez de haber calculado, podríamos haber pensado en lo siguiente: la probabilidad de obtener el primer éxito al menos en el intento \(n\) es \[q^{n-1}\] porque no hubo ningún éxito en los primeros \(n-1\) intentos. Por lo tanto \[\prob(X\geq n) = q^{n-1}\] y entonces \[\prob(X\leq n) = 1 - \prob(X\geq n+1) = 1 - q^n.\]
 
-Podemos calcular la esperanza
+Podemos calcular la esperanza usando un truco robado del cálculo
 \begin{align*}
 \esp{X} &= \sum_{i=1}^{\infty}ipq^{i-1}\\
 &= p\sum_{i=1}^{\infty}i(1-p)^{i-1}\\
@@ -348,7 +349,9 @@ La varianza de una distribución geométrica es \[\var{X} = \frac{1-p}{p^2}.\]
 
 Además, no cuesta mucho notar la similaridad de este gráfico con los de funciones del estilo \(a/b^x\). De ahí viene el nombre de geométrica.
 
-Hay autores que definen la distribución geométrica no como el número de intentos para el primer éxito, si no como el número de fracasos antes del primer éxito. No cuesta mucho ver que estas dos definiciones son equivalentes, pero con la definición que usamos acá la \va\ está definida para \(x=1, 2, 3,\ldots\) mientras que con esta otra definición la \va\ está definida para \(x=0, 1, 2, \ldots\). Python usa la definición que usamos nosotros (usando la librería NumPy), mientras que R y Mathematica usan la definición con el número de fracasos.
+Hay autores que definen la distribución geométrica no como el número de intentos para el primer éxito (es decir, contando los fracasos y el éxito final), si no como el número de fracasos antes del primer éxito (es decir, sin el éxito final). Ambas definiciones son equivalentes, pero con la definición del número total de intentos, la \va\ está definida para \(x=1, 2, 3,\ldots\); con la definición del número de fracasos, la \va\ está definida para \(x=0, 1, 2, \ldots\). Por ejemplo, lograr el éxito en el primer intento es equivalente a tener 0 fracasos, lograr el éxito en el segundo intento es equivalente a tener 1 fracaso, y así sucesivamente.\sidenote{queda de tarea para la casa calcular la esperanza y varianza de la \va\ definida de esta manera}
+
+En el software, Python con la librería NumPy usa la definición que usamos nosotros (es decir, el total de intentos), mientras que R y Mathematica usan la definición con el número de fracasos. Es conveniente chequear primero antes de usar el software.
 
 \section{Distribución binomial negativa}
 \labsec{binomial-negativa}
@@ -359,7 +362,7 @@ Al igual que la geométrica, podemos definirla de una forma alternativa: como el
 
 Para encontrar la función de masa de probabilidad, pensemos que nuestro número de éxitos \(k\) y la probabilidad de éxito de cada intento son parámetros de nuestra distribución. Si tuvimos que hacer \(n\) intentos, entonces la probabilidad de obtener \(k\) éxitos \emph{de una forma particular} es \[p^kq^{n-k}.\] Pero, además, tenemos que obtener el último de nuestros \(k\) éxitos en el intento \(n\). Por lo tanto, podemos repartir \(k-1\) éxitos en \(n-1\) intentos. Como no importa el orden, tenemos \[\binom{n-1}{k-1}\] maneras de hacerlo. Por lo tanto, si \(X\sim\NegBin(k, p)\) tenemos \[P(X=n)=\binom{n-1}{k-1}p^kq^{n-k}.\]
 
-Podemos entender la distribución binomial negativa como una suma de distribuciones geométricas independientes. En efecto, nuestra situación es algo como \[\underbrace{FFFFE}_{\text{geom}}\underbrace{FFFFFFFE}_{\text{geom}}\underbrace{\cdots E}_{\text{geoms}}\underbrace{FFE}_{\text{geom}}\] por lo que si \(X\sim\NegBin(k, p)\) entonces \[X=X_1+X_2+\cdots+X_k\] con cada \(X_i\sim\Geom(p)\). Esto hace muy fácil el cálculo de la esperanza y la varianza:
+Podemos entender la distribución binomial negativa como una suma de distribuciones geométricas independientes. En efecto, nuestra situación es algo como \[\underbrace{FFFF\mathcolor{Tomato1}{E}}_{\text{geom}}\underbrace{FFFFFFF\mathcolor{Tomato1}{E}}_{\text{geom}}\underbrace{\cdots \mathcolor{Tomato1}{E}}_{\text{geoms}}\underbrace{FF\mathcolor{Tomato1}{E}}_{\text{geom}}\] por lo que si \(X\sim\NegBin(k, p)\) entonces \[X=X_1+X_2+\cdots+X_k\] con cada \(X_i\sim\Geom(p)\). Esto hace muy fácil el cálculo de la esperanza y la varianza:
 \begin{gather*}
   \esp{X}= k\frac{1}{p}\\
   \var{X} = k\frac{1-p}{p^2}
@@ -432,4 +435,4 @@ Del mismo modo, no cuesta ver que \(\lambda=4\) nacimientos por hora. Por lo tan
 
 Casi que por definición, si tenemos dos variables aleatorias independientes \(X\) e \(Y\) que siguen una distribución de Poisson \[X\sim\Poi(\lambda_1),\quad Y\sim\Poi(\lambda_2)\] entonces su suma también seguirá una distribución de Poisson \[X+Y\sim\Poi(\lambda_1+\lambda_2).\] Por ejemplo, si \(X\) es el número de guaguas nacidas en Santiago, con \(\lambda_1=4\) guaguas por hora, e \(Y\) es el número de guaguas nacidas en Curicó, con \(\lambda_2= 1\) guagua por hora, es relativamente fácil imaginar que esperamos \(5\) guaguas nacidas por hora entre Santiago y Curicó.
 
-Un proceso de Poisson no solamente ocurre a través del tiempo. Podemos imaginarlo también en extensiones de largo, de área, etc. Por ejemplo, podríamos pensar en fallas a través de una tubería, con un número promedio constante de fallas por kilómetro o mutaciones a lo largo de un cromosoma. También podríamos pensar en píxeles muertos en una pantalla o impactos de granito por metro cuadrado en un techo. Habría que verificar si estos ejemplos siguen un proceso de Poisson, pero al menos intuitivamente pareciera que sí.
+Un proceso de Poisson no solamente ocurre a través del tiempo. Podemos imaginarlo también en extensiones de largo, de área, etc. Por ejemplo, podríamos pensar en fallas a través de una tubería, con un número promedio constante de fallas por kilómetro o mutaciones a lo largo de un cromosoma. También podríamos pensar en píxeles muertos en una pantalla o impactos de granito por metro cuadrado en un techo. Habría que verificar si estos ejemplos se originan de un proceso de Poisson, pero al menos intuitivamente pareciera que sí.

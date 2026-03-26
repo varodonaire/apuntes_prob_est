@@ -2,7 +2,7 @@
 \labch{zoologico2}
 
 \begin{ideanote}
-¿Qué significa que una variable sea continua y aleatoria al mismo tiempo? ¿Cómo asignamos probabilidades cuando hay infinitos valores posibles y la probabilidad de cualquier valor exacto es cero? En este capítulo exploramos las distribuciones continuas más importantes.
+¿Qué variables aleatorias continuas hay? ¿Qué tipo de situación modelan? En este capítulo exploramos las distribuciones continuas más importantes.
 \end{ideanote}
 
 \section{Distribución uniforme}
@@ -82,7 +82,26 @@ Recordemos que en la página anterior mencionábamos que la integral de esta fun
 
 Aquí es importante recordar que la función de densidad de probabilidad representa algo como \emph{probabilidad por unidad de largo.} Es decir, si el eje \(x\) hubiera estado en centímetros, podríamos haber interpretado el cálculo anterior como \[\qty{2}{\probabilidad\per\centi\meter} \cdot\qty{0,5}{\centi\meter} = \qty{1}{\probabilidad}\] con una unidad de probabilidad inventada.
 
-En general, si tenemos una \va\ \(X\) que sigue una distribución de probabilidad uniforme en el intervalo \([a, b]\), su función de densidad vendrá dada por \[\frac1{b-a}.\] No cuesta mucho integrar para encontrar que \(\esp{X} = (a+b)/2\) y que \(\var{X}=(b-a)^2/12\).
+En general, si tenemos una \va\ \(X\) que sigue una distribución de probabilidad uniforme en el intervalo \([a, b]\), su función de densidad vendrá dada por \[\frac1{b-a}.\] Para encontrar la esperanza podemos hacer la integral
+\begin{align*}
+\esp{X} &= \int_a^b x\frac{1}{b-a}\,dx\\
+&= \frac{1}{b-a} \left.\frac{x^2}{2}\right|_a^b\\
+&= \frac{1}{b-a} \frac{b^2-a^2}{2}\\
+&= \frac{b+a}{2}
+\end{align*}
+ 
+Por otra parte, para calcular la varianza, \(\var{X}=(b-a)^2/12\).
+\begin{align*}
+\esp{X^2} &= \int_a^b x^2\frac{1}{b-a}\,dx\\
+&= \frac{1}{b-a} \left.\frac{x^3}{3}\right|_a^b\\
+&= \frac{1}{b-a} \frac{b^3-a^3}{3}
+\intertext{simplificando esas expresiones}
+&= \frac{a^2 +ab +b^2}{3}
+\intertext{y por lo tanto, calculando la varianza}
+\var{X} = \esp{X^2} - \esp{X}^2 &= \frac{a^2 +ab +b^2}{3} - \left(\frac{b+a}{2}\right)^2\\
+&= \frac{a^2 +ab +b^2}{3} - \frac{b^2+2ab+a^2}{4}\\
+&= \frac{(b-a)^2}{12}
+\end{align*}
 
 \section{Distribución exponencial}
 \labsec{distr-exponencial}
@@ -115,9 +134,6 @@ La función de densidad es fácil de integrar. En efecto,
 
 Una propiedad notable de la distribución exponencial es la llamada \emph{propiedad de falta de memoria.} Supongamos que modelamos con una exponencial el tiempo de espera hasta que ocurra un evento (por ejemplo, el tiempo hasta que llegue el próximo bus). La propiedad dice que \[\prob(X > t + s \mid X > t) = \prob(X > s),\] es decir, saber que ya esperamos \(t\) minutos no cambia la probabilidad de esperar \(s\) minutos más.
 
-\begin{pausa}
-Si un evento sigue una distribución exponencial y ya lleva esperando \(t\) minutos, ¿cree que eso debería afectar su probabilidad de esperar \(s\) minutos más?
-\end{pausa}
 
 La verificación es directa: \[\prob(X > t + s \mid X > t) = \frac{\prob(X > t+s)}{\prob(X > t)} = \frac{e^{-(t+s)/\lambda}}{e^{-t/\lambda}} = e^{-s/\lambda} = \prob(X > s).\] En cierto sentido, la distribución exponencial \enquote{no recuerda} el tiempo ya transcurrido.
 
