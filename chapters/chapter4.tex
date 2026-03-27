@@ -224,6 +224,7 @@ ylabel={}
 Si en un experimento binomial \(n = 10\) y \(p = \num{0,3}\), ¿cuántos éxitos esperaría obtener en promedio? ¿Cómo llegaría a ese número intuitivamente?
 \end{pausa}
 
+\newpage
 Para calcular la esperanza y varianza de una binomial, basta pensar que si \(X \sim \Bin(n, k)\), entonces \[X = X_1 + X_2 + \cdots + X_n,\] con cada \(X_i\) una variable aleatoria con distribución de Bernoulli con probabilidad \(p\).
 
 Por lo tanto, \[\esp{X} = \esp{\sum_{i=1}^{n}X_i} = \sum_{i=1}^{n}\esp{X_i}= \sum_{i=1}^{n}p = np\]
@@ -263,20 +264,21 @@ Supongamos que se eligen 10 bicicletas de forma aleatoria y resulta que 6 presen
 
 La pregunta que debemos hacernos es: ¿es consistente con la estimación de que el \qty{30}{\percent} de las bicicletas presentan defectos? Para responder, podemos calcular la probabilidad de obtener al menos 6 defectuosas en 10 bicicletas, bajo la suposición de que la proporción real es de \qty{30}{\percent}.
 \begin{align*}
-\prob(\giventhat{X\geq6}{p=\num{0,3}}) &= \sum_{i=6}^{10} \binom{10}{i}\num{0,3}^i\cdot\num{0,7}^{10-i}\\
-&= \num{0.0367569} + \num{0.00900169} + \num{0.0014467} + \num{0.000137781} + \num{5.9049e-6}\\
+\prob\giventhat{X\geq6}{p=\num{0,3}} &= \sum_{i=6}^{10} \binom{10}{i}\num{0,3}^i\cdot\num{0,7}^{10-i}\\
+&= \num{0.0367569} + \num{0.00900169} + \num{0.0014467} + \\
+&\quad + \num{0.000137781} + \num{5.9049e-6}\\
 &= \num{0.047349} \approx \qty{5}{\percent}
 \end{align*}
-Es poco probable que encontremos 6 bicicletas malas dado que la conjetura es cierta, es decir, que el \qty{30}{\percent} de las bicicletas están malas. Esto sugiere que el problema es más grave.\sidenote{exploraremos más esta idea en estadística inferencial}
+Es poco probable que encontremos 6 bicicletas malas dado que la conjetura es cierta, es decir, que el \qty{30}{\percent} de las bicicletas están malas. Esto sugiere que el problema es más grave.\sidenote[][*-2]{exploraremos más esta idea en estadística inferencial}
 
 \section{Distribución geométrica}
 \labsec{geometrica}
 
 Como vimos antes, la distribución geométrica modela la probabilidad de obtener el primer éxito en el intento número \(n\). Tenemos que tener ojo aquí: la variable aleatoria ahora es el número de intentos, lo que en la binomial estaba fijo. 
 
-No cuesta mucho encontrar la función de masa. Si nuestro primer intento exitoso es el intento \(n\), eso quiere decir que los primeros \(n-1\) intentos fueron fracasos. Es decir, tenemos \(n-1\) intentos seguidos y \emph{un} éxito justo al final. Por lo tanto, si \(X\sim\geom(n, p)\), entonces \[\prob(X=n) = pq^{n-1}.\]
+No cuesta mucho encontrar la función de masa. Si nuestro primer intento exitoso es el intento \(n\), eso quiere decir que los primeros \(n-1\) intentos fueron fracasos. Es decir, tenemos \(n-1\) intentos seguidos y \emph{un} éxito justo al final. Por lo tanto, si \(X\sim\Geom(n, p)\), entonces \[\prob(X=n) = pq^{n-1}.\]
 
-También podemos calcular la probabilidad acumulada
+\newpage También podemos calcular la probabilidad acumulada
 \begin{align*}
 P(X\leq n) &= \sum_{i=1}^{n}pq^{i-1}\\
 &= p\sum_{i=1}^{n}q^{i-1}\\
@@ -370,7 +372,7 @@ Podemos entender la distribución binomial negativa como una suma de distribucio
 
 Por ejemplo, un encuestador telefónico puede terminar su jornada cuando ha completado veinte encuestas. El problema es que la probabilidad que alguien complete la encuesta es baja, digamos \num{0,2}. ¿Cuál será la probabilidad que logre completar sus encuestas cuando ha llamado a 50 personas?
 
-Tenemos aquí que \(X\), el número de intentos para completar 20 encuestas, sigue una distribución binomial negativa, \[X\sim\NegBin(20; 0,2).\] Queremos encontrar \[P(X=50)\] y para eso no necesitamos hacer nada más que \[P(X=50) = \binom{49}{19}\num{0,2}^{20}\cdot\num{0,8}^{30} = \num{0.000245}\] lo que es bastante bajo. ¿Por qué? Si calculamos la esperanza, \[E(X) = 20\frac{1}{0,2} = 100.\] Parece que el encuestador va a tener que hacer muchas llamadas antes de poder terminar la jornada.
+Tenemos aquí que \(X\), el número de intentos para completar 20 encuestas, sigue una distribución binomial negativa, \[X\sim\NegBin(20; \num{0,2}).\] Queremos encontrar \[P(X=50)\] y para eso no necesitamos hacer nada más que \[P(X=50) = \binom{49}{19}\,\num{0,2}^{20}\cdot\num{0,8}^{30} = \num{0.000245}\] lo que es bastante bajo. ¿Por qué? Si calculamos la esperanza, \[E(X) = 20\,\frac{1}{0,2} = 100.\] Parece que el encuestador va a tener que hacer muchas llamadas antes de poder terminar la jornada.
 
 \section{Distribución hipergeométrica}
 \labsec{hipergeometrica}
