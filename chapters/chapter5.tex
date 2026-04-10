@@ -2,7 +2,7 @@
 \labch{zoologico2}
 
 \begin{ideanote}
-¿Qué variables aleatorias continuas hay? ¿Qué tipo de situación modelan? En este capítulo exploramos las distribuciones continuas más importantes.
+La vida no es sólo contar cosas, si no también medirlas. ¿Qué podremos medir?
 \end{ideanote}
 
 \section{Distribución uniforme}
@@ -72,10 +72,10 @@ y que, por ejemplo, el gráfico de una distribución uniforme entre \num{1} y \n
 \end{tikzpicture}
 \end{center}
 
-¿Qué pasó en ese gráfico? ¿Por qué da una función \emph{más grande que} \num{1}?
+
 
 \begin{pausa}
-¿Cómo puede ser que una función de probabilidad tome valores mayores que \num{1} sin que eso sea un problema?
+¿Qué pasó en ese gráfico? ¿Por qué da una función de densidad con valores \emph{más grandes que} \num{1}?
 \end{pausa}
 
 Recordemos que en la página anterior mencionábamos que la integral de esta función debe ser \num{1} en todo su dominio. Si integramos la función del último gráfico, vemos que el área bajo la curva es \[\num{2}\cdot\left( \num{1,5} - \num{1} \right) = \num{2}\cdot\num{0,5} = \num{1}.\]
@@ -751,13 +751,13 @@ En general, podemos repetir este proceso cuantas veces queramos. Si sumamos \(k\
 \end{tikzpicture}
 \end{center}
 
-En general, si \(k\geq 3\), la curva presenta un máximo (y, por lo tanto, la moda) en \(k-3\). Podemos ver eso reflejado en el gráfico anterior. La media viene dada por \(k\) y la varianza viene dada por \(2k\).
+En general, si \(k\geq 3\), la curva presenta un máximo (y, por lo tanto, la moda) en \(k-2\). Podemos ver eso reflejado en el gráfico anterior. La media viene dada por \(k\) y la varianza viene dada por \(2k\).
 
 \section{Distribución \emph{t}}
 
 En un mundo ideal, siempre sabríamos lo que pasa con una población completa. En el mundo en que vivimos eso es prácticamente imposible, por lo que nos vemos obligados a tomar muestras. Al tomar muestras, la intuición nos dice que mientras más, mejor, y en realidad eso pasa pero, como el mundo no es ideal, no siempre podemos tomar muestras grandes.
 
-¿Qué podemos hacer entonces? La solución fue estudiada en 1908 por William Sealy Gosset, pero nadie conoce al autor por ese nombre, si no que por Student. Nuestro buen William trabajaba en Guiness y la compañía no permitía que los trabajadores publicaran bajo su nombre\sidenote{en una de las versiones de la historia, en otras sugería que no para evitar que la competencia se enterara de secretos y hay más versiones}. La distribución que encontró, llamada \(t\), se hace cargo de dos problemas:
+¿Qué podemos hacer entonces? La solución fue estudiada en 1908 por William Sealy Gosset, pero nadie conoce al autor por ese nombre, si no que por Student. Nuestro buen William trabajaba en Guiness y la compañía no permitía que los trabajadores publicaran bajo su nombre\sidenote{según una de las versiones de la historia. Otra versión dice que Guiness sugería no publicar con nombre para evitar que la competencia se enterara de secretos. Hay más versiones, por supuesto}. La distribución que encontró, llamada \(t\), se hace cargo de dos problemas:
 \begin{enumerate}
 \item En una muestra no conocemos la media de la población.
 \item En una muestra no conocemos la varianza de la población.
