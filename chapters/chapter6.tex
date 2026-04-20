@@ -14,4 +14,39 @@ Para empezar, en un trabajo real de estadística tendríamos que \emph{limpiar} 
 \section{Señal versus ruido}
 \labsec{senal-ruido}
 
-Una interpretación que podemos hacer de los datos es la de \emph{señal versus ruido.} Muchas veces nuestros datos vienen generados por un proceso, por ejemplo el testeo del tiempo de vida útil de un material, el tiempo de llegada de paquetes en una red, etc. A partir de esos resultados, nos gustaría saber \emph{cuál es la señal,} es decir, cuál es el patrón que está detrás de esos datos. 
+Una interpretación fundamental que podemos hacer de los datos es la de \emph{señal versus ruido.} Muchas veces nuestros datos vienen generados por un proceso, por ejemplo el testeo del tiempo de vida útil de un material, el tiempo de llegada de paquetes en una red, etc. A partir de esos resultados, nos gustaría saber \emph{cuál es la señal,} es decir, cuál es el patrón que está detrás de esos datos. Al mismo tiempo, también hay un cierto \emph{ruido,} es decir las diferencias de nuestra supuesta señal real con los resultados que obtenemos. 
+
+Por ejemplo, podemos pesar diez veces una pelotita y obtenemos los siguientes resultados
+\begin{table}[htbp]
+  \centering
+  \caption{Mediciones del peso de una pelotita de goma}
+  \label{tab:pelota}
+  \begin{tabular}{@{}lcccccccccc@{}}
+    \toprule
+    Toma   & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\
+    \midrule
+    Peso (g) & 24,83 & 24,91 & 24,78 & 24,86 & 24,94 & 24,80 & 24,88 & 24,76 & 24,92 & 24,85 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+
+Es claro que la pelota tiene siempre la misma masa: esa es la señal. El problema es que cada resultado que obtenemos es una combinación de esa señal junto con un cierto nivel de ruido. Tenemos que aceptar que nunca lograremos saber la masa real de la pelota, pero tampoco lo necesitamos: nos basta una buena aproximación.
+
+\subsection{Encontrando señales: las medidas de tendencia central}
+
+Una idea relativamente razonable es que la señal se encuentra \enquote{al medio} de los datos. La pregunta es cómo encontrar ese medio. Algunas alternativas:
+
+\begin{description}
+\item[Media aritmética] También conocida como promedio. Todos lo conocemos.
+\item[Mediana] Ordenando los datos de menor a mayor, el dato que queda al medio.
+\item[Moda] El dato más frecuente.
+\end{description}
+
+Esas tres alternativas son las clásicas. No son las únicas y cada una de ellas tiene pros y contras. Para entenderlos, veamos un caso real.
+
+El gráfico muestra una parte de la distribución de los ingresos en Chile. Antes de intentar hacer algún cálculo, podemos notar algunas cosas. Por ejemplo, la mayor parte de la gente gana menos de \$\num{1000000}. Asimismo, hay gente que gana \emph{mucha} plata.
+
+Ahora marquemos la media (aritmética), la mediana y la moda.
+
+¿Cuáles son las diferencias? Podemos observar que la media se separa de las otras dos medidas. 
