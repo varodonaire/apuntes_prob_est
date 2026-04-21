@@ -32,7 +32,8 @@ Por ejemplo, podemos pesar diez veces una pelotita y obtenemos los siguientes re
 
 Es claro que la pelota tiene siempre la misma masa: esa es la señal. El problema es que cada resultado que obtenemos es una combinación de esa señal junto con un cierto nivel de ruido. Tenemos que aceptar que nunca lograremos saber la masa real de la pelota, pero tampoco lo necesitamos: nos basta una buena aproximación.
 
-\subsection{Encontrando señales: las medidas de tendencia central}
+\section{Encontrando señales: las medidas de tendencia central}
+\labsec{medidas-tendencia-central}
 
 Una idea relativamente razonable es que la señal se encuentra \enquote{al medio} de los datos. La pregunta es cómo encontrar ese medio. Algunas alternativas:
 
@@ -62,7 +63,8 @@ Ahora marquemos la media (aritmética), la mediana y la moda (\reffig{ingreso-2}
 
 ¿Cuáles son las diferencias? Podemos observar que la media se separa de las otras dos medidas. La razón es que la media es sensible a valores extremos. Las pocas personas que ganan muchos millones de pesos \enquote{se llevan} la media hacia la derecha, aunque sean una minoría. La mediana, en cambio, no se ve afectada por las personas muy millonarias: solo le importa quién queda al medio de la distribución. La moda, por otra parte, sólo se preocupa de quién se repite más.
 
-Por otra parte, la media necesita un cálculo realmente fácil y además, \[\frac{x_1+x_2+x_3+\cdots+x_n}{n}\] es derivable para cada \(x_i\). Por otra parte, ¿cuál es la fórmula (general) para la mediana? Suena a difícil. Lo mismo con la moda.
+Por otra parte, la media necesita un cálculo realmente fácil y además, \[\frac{x_1+x_2+x_3+\cdots+x_n}{n}\] es derivable para cada \(x_i\). Por otra parte, ¿cuál es la fórmula (general) para la mediana? Suena a difícil. Lo mismo con la moda. Además, la mediana y la moda no tienen realmente en cuenta a todos los datos, como la media.
+
 
 \formal
 
@@ -90,4 +92,11 @@ Por otra parte, la media necesita un cálculo realmente fácil y además, \[\fra
 \end{table}
 
 
+Como norma general, conviene escoger la media para describir. La excepción es una distribución que presente una gran asimetría, lo que se puede calcular con una medida como el \emph{coeficiente de asimetría} (aptly named) o mediante inspección de un gráfico. El caso de los sueldos es ilustrativo de un conjunto de datos \emph{muy} asimétrico. En casos como estos, es más honesto usar la mediana. La moda, como norma general, presenta menos interés.
 
+\informal
+
+Nótese que el párrafo anterior dice \enquote{más \emph{honesto} usar la mediana.} No es una obligación, si no que una medida que representa mejor los datos. Podemos imaginar a un corredor de propiedades un poco tramposo que nos quiera convencer que el vecindario donde estamos viendo un departamento es muy bueno diciendo \enquote{el promedio de los sueldos es de 2 millones de pesos.} Para desarmarlo, habría que contrapreguntar \enquote{¿y la mediana?}
+
+\section{Midiendo el ruido: las medidas de dispersión}
+\labsec{medidas-dispersion}
