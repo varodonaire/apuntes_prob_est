@@ -21,11 +21,10 @@ Por ejemplo, podemos pesar diez veces una pelotita y obtenemos los siguientes re
   \centering
   \caption{Mediciones del peso de una pelotita de goma}
   \label{tab:pelota}
-  \begin{tabular}{@{}lcccccccccc@{}}
+  \begin{tabular}{@{}SSSSS@{}}
     \toprule
-    Toma   & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\
-    \midrule
-    Peso (g) & 24,83 & 24,91 & 24,78 & 24,86 & 24,94 & 24,80 & 24,88 & 24,76 & 24,92 & 24,85 \\
+  
+24,83 & 24,91 & 24,78 & 24,86 & 24,94\\\midrule 24,80 & 24,88 & 24,76 & 24,92 & 24,85 \\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -45,8 +44,50 @@ Una idea relativamente razonable es que la señal se encuentra \enquote{al medio
 
 Esas tres alternativas son las clásicas. No son las únicas y cada una de ellas tiene pros y contras. Para entenderlos, veamos un caso real.
 
-El gráfico muestra una parte de la distribución de los ingresos en Chile. Antes de intentar hacer algún cálculo, podemos notar algunas cosas. Por ejemplo, la mayor parte de la gente gana menos de \$\num{1000000}. Asimismo, hay gente que gana \emph{mucha} plata.
+\begin{figure*}
+\includegraphics{images/ingreso-1.png}
+\caption{Distribución del ingreso.}
+\labfig{ingreso-1}
+\end{figure*}
 
-Ahora marquemos la media (aritmética), la mediana y la moda.
+El gráfico (\reffig{ingreso-1}) muestra una parte de la distribución de los ingresos en Chile. Antes de intentar hacer algún cálculo, podemos notar algunas cosas. Por ejemplo, la mayor parte de la gente gana menos de \$\num{1000000}. Asimismo, hay gente que gana \emph{mucha} plata.
 
-¿Cuáles son las diferencias? Podemos observar que la media se separa de las otras dos medidas. 
+Ahora marquemos la media (aritmética), la mediana y la moda (\reffig{ingreso-2}).
+
+\begin{figure*}
+\includegraphics{images/ingreso-2.png}
+\caption{Distribución del ingreso.}
+\labfig{ingreso-2}
+\end{figure*}
+
+¿Cuáles son las diferencias? Podemos observar que la media se separa de las otras dos medidas. La razón es que la media es sensible a valores extremos. Las pocas personas que ganan muchos millones de pesos \enquote{se llevan} la media hacia la derecha, aunque sean una minoría. La mediana, en cambio, no se ve afectada por las personas muy millonarias: solo le importa quién queda al medio de la distribución. La moda, por otra parte, sólo se preocupa de quién se repite más.
+
+Por otra parte, la media necesita un cálculo realmente fácil y además, \[\frac{x_1+x_2+x_3+\cdots+x_n}{n}\] es derivable para cada \(x_i\). Por otra parte, ¿cuál es la fórmula (general) para la mediana? Suena a difícil. Lo mismo con la moda.
+
+\formal
+
+\begin{table}[htbp]
+  \centering
+  \caption{Comparación de medidas de tendencia central}
+  \label{tab:tendencia-central}
+  \begin{tabular}{@{}>{\formal}l>{\formal}p{0.35\linewidth}>{\formal}p{0.35\linewidth}@{}}
+    \toprule
+    & \textbf{Pros} & \textbf{Contras} \\
+    \midrule
+    \textbf{Media} &
+      Usa toda la información de los datos. Fácil de calcular y de trabajar matemáticamente. &
+      Sensible a valores extremos (\emph{outliers}); puede dar una imagen distorsionada en distribuciones asimétricas. \\
+    \addlinespace
+    \textbf{Mediana} &
+      Robusta ante valores extremos. Representa bien el valor \enquote{típico} en distribuciones asimétricas. &
+      Ignora la magnitud de los datos fuera del centro. No tiene una fórmula cerrada simple. \\
+    \addlinespace
+    \textbf{Moda} &
+      Funciona con datos categóricos. Útil cuando interesa el valor más frecuente. &
+      Puede no ser única (distribuciones multimodales). Poco informativa en datos continuos. \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+
+
