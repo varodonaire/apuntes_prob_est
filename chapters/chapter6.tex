@@ -57,7 +57,7 @@ Ahora marquemos la media (aritmética), la mediana y la moda (\reffig{ingreso-2}
 
 \begin{figure*}
 \includegraphics{images/ingreso-2.png}
-\caption{Distribución del ingreso.}
+\caption{Distribución del ingreso anotada.}
 \labfig{ingreso-2}
 \end{figure*}
 
@@ -101,32 +101,16 @@ Nótese que el párrafo anterior dice \enquote{más \emph{honesto} usar la media
 \section{Midiendo el ruido: las medidas de dispersión}
 \labsec{medidas-dispersion}
 
-% ============================================================
-% APERTURA — el problema que la media no resuelve
-% ============================================================
-% Dos grupos, mismo promedio, realidades completamente distintas.
-% El objetivo es crear la NECESIDAD de la dispersión antes de nombrarla.
-% Sugerencia: usar dos secciones del mismo curso con promedio 55.
-% En una, todos entre 50 y 60. En la otra, la mitad sacó 10 y la otra mitad 100.
-% La media no los distingue. Pero son grupos radicalmente distintos.
-%
-% Frase de arranque sugerida (cámbiala a tu gusto):
-% "Supongamos que como profesor nos reportan que dos secciones tienen el mismo
-%  promedio en el primer certamen. ¿Son equivalentes?"
-%
-% [TEXTO AQUÍ]
+
+Supongamos que somos ayudantes de dos secciones y nos toca revisar un control. En una sección los puntajes tuvieron un promedio de 55 puntos y los puntajes estuvieron todos entre 50 y 60 puntos. En la otra, el promedio fue también 55 puntos, pero resulta que los alumnos sacaron o bien 10 puntos o bien 100 puntos.
 
 \begin{pausa}
-% Pregunta para el lector antes de revelar la idea de dispersión.
-% Algo como: "¿Con cuál de los dos grupos le daría más tranquilidad trabajar
-% como profesor? ¿Qué información le falta para decidir?"
-% [TEXTO DE LA PAUSA AQUÍ]
+¿Cuál de las dos secciones les da más tranquilidad como ayudantes?
 \end{pausa}
 
-% Párrafo corto de cierre de la apertura: nombrar la idea.
-% La media sólo ubica el centro. No dice nada del SPREAD de los datos.
-% Necesitamos otra herramienta. Eso es la dispersión.
-% [TEXTO AQUÍ]
+Naturalmente, las dos secciones para el promedio son exactamente iguales: 55 puntos. Sin embargo, nuestra intuición nos dice que las dos secciones probablemente son muy distintas. 
+
+Volviendo a la idea de señal versus ruido, la señal \enquote{general} ya fue capturada. Ahora necesitamos capturar a donde nos lleva el ruido. Mejor dicho, necesitamos medir cómo varían los datos, tanto en sí mismos como en relación a la señal que ya encontramos.
 
 
 % ============================================================
@@ -135,27 +119,20 @@ Nótese que el párrafo anterior dice \enquote{más \emph{honesto} usar la media
 \subsection{El rango}
 \labsec{rango}
 
-% Motivación (informal): la medida más simple posible.
-% ¿Cuánto "ocupa" la distribución en el eje numérico?
-% [TEXTO AQUÍ — 1-2 párrafos máximo]
+La medida más sencilla es el rango. El rango mide cuánto \enquote{espacio} ocupan nuestros datos.
 
 \formal
 \begin{definition}[Rango]
 \labdef{rango}
-% Definición formal: rango = máximo - mínimo.
-% [TEXTO AQUÍ]
+Si \(x_1, x_2, \ldots, x_n\) es un conjunto de datos, entonces el rango es \(\max_i x_i - \min_i x_i\)
 \end{definition}
 \informal
 
-% Ejemplo con los datos de las dos secciones (o con los sueldos de la sección anterior).
-% Calcular el rango para ambos grupos. Mostrar que ya los distingue.
-% [EJEMPLO AQUÍ]
+El rango es muy fácil de calcular y además nos da una idea tremendamente rápida sobre cómo se portan nuestros datos. Por ejemplo, en el ejemplo de los puntajes el primer grupo tiene un rango de 10 puntos y el segundo grupo tiene un rango de 90 puntos.
 
-% Párrafo del DEFECTO del rango: solo usa dos datos.
-% Ejemplo de un outlier que destruye la información: si un estudiante saca 100
-% y el resto sacó 40, el rango es 60 pero eso no describe al grupo.
-% Conectar con la idea de outliers que aparece en Freedman (cap. 6).
-% [TEXTO AQUÍ]
+Sin embargo, tampoco es muy descriptivo. Además, entra la idea de \emph{outliers.} Por ejemplo si hubiera otro grupo donde todo el mundo sacó 40 puntos \emph{excepto} un estudiante, que sacó 60, el rango sería 20 puntos, pero no parece que eso describa muy bien al grupo.
+
+¿Por qué no es muy descriptivo el rango? Un problema conectado, pero más profundo que el de los outliers, es que en realidad el rango sólo considera \emph{dos} datos: el máximo y el mínimo. Los otros datos son como el arroz del almuerzo: sólo acompañamiento.
 
 
 % ============================================================
@@ -168,6 +145,9 @@ Nótese que el párrafo anterior dice \enquote{más \emph{honesto} usar la media
 % cuánto se aleja CADA dato de la media? Y luego promediamos esas distancias.
 % Eso es más robusto que el rango.
 % [TEXTO AQUÍ — conectar con la idea de "error promedio" de Freedman]
+
+Una idea para solventar el problema anterior es que consideremos todos los datos. Para hacer eso, debemos conside
+
 
 % Atención: si sumamos las desviaciones con signo, da 0 siempre.
 % (Esto es una propiedad de la media: la suma de desviaciones es 0.)
