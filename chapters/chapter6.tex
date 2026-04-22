@@ -100,3 +100,206 @@ Nótese que el párrafo anterior dice \enquote{más \emph{honesto} usar la media
 
 \section{Midiendo el ruido: las medidas de dispersión}
 \labsec{medidas-dispersion}
+
+% ============================================================
+% APERTURA — el problema que la media no resuelve
+% ============================================================
+% Dos grupos, mismo promedio, realidades completamente distintas.
+% El objetivo es crear la NECESIDAD de la dispersión antes de nombrarla.
+% Sugerencia: usar dos secciones del mismo curso con promedio 55.
+% En una, todos entre 50 y 60. En la otra, la mitad sacó 10 y la otra mitad 100.
+% La media no los distingue. Pero son grupos radicalmente distintos.
+%
+% Frase de arranque sugerida (cámbiala a tu gusto):
+% "Supongamos que como profesor nos reportan que dos secciones tienen el mismo
+%  promedio en el primer certamen. ¿Son equivalentes?"
+%
+% [TEXTO AQUÍ]
+
+\begin{pausa}
+% Pregunta para el lector antes de revelar la idea de dispersión.
+% Algo como: "¿Con cuál de los dos grupos le daría más tranquilidad trabajar
+% como profesor? ¿Qué información le falta para decidir?"
+% [TEXTO DE LA PAUSA AQUÍ]
+\end{pausa}
+
+% Párrafo corto de cierre de la apertura: nombrar la idea.
+% La media sólo ubica el centro. No dice nada del SPREAD de los datos.
+% Necesitamos otra herramienta. Eso es la dispersión.
+% [TEXTO AQUÍ]
+
+
+% ============================================================
+% SUBSECCIÓN 1: RANGO
+% ============================================================
+\subsection{El rango}
+\labsec{rango}
+
+% Motivación (informal): la medida más simple posible.
+% ¿Cuánto "ocupa" la distribución en el eje numérico?
+% [TEXTO AQUÍ — 1-2 párrafos máximo]
+
+\formal
+\begin{definition}[Rango]
+\labdef{rango}
+% Definición formal: rango = máximo - mínimo.
+% [TEXTO AQUÍ]
+\end{definition}
+\informal
+
+% Ejemplo con los datos de las dos secciones (o con los sueldos de la sección anterior).
+% Calcular el rango para ambos grupos. Mostrar que ya los distingue.
+% [EJEMPLO AQUÍ]
+
+% Párrafo del DEFECTO del rango: solo usa dos datos.
+% Ejemplo de un outlier que destruye la información: si un estudiante saca 100
+% y el resto sacó 40, el rango es 60 pero eso no describe al grupo.
+% Conectar con la idea de outliers que aparece en Freedman (cap. 6).
+% [TEXTO AQUÍ]
+
+
+% ============================================================
+% SUBSECCIÓN 2: DESVIACIÓN MEDIA ABSOLUTA
+% ============================================================
+\subsection{La desviación media absoluta}
+\labsec{dma}
+
+% Motivación: en vez de mirar solo los extremos, ¿qué pasa si medimos
+% cuánto se aleja CADA dato de la media? Y luego promediamos esas distancias.
+% Eso es más robusto que el rango.
+% [TEXTO AQUÍ — conectar con la idea de "error promedio" de Freedman]
+
+% Atención: si sumamos las desviaciones con signo, da 0 siempre.
+% (Esto es una propiedad de la media: la suma de desviaciones es 0.)
+% Para evitarlo, una idea natural: ignorar el signo, tomar el valor absoluto.
+% [TEXTO AQUÍ — puede ser una pausa: "¿qué pasa si sumamos las desviaciones?"]
+
+\begin{pausa}
+% "Si calculamos la desviación de cada dato respecto a la media y las sumamos,
+%  ¿qué esperaría obtener? Hágalo con un ejemplo sencillo antes de seguir."
+% [TEXTO DE LA PAUSA AQUÍ]
+\end{pausa}
+
+\formal
+\begin{definition}[Desviación media absoluta]
+\labdef{dma}
+% Fórmula: DMA = (1/n) * sum |x_i - mean(x)|
+% [TEXTO AQUÍ]
+\end{definition}
+\informal
+
+% Ejemplo numérico con los mismos dos grupos. Mostrar que la DMA los distingue
+% mejor que el rango (no depende de un solo outlier).
+% [EJEMPLO AQUÍ]
+
+% Párrafo del DEFECTO de la DMA: el valor absoluto es algebraicamente incómodo.
+% No es derivable en 0. No se comporta bien con sumas de variables aleatorias.
+% Por eso los estadísticos hacen algo distinto.
+% (No hace falta entrar en detalles de derivabilidad; con "difícil de trabajar
+%  matemáticamente" es suficiente para un curso introductorio.)
+% [TEXTO AQUÍ]
+
+
+% ============================================================
+% SUBSECCIÓN 3: VARIANZA Y DESVIACIÓN ESTÁNDAR
+% ============================================================
+\subsection{La varianza y la desviación estándar}
+\labsec{varianza-sd}
+
+% Motivación: el cuadrado también elimina los signos, igual que el valor absoluto.
+% Pero además penaliza más los datos lejanos. Eso es una DECISIÓN deliberada,
+% no un capricho matemático.
+% Freedman lo llama "r.m.s. de las desviaciones": raíz del promedio de cuadrados.
+% [TEXTO AQUÍ — 1-2 párrafos. Hacer el argumento del cuadrado vs. valor absoluto]
+
+% Nota: presentar la VARIANZA primero (cuadrado, unidades extrañas),
+% y luego la DESVIACIÓN ESTÁNDAR como la versión que vuelve a las unidades originales.
+% Freedman en una nota al pie lo dice perfectamente: "la varianza de los pesos es
+% 1600 libras cuadradas" — una unidad sin sentido físico.
+% [TEXTO AQUÍ]
+
+\formal
+\begin{definition}[Varianza muestral]
+\labdef{varianza}
+% s^2 = (1/(n-1)) * sum (x_i - mean(x))^2
+% Nota: aquí va la decisión n-1 vs n. En descriptivo puro podría usarse n,
+% pero n-1 es el estándar estadístico. Una sidenote explicando que se verá
+% mejor en el capítulo de estimadores es suficiente.
+% [TEXTO AQUÍ]
+\end{definition}
+
+\begin{definition}[Desviación estándar muestral]
+\labdef{sd}
+% s = sqrt(s^2)
+% Unidades iguales a las de los datos originales.
+% [TEXTO AQUÍ]
+\end{definition}
+\informal
+
+% Ejemplo numérico completo: calcular la varianza y SD para ambos grupos
+% del ejemplo de apertura. Mostrar paso a paso (tabla con columnas:
+% x_i, x_i - mean, (x_i - mean)^2).
+% Conectar el resultado con lo que ya se intuía: el grupo heterogéneo
+% tiene SD mucho mayor.
+% [EJEMPLO AQUÍ — considerar usar una tabular para los cálculos]
+
+
+% ============================================================
+% INTERPRETACIÓN: ¿QUÉ SIGNIFICA LA SD?
+% ============================================================
+
+% Párrafo de interpretación (crucial — aquí fracasan la mayoría de los textos).
+% La SD no es solo un número. Es una respuesta a "¿qué tan lejos están
+% los datos de su media, en promedio?"
+%
+% Recordatorio (breve) de la regla 68-95-99,7 que ya vimos en el cap. 5:
+% en una distribución normal, ~68% de los datos cae a menos de 1 SD de la media.
+% Usar eso para dar significado concreto al número.
+% Ejemplo: SD = 15 puntos en un examen de 100 → dos tercios de los estudiantes
+% están entre (media - 15) y (media + 15).
+% [TEXTO AQUÍ — 1 párrafo. Referencia cruzada a \nrefsec{distr-normal} o similar]
+
+\begin{remark}
+% "La desviación estándar mide cuánto se alejan típicamente los datos de su media.
+%  Un dato a más de 2 SD de la media es inusual."
+% [TEXTO AQUÍ]
+\end{remark}
+
+
+% ============================================================
+% CIERRE: LA SD COMO CALIDAD DEL INSTRUMENTO (Freedman, cap. 6)
+% ============================================================
+
+% Este es el cierre narrativo del capítulo. Volver a la pelotita de goma
+% de la sección \nrefsec{senal-ruido}.
+%
+% La ecuación de Freedman:
+%   medición = valor exacto + error de chance
+%
+% La SD de esas 10 mediciones no describe a las mediciones: describe al INSTRUMENTO.
+% Una balanza con SD pequeña es más confiable. El promedio de ambas puede ser el mismo.
+%
+% Esto conecta la dispersión con todo lo que viene después (estimadores, intervalos).
+% [TEXTO AQUÍ — 2-3 párrafos. Es el más importante del cierre.]
+
+\begin{pausa}
+% "Si dos balanzas dan el mismo promedio al pesar la pelotita, pero una tiene
+%  SD = 0,01 g y la otra SD = 0,3 g, ¿cuál usaría? ¿Siempre la misma?"
+% [TEXTO DE LA PAUSA AQUÍ]
+\end{pausa}
+
+% Párrafo final que conecta hacia adelante:
+% La dispersión no es el final del análisis, es el comienzo de la inferencia.
+% Cuando en los capítulos siguientes estimemos parámetros o construyamos
+% intervalos de confianza, la SD volverá a aparecer como medida de confiabilidad.
+% [TEXTO AQUÍ — 1 párrafo, optional]
+
+
+% ============================================================
+% SIDENOTE / PÁRRAFO BREVE: COEFICIENTE DE VARIACIÓN
+% ============================================================
+% ¿Cuándo una SD es "grande"? Depende de la escala.
+% SD = 5 kg en pesos corporales es pequeña. SD = 5 kg en el peso de un ratón, enorme.
+% El CV = SD/media (expresado en %) permite comparar dispersiones en escalas distintas.
+% Ejemplo: comparar dispersión de sueldos (en pesos) con dispersión de estaturas (en cm).
+% [SIDENOTE O PÁRRAFO CORTO AQUÍ — no necesita subsección propia]
