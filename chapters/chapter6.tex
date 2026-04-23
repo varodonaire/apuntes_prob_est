@@ -141,30 +141,31 @@ Sin embargo, tampoco es muy descriptivo. Además, entra la idea de \emph{outlier
 \subsection{La desviación media absoluta}
 \labsec{dma}
 
-% Motivación: en vez de mirar solo los extremos, ¿qué pasa si medimos
-% cuánto se aleja CADA dato de la media? Y luego promediamos esas distancias.
-% Eso es más robusto que el rango.
-% [TEXTO AQUÍ — conectar con la idea de "error promedio" de Freedman]
 
-Una idea para solventar el problema anterior es que consideremos todos los datos. Para hacer eso, debemos conside
+Una idea para solventar el problema anterior es que consideremos todos los datos. Para hacer eso, debemos pensar en un estándar para la desviación. Este estándar podría ser cualquiera de nuestras medidas de centro, la media, mediana o moda. La moda, como podría no existir o haber más de una, suele dejarse de lado. Se puede hacer una estadística muy interesante con la mediana, pero es \emph{bastante} más difícil. La media funciona suficientemente bien y es fácil de calcular y es fácil calcular cosas alrededor de la media.
+
+Uno de los problemas de la media, sin embargo, es que su centralidad viene de considerar \emph{todos} los datos de manera que queda, por así decirlo, igualmente separada de todos. Explicándolo mejor, la media fue construida dando igual peso a cada dato. Por lo tanto, si yo considero las desviaciones de la media a cada dato
+\begin{align*}
+&x_i-\mu
+\intertext{y las agregamos todas}
+\sum_{i=1}^n &(x_i-\mu)
+\intertext{nos encontramos con que}
+\sum_{i=1}^n &(x_i-\mu) = 0
+\intertext{demostración para el lector.}
+\end{align*}
 
 
-% Atención: si sumamos las desviaciones con signo, da 0 siempre.
-% (Esto es una propiedad de la media: la suma de desviaciones es 0.)
-% Para evitarlo, una idea natural: ignorar el signo, tomar el valor absoluto.
-% [TEXTO AQUÍ — puede ser una pausa: "¿qué pasa si sumamos las desviaciones?"]
 
 \begin{pausa}
-% "Si calculamos la desviación de cada dato respecto a la media y las sumamos,
-%  ¿qué esperaría obtener? Hágalo con un ejemplo sencillo antes de seguir."
-% [TEXTO DE LA PAUSA AQUÍ]
+¿Cómo podemos solventar ese problema?
 \end{pausa}
 
 \formal
 \begin{definition}[Desviación media absoluta]
 \labdef{dma}
-% Fórmula: DMA = (1/n) * sum |x_i - mean(x)|
-% [TEXTO AQUÍ]
+Podemos solventar el problema usando la desviación media absoluta
+\[DMA = (1/n) * sum |x_i - mean(x)|\]
+pero no es necesariamente la mejor manera de solventar el problema. Just saying.
 \end{definition}
 \informal
 
