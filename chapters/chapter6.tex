@@ -154,8 +154,10 @@ Uno de los problemas de la media, sin embargo, es que su centralidad viene de co
 \intertext{y las agregamos todas}
 \sum_{i=1}^n &(x_i-\mu)
 \intertext{nos encontramos con que}
-\sum_{i=1}^n &(x_i-\mu) = 0
-\intertext{demostración para el lector.}
+\sum_{i=1}^n &(x_i-\mu) = \sum_{i=1}^n x_i-n\mu
+\intertext{pero \(n\mu\) es \(x_1+x_2+\cdots+x_n\)}
+=\sum_{i=1}^n & x_i-(x_1+x_2+\cdots+x_n)\\
+=  0 &
 \end{align*}
 
 
@@ -168,7 +170,7 @@ Uno de los problemas de la media, sin embargo, es que su centralidad viene de co
 \begin{definition}[Desviación media absoluta]
 \labdef{dma}
 Podemos solventar el problema usando la desviación media absoluta
-\[DMA = (1/n) * sum |x_i - mean(x)|\]
+\[DMA = \frac{\sum |x_i - \mu|}{n}\]
 pero no es necesariamente la mejor manera de solventar el problema. Just saying.
 \end{definition}
 \informal
@@ -177,7 +179,7 @@ pero no es necesariamente la mejor manera de solventar el problema. Just saying.
 % mejor que el rango (no depende de un solo outlier).
 % [EJEMPLO AQUÍ]
 
-En la tabla \ref{datos-desv} podemos ver dos conjuntos de datos. Ambos tienen el mismo rango, pero no cuesta mucho ver (\ref{fig:rango-vs-dma}) que el conjunto B tiene una distribución mucho más concentrada, salvo dos puntos extremos. El rango no refleja eso, pero la desviación media absoluta sí.
+En la  \reftab{datos-desv} podemos ver dos conjuntos de datos. Ambos tienen el mismo rango, pero no cuesta mucho ver (\reffig{fig:rango-vs-dma}) que el conjunto B tiene una distribución mucho más concentrada, salvo dos puntos extremos. El rango no refleja eso, pero la desviación media absoluta sí.
 
 
 \begin{table}[ht]
@@ -203,10 +205,10 @@ En la tabla \ref{datos-desv} podemos ver dos conjuntos de datos. Ambos tienen el
 \bottomrule
 \end{tabular}
 \caption{Dos conjuntos con igual rango y media, pero distinta dispersión.}
-\label{datos-desv}
+\labtab{datos-desv}
 \end{table}
 
-\begin{figure}
+\begin{figure*}
 \begin{tikzpicture}
 \begin{axis}[
     width=12cm,
@@ -217,10 +219,8 @@ En la tabla \ref{datos-desv} podemos ver dos conjuntos de datos. Ambos tienen el
     yticklabels={Conjunto $B$, Conjunto $A$},
     xlabel={Valor},
     xtick={0,20,40,60,80,100},
-    grid=x,
     grid style={line width=0.4pt, draw=gray!25},
     mark size=3.5pt,
-    tick align=outside,
     clip=false,
 ]
 
@@ -236,7 +236,7 @@ En la tabla \ref{datos-desv} podemos ver dos conjuntos de datos. Ambos tienen el
 \addplot[densely dashed, thick, gray!60, forget plot]
     coordinates {(50, 0.4)(50, 2.6)};
 \node[gray!70, font=\footnotesize, anchor=south]
-    at (axis cs:50, 2.55) {$\bar{x}=50$};
+    at (axis cs:50, 2.55) {$\mu=50$};
 
 % Datos: Conjunto A  (y = 2)
 \addplot[only marks, mark=*,
@@ -264,9 +264,9 @@ En la tabla \ref{datos-desv} podemos ver dos conjuntos de datos. Ambos tienen el
 
 \end{axis}
 \end{tikzpicture}
-\caption{Dos conjuntos con igual rango y media $(\bar{x}=50,\ R=96)$ pero distinta dispersión. La banda sombreada representa $\bar{x} \pm \text{DMA}$.}
-\label{fig:rango-vs-dma}
-\end{figure}
+\caption{Dos conjuntos con igual rango y media $(\mu=50,\ R=96)$ pero distinta dispersión. La banda sombreada representa $\mu \pm \text{DMA}$.}
+\labfig{fig:rango-vs-dma}
+\end{figure*}
 
 
 
@@ -286,100 +286,147 @@ En la tabla \ref{datos-desv} podemos ver dos conjuntos de datos. Ambos tienen el
 \subsection{La varianza y la desviación estándar}
 \labsec{varianza-sd}
 
-% Motivación: el cuadrado también elimina los signos, igual que el valor absoluto.
-% Pero además penaliza más los datos lejanos. Eso es una DECISIÓN deliberada,
-% no un capricho matemático.
-% Freedman lo llama "r.m.s. de las desviaciones": raíz del promedio de cuadrados.
-% [TEXTO AQUÍ — 1-2 párrafos. Hacer el argumento del cuadrado vs. valor absoluto]
+La idea es simple: necesitamos una manera de eliminar los signos que no traiga los problemas algebraicos del valor absoluto. Y hay una manera muy natural de hacerlo: elevar al cuadrado. Si \(x_i - \mu\) puede ser negativo, \((x_i-\mu)^2\) es siempre no negativo, igual que \(|x_i-\mu|\). Pero a diferencia del valor absoluto, el cuadrado es derivable en todas partes y se comporta mucho mejor matemáticamente.
 
-% Nota: presentar la VARIANZA primero (cuadrado, unidades extrañas),
-% y luego la DESVIACIÓN ESTÁNDAR como la versión que vuelve a las unidades originales.
-% Freedman en una nota al pie lo dice perfectamente: "la varianza de los pesos es
-% 1600 libras cuadradas" — una unidad sin sentido físico.
-% [TEXTO AQUÍ]
+Hay además una consecuencia que vale la pena notar: elevar al cuadrado \emph{penaliza más los datos lejanos.} Un dato que está a \(2\) unidades de la media contribuye \(4\) a la suma; uno que está a \(4\) unidades contribuye \(16\). Eso es una decisión deliberada, no un capricho matemático: la varianza le dice al resumen \enquote{presta más atención a los extremos.} Si se prefiriera no hacer eso, se usaría el valor absoluto. Si se prefiriera hacerlo aún más agresivamente, se elevaría al cubo o a la cuarta potencia. El cuadrado es el balance que resultó ser más manejable.
+
+
+
+Sin embargo, elevar al cuadrado tiene un costo: las unidades cambian. Si los puntajes están en puntos, entonces \((x_i-\mu)^2\) está en \emph{puntos al cuadrado.} La varianza, que promedia esas desviaciones al cuadrado, también está en puntos al cuadrado. Esto puede sonar extraño porque lo es: \enquote{puntos cuadrados} no tiene un significado concreto en la realidad. La solución es obvia: sacar raíz cuadrada. Eso nos da la \emph{desviación estándar,} que vuelve a estar en las mismas unidades que los datos originales y es, por eso mismo, la medida que más se usa en la práctica.
 
 \formal
-\begin{definition}[Varianza muestral]
-\labdef{varianza}
-% s^2 = (1/(n-1)) * sum (x_i - mean(x))^2
-% Nota: aquí va la decisión n-1 vs n. En descriptivo puro podría usarse n,
-% pero n-1 es el estándar estadístico. Una sidenote explicando que se verá
-% mejor en el capítulo de estimadores es suficiente.
-% [TEXTO AQUÍ]
+\begin{definition}[Varianza poblacional]
+\labdef{varianza-pob}
+Si \(x_1, x_2, \ldots, x_N\) es una población completa con media \(\mu\), la varianza poblacional es
+\[\sigma^2 = \frac{1}{N}\sum_{i=1}^{N}(x_i - \mu)^2.\]
 \end{definition}
 
-\begin{definition}[Desviación estándar muestral]
-\labdef{sd}
-% s = sqrt(s^2)
-% Unidades iguales a las de los datos originales.
-% [TEXTO AQUÍ]
+\begin{definition}[Desviación estándar poblacional]
+\labdef{sd-pob}
+La desviación estándar poblacional es la raíz cuadrada de la varianza poblacional,
+\[\sigma = \sqrt{\sigma^2} = \sqrt{\frac{1}{N}\sum_{i=1}^{N}(x_i - \mu)^2}.\]
+Sus unidades son las mismas que las de los datos originales.
 \end{definition}
+
 \informal
 
-% Ejemplo numérico completo: calcular la varianza y SD para ambos grupos
-% del ejemplo de apertura. Mostrar paso a paso (tabla con columnas:
-% x_i, x_i - mean, (x_i - mean)^2).
-% Conectar el resultado con lo que ya se intuía: el grupo heterogéneo
-% tiene SD mucho mayor.
-% [EJEMPLO AQUÍ — considerar usar una tabular para los cálculos]
+Volvamos a los dos grupos del comienzo de la sección (\reftab{datos-desv}). Ya sabíamos que son muy distintos aunque compartan media y rango; ahora podemos medirlo con precisión.
 
+\formal
+\begin{table}[ht]
+\centering
+\caption{Cálculo paso a paso de la varianza poblacional (\(\mu=50\) en ambos casos).}
+\labtab{tab:varianza-calculo}
+\begin{minipage}{0.45\linewidth}
+\centering
+\smallskip\textbf{Conjunto A}\smallskip
 
-% ============================================================
-% INTERPRETACIÓN: ¿QUÉ SIGNIFICA LA SD?
-% ============================================================
+\begin{tabular}{rrr}
+\toprule
+\(x_i\) & \(x_i - \mu\) & \((x_i - \mu)^2\) \\
+\midrule
+ 2 & -48 & 2304 \\
+18 & -32 & 1024 \\
+27 & -23 &  529 \\
+35 & -15 &  225 \\
+44 &  -6 &   36 \\
+56 &   6 &   36 \\
+65 &  15 &  225 \\
+73 &  23 &  529 \\
+82 &  32 & 1024 \\
+98 &  48 & 2304 \\
+\midrule
+   &   0 & 8236 \\
+\bottomrule
+\end{tabular}
+\end{minipage}\hfill
+\begin{minipage}{0.45\linewidth}
+\centering
+\smallskip\textbf{Conjunto B}\smallskip
 
-% Párrafo de interpretación (crucial — aquí fracasan la mayoría de los textos).
-% La SD no es solo un número. Es una respuesta a "¿qué tan lejos están
-% los datos de su media, en promedio?"
-%
-% Recordatorio (breve) de la regla 68-95-99,7 que ya vimos en el cap. 5:
-% en una distribución normal, ~68% de los datos cae a menos de 1 SD de la media.
-% Usar eso para dar significado concreto al número.
-% Ejemplo: SD = 15 puntos en un examen de 100 → dos tercios de los estudiantes
-% están entre (media - 15) y (media + 15).
-% [TEXTO AQUÍ — 1 párrafo. Referencia cruzada a \nrefsec{distr-normal} o similar]
+\begin{tabular}{rrr}
+\toprule
+\(x_i\) & \(x_i - \mu\) & \((x_i - \mu)^2\) \\
+\midrule
+ 2 & -48 & 2304 \\
+44 &  -6 &   36 \\
+46 &  -4 &   16 \\
+48 &  -2 &    4 \\
+50 &   0 &    0 \\
+50 &   0 &    0 \\
+52 &   2 &    4 \\
+54 &   4 &   16 \\
+56 &   6 &   36 \\
+98 &  48 & 2304 \\
+\midrule
+   &   0 & 4720 \\
+\bottomrule
+\end{tabular}
+\end{minipage}
+\end{table}
+
+Dividiendo por \(N = 10\) en cada caso:
+\[
+\sigma^2_A = \frac{8236}{10} = \num{823,6} \qquad \sigma_A \approx \num{28,7}
+\]
+\[
+\sigma^2_B = \frac{4720}{10} = \num{472,0} \qquad \sigma_B \approx \num{21,7}
+\]
+\informal
+
+El conjunto A tiene una desviación estándar casi un \(32\%\) mayor que el conjunto B. Nótese que ambos grupos comparten los mismos valores extremos (\(2\) y \(98\)), así que el cuadrado los penaliza por igual en ambos lados. La diferencia viene del interior: en B los ocho datos del centro están muy apretados cerca de \(50\), mientras que en A están esparcidos por todo el rango.
+
+¿Qué significa ese número concretamente? La desviación estándar responde a la pregunta: \emph{¿qué tan lejos se aleja un dato típico de la media?} Así, en el conjunto A un dato \enquote{normal} está a unas \(29\) unidades de la media; en el conjunto B, a unas \(22\). Como veremos en el capítulo sobre la distribución normal, cuando los datos siguen esa distribución aproximadamente el \(68\%\) cae dentro de un intervalo de una desviación estándar a cada lado de la media, y alrededor del \(95\%\) dentro de dos. Eso le da a \(\sigma\) un significado concreto incluso antes de saber la forma exacta de los datos.
 
 \begin{remark}
-% "La desviación estándar mide cuánto se alejan típicamente los datos de su media.
-%  Un dato a más de 2 SD de la media es inusual."
-% [TEXTO AQUÍ]
+La desviación estándar poblacional \(\sigma\) mide cuánto se alejan típicamente los datos de su media \(\mu\). Un dato a más de \(2\sigma\) de la media es inusual; uno a más de \(3\sigma\), extraordinariamente raro.
 \end{remark}
 
-
-% ============================================================
-% CIERRE: LA SD COMO CALIDAD DEL INSTRUMENTO (Freedman, cap. 6)
-% ============================================================
-
-% Este es el cierre narrativo del capítulo. Volver a la pelotita de goma
-% de la sección \nrefsec{senal-ruido}.
-%
-% La ecuación de Freedman:
-%   medición = valor exacto + error de chance
-%
-% La SD de esas 10 mediciones no describe a las mediciones: describe al INSTRUMENTO.
-% Una balanza con SD pequeña es más confiable. El promedio de ambas puede ser el mismo.
-%
-% Esto conecta la dispersión con todo lo que viene después (estimadores, intervalos).
-% [TEXTO AQUÍ — 2-3 párrafos. Es el más importante del cierre.]
+Volvamos por un momento a la pelotita de goma del inicio del capítulo. Pesamos la pelota diez veces y obtuvimos diez resultados ligeramente distintos. Podemos escribir cada medición como
+\[
+\text{medición} = \text{valor exacto} + \text{error de azar.}
+\]
+El valor exacto es siempre el mismo: es la señal. El error de azar cambia en cada pesada: es el ruido. La media de las diez mediciones nos da una buena estimación del valor exacto. ¿Y la desviación estándar? No describe a la pelota, sino a la \emph{balanza.} Una balanza precisa produce errores pequeños y una desviación estándar pequeña; una balanza de mala calidad produce errores grandes y una desviación estándar grande. Dos balanzas pueden dar exactamente el mismo promedio y, sin embargo, ser muy distintas en confiabilidad.
 
 \begin{pausa}
-% "Si dos balanzas dan el mismo promedio al pesar la pelotita, pero una tiene
-%  SD = 0,01 g y la otra SD = 0,3 g, ¿cuál usaría? ¿Siempre la misma?"
-% [TEXTO DE LA PAUSA AQUÍ]
+Dos balanzas pesan la misma pelotita diez veces cada una. Ambas dan un promedio de \qty{24,85}{\gram}, pero la primera tiene una desviación estándar de \qty{0,01}{\gram} y la segunda de \qty{0,30}{\gram}. ¿Cuál usarías? ¿Cambiaría tu respuesta si supieras que la segunda cuesta diez veces menos?
 \end{pausa}
 
-% Párrafo final que conecta hacia adelante:
-% La dispersión no es el final del análisis, es el comienzo de la inferencia.
-% Cuando en los capítulos siguientes estimemos parámetros o construyamos
-% intervalos de confianza, la SD volverá a aparecer como medida de confiabilidad.
-% [TEXTO AQUÍ — 1 párrafo, optional]
+La dispersión no es el final del análisis: es el comienzo de la inferencia. En los capítulos que siguen veremos cómo estimar parámetros y construir intervalos de confianza; en ambos casos, \(\sigma\) volverá a aparecer como medida de la incertidumbre que arrastramos al trabajar con datos reales.
 
+¿Cuándo es \enquote{grande} una desviación estándar? Depende de la escala. Una desviación de \(5\)~kg en el peso de personas adultas es pequeña; la misma desviación en el peso de un ratón de laboratorio sería enorme. Para comparar dispersiones entre variables medidas en escalas distintas, se puede usar el \emph{coeficiente de variación:}
+\[
+CV = \frac{\sigma}{\mu} \times 100\%.
+\]
+El \(CV\) expresa la desviación estándar como porcentaje de la media, lo que permite comparar, por ejemplo, cuán variable es el sueldo de los trabajadores de una empresa respecto a cuán variable es su estatura.
 
-% ============================================================
-% SIDENOTE / PÁRRAFO BREVE: COEFICIENTE DE VARIACIÓN
-% ============================================================
-% ¿Cuándo una SD es "grande"? Depende de la escala.
-% SD = 5 kg en pesos corporales es pequeña. SD = 5 kg en el peso de un ratón, enorme.
-% El CV = SD/media (expresado en %) permite comparar dispersiones en escalas distintas.
-% Ejemplo: comparar dispersión de sueldos (en pesos) con dispersión de estaturas (en cm).
-% [SIDENOTE O PÁRRAFO CORTO AQUÍ — no necesita subsección propia]
+Consideremos los pesos de cinco saltamontes (en gramos) y cinco elefantes (en toneladas) de la \reftab{tab:cv-ejemplo}. ¿Cuál de las dos especies es más variable?
+
+\formal
+\begin{table}[ht]
+\centering
+\caption{Pesos de saltamontes (\unit{\gram}) y elefantes (\unit{\tonne}).}
+\labtab{tab:cv-ejemplo}
+\begin{tabular}{SS}
+\toprule
+{Saltamontes (\unit{\gram})} & {Elefantes (\unit{\tonne})} \\
+\midrule
+10,5 & 4,90 \\
+9,8  & 5,10 \\
+11,2 & 4,80 \\
+7,7  & 5,05 \\
+10,3 & 4,92 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Calculando:
+\[
+\mu_S = \qty{9,9}{\gram} \qquad \sigma_S \approx \qty{1,19}{\gram} \qquad CV_S \approx \qty{12,0}{\percent}
+\]
+\[
+\mu_E = \qty{4,954}{\tonne} \qquad \sigma_E = \qty{0,108}{\tonne} \qquad CV_E \approx \qty{2,2}{\percent}
+\]
+\informal
+
+En términos absolutos, \(\sigma_E = \qty{0,108}{\tonne} = \qty{108}{\kilo\gram}\): los elefantes varían muchísimo más que los saltamontes. Pero eso no es sorprendente: los elefantes son animales enormes. La pregunta más interesante es cuánto varían \emph{respecto a su propio tamaño.} Ahí el resultado se invierte: los saltamontes tienen un \(CV\) de \qty{12}{\percent}, mientras que los elefantes tienen apenas \qty{2,2}{\percent}. Relativo a lo que pesan, los elefantes son notablemente uniformes y los saltamontes bastante variables.
