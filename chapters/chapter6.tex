@@ -9,7 +9,7 @@ Con este capítulo salimos de la parte puramente probabilística del curso para 
 
 En particular, el problema de la estadística descriptiva es uno muy simple: ¿Qué puedo decir de un montón de datos? Como dice el nombre, ¿cómo puedo describir lo que les pasa?
 
-Para empezar, en un trabajo real de estadística tendríamos que \emph{limpiar} los datos. Nuestras bases de datos, incluso si las recogemos nosotros mismos, nunca serán perfectas. Siempre pasará que habrá datos faltantes, datos en formato incorrecto, etc. Limpiar los datos quiere decir tomar decisiones sobre qué hacer con los datos \enquote{erróneos} que tenemos. Si bien es parte importante del proceso, por ahora nos concentraremos en datos ya limpios.
+Como paréntesis antes de empezar, en un trabajo real de estadística tendríamos que \emph{limpiar} los datos. Nuestras bases de datos, incluso si las recogemos nosotros mismos, nunca serán perfectas. Siempre habrá datos faltantes, datos en formato incorrecto, etc. Limpiar los datos quiere decir tomar decisiones sobre qué hacer con los datos \enquote{erróneos} o problemáticos que tenemos. Si bien es parte importante del proceso, por ahora nos concentraremos en datos ya limpios.
 
 \section{Señal versus ruido}
 \labsec{senal-ruido}
@@ -96,11 +96,11 @@ Como norma general, conviene escoger la media para describir. La excepción es u
 
 \informal
 
-Nótese que el párrafo anterior dice \enquote{más \emph{honesto} usar la mediana.} No es una obligación, si no que una medida wque representa mejor los datos. Podemos imaginar a un corredor de propiedades un poco tramposo que nos quiera convencer que el vecindario donde estamos viendo un departamento es muy bueno diciendo \enquote{el promedio de los sueldos es de 2 millones de pesos.} Para desarmarlo, habría que contrapreguntar \enquote{¿y la mediana?}
+Nótese que el párrafo anterior dice \enquote{más \emph{honesto} usar la mediana.} No es una obligación, si no que una medida que representa mejor los datos. Podemos imaginar a un corredor de propiedades un poco tramposo que nos quiera convencer que el vecindario donde estamos viendo un departamento es muy bueno diciendo \enquote{el promedio de los sueldos es de 2 millones de pesos.} Para desarmarlo, habría que contrapreguntar \enquote{¿y la mediana?}
 
-Hay que hacer una diferencia entre \emph{qué es} la media, mediana o moda y \emph{cómo se calculan.} La media es el número que, si lo reemplazo en cada dato, me da el mismo resultado al sumar. En otras palabras, si reemplazo cada dato por la media, la suma total no cambia.
+Por otra parte, hay que hacer una diferencia entre \emph{qué es} la media, mediana o moda y \emph{cómo se calculan.} La media es el número que, si lo reemplazo en cada dato, me da el mismo resultado al sumar. En otras palabras, si reemplazo cada dato por la media, la suma total no cambia.
 
-La mediana, por otra parte, no funciona así. Hay una diferencia entre la media y la mediana, y es que la media aparece como un objeto algebraico mientras que la mediana aparece como un objeto de orden. En ese sentido, lo que conserva la mediana es el orden. Por otra parte, la media \(c\) es el valor que minimiza \[\sum_{x} \left(x-c\right)^2\] mientras que la mediana es el valor \(c\) que minimiza \[\sum_x|x-c|.\]
+La mediana no funciona así. Una diferencia entre la media y la mediana es que la media aparece como un objeto algebraico mientras que la mediana aparece como un objeto de orden. En ese sentido, lo que conserva la mediana es el orden. Técnicamente, la media es el valor \(c\)  que minimiza \[\sum_{i=1}^n \left(x_i-c\right)^2\] mientras que la mediana es el valor \(c\) que minimiza \[\sum_{i=1}^n |x_i-c|.\]
 
 \section{Midiendo el ruido: las medidas de dispersión}
 \labsec{medidas-dispersion}
@@ -114,7 +114,7 @@ Supongamos que somos ayudantes de dos secciones y nos toca revisar un control. E
 
 Naturalmente, las dos secciones para el promedio son exactamente iguales: 55 puntos. Sin embargo, nuestra intuición nos dice que las dos secciones probablemente son muy distintas. 
 
-Volviendo a la idea de señal versus ruido, la señal \enquote{general} ya fue capturada. Ahora necesitamos capturar a donde nos lleva el ruido. Mejor dicho, necesitamos medir cómo varían los datos. Para medir esa variación es conveniente que establezcamos alguna referencia. Como veremos, la primera medida nos muestra que no es obligatorio, pero tampoco nos cuenta mucho.
+Volviendo a la idea de señal versus ruido, la señal \enquote{general} ya fue capturada. Ahora necesitamos capturar a donde nos lleva el ruido. En otras palabras, necesitamos medir cómo varían los datos. Para medir esa variación es conveniente que establezcamos alguna referencia. Como veremos, la primera medida nos muestra que no es obligatorio, pero tampoco nos cuenta mucho.
 
 
 % ============================================================
@@ -146,18 +146,18 @@ Sin embargo, tampoco es muy descriptivo. Además, entra la idea de \emph{outlier
 \labsec{dma}
 
 
-Una idea para solventar el problema anterior es que consideremos todos los datos. Para hacer eso, debemos pensar en un estándar para la desviación. Este estándar podría ser cualquiera de nuestras medidas de centro, la media, mediana o moda. La moda, como podría no existir o haber más de una, suele dejarse de lado. Se puede hacer una estadística muy interesante con la mediana, pero es \emph{bastante} más difícil. La media funciona suficientemente bien y es fácil de calcular y es fácil calcular cosas alrededor de la media.
+Una idea para solventar el problema anterior es que consideremos todos los datos. Para hacer eso, debemos pensar en un estándar para la desviación. Este estándar podría ser cualquier número, por ejemplo alguna de nuestras medidas de centro, la media, mediana o moda. La moda, como podría no existir o haber más de una, suele dejarse de lado. Se puede hacer una estadística muy interesante con la mediana, pero es \emph{bastante} más difícil. La media funciona suficientemente bien y es fácil de calcular y es fácil calcular cosas alrededor de la media.
 
 Uno de los problemas de la media, sin embargo, es que su centralidad viene de considerar \emph{todos} los datos de manera que queda, por así decirlo, igualmente separada de todos. Explicándolo mejor, la media fue construida dando igual peso a cada dato. Por lo tanto, si yo considero las desviaciones de la media a cada dato
 \begin{align*}
 &x_i-\mu
 \intertext{y las agregamos todas}
-\sum_{i=1}^n &(x_i-\mu)
+&\sum_{i=1}^n (x_i-\mu)
 \intertext{nos encontramos con que}
-\sum_{i=1}^n &(x_i-\mu) = \sum_{i=1}^n x_i-n\mu
+&\sum_{i=1}^n (x_i-\mu) = \sum_{i=1}^n x_i-n\mu
 \intertext{pero \(n\mu\) es \(x_1+x_2+\cdots+x_n\)}
-=\sum_{i=1}^n & x_i-(x_1+x_2+\cdots+x_n)\\
-=  0 &
+&=\sum_{i=1}^n  x_i-(x_1+x_2+\cdots+x_n)\\
+&=  0 
 \end{align*}
 
 
@@ -165,6 +165,8 @@ Uno de los problemas de la media, sin embargo, es que su centralidad viene de co
 \begin{pausa}
 ¿Cómo podemos solventar ese problema?
 \end{pausa}
+
+Una forma de solventar el problema es tomar el valor absoluto de la diferencia entre cada dato y la media. De esta manera, cada valor es no negativo.
 
 \formal
 \begin{definition}[Desviación media absoluta]
@@ -212,9 +214,9 @@ En la  \reftab{datos-desv} podemos ver dos conjuntos de datos. Ambos tienen el m
 \begin{tikzpicture}
 \begin{axis}[
     width=12cm,
-    height=6cm,
+    height=7cm,
     xmin=0, xmax=102,
-    ymin=0.4, ymax=2.6,
+    ymin=0.40, ymax=2.6,
     ytick={1,2},
     yticklabels={Conjunto $B$, Conjunto $A$},
     xlabel={Valor},
@@ -224,17 +226,9 @@ En la  \reftab{datos-desv} podemos ver dos conjuntos de datos. Ambos tienen el m
     clip=false,
 ]
 
-% Bandas media ± DMA
-% A: 50 ± 24.8  →  [25.2, 74.8]
-% B: 50 ± 12.0  →  [38.0, 62.0]
-\filldraw[fill=red!10, draw=red!30, rounded corners=1pt]
-    (axis cs:25.2, 1.72) rectangle (axis cs:74.8, 2.28);
-\filldraw[fill=blue!10, draw=blue!30, rounded corners=1pt]
-    (axis cs:38.0, 0.72) rectangle (axis cs:62.0, 1.28);
-
 % Línea de la media
-\addplot[densely dashed, thick, gray!60, forget plot]
-    coordinates {(50, 0.4)(50, 2.6)};
+\draw[densely dashed, thick, gray!60]
+    (axis cs:50, 0.40) -- (axis cs:50, 2.6);
 \node[gray!70, font=\footnotesize, anchor=south]
     at (axis cs:50, 2.55) {$\mu=50$};
 
@@ -247,7 +241,6 @@ En la  \reftab{datos-desv} podemos ver dos conjuntos de datos. Ambos tienen el m
     };
 
 % Datos: Conjunto B  (y = 1)
-% Los dos valores 50 se separan levemente en y para evitar solapamiento
 \addplot[only marks, mark=*,
     mark options={fill=blue!60, draw=blue!80, line width=0.5pt}]
     coordinates {
@@ -256,15 +249,44 @@ En la  \reftab{datos-desv} podemos ver dos conjuntos de datos. Ambos tienen el m
         (52,1)(54,1)(56,1)(98,1)
     };
 
-% Etiquetas DMA
-\node[red!70, font=\footnotesize, anchor=north]
-    at (axis cs:50, 1.72) {$\text{DMA} = \num{24,8}$};
-\node[blue!70, font=\footnotesize, anchor=north]
-    at (axis cs:50, 0.72) {$\text{DMA} = \num{12,0}$};
+% ---- Conjunto A ----
+% DMA encima: 50 ± 24.8  →  [25.2, 74.8]
+\draw[red!50, thick, densely dashed]
+    (axis cs:25.2,2.18) -- (axis cs:25.2,2.26)
+    (axis cs:25.2,2.22) -- (axis cs:74.8,2.22)
+    (axis cs:74.8,2.18) -- (axis cs:74.8,2.26);
+\node[red!50, font=\scriptsize, anchor=south]
+    at (axis cs:50, 2.26) {$\text{DMA} = \num{24,8}$};
+
+% σ debajo: 50 ± 28.7  →  [21.3, 78.7]
+\draw[red!80, very thick]
+    (axis cs:21.3,1.74) -- (axis cs:21.3,1.82)
+    (axis cs:21.3,1.78) -- (axis cs:78.7,1.78)
+    (axis cs:78.7,1.74) -- (axis cs:78.7,1.82);
+\node[red!80, font=\footnotesize, anchor=north]
+    at (axis cs:50, 1.74) {$\sigma = \num{28,7}$};
+
+% ---- Conjunto B ----
+% DMA encima: 50 ± 12.0  →  [38.0, 62.0]
+\draw[blue!50, thick, densely dashed]
+    (axis cs:38.0,1.18) -- (axis cs:38.0,1.26)
+    (axis cs:38.0,1.22) -- (axis cs:62.0,1.22)
+    (axis cs:62.0,1.18) -- (axis cs:62.0,1.26);
+\node[blue!50, font=\scriptsize, anchor=south]
+    at (axis cs:50, 1.26) {$\text{DMA} = \num{12,0}$};
+
+% σ debajo: 50 ± 21.7  →  [28.3, 71.7]
+\draw[blue!80, very thick]
+    (axis cs:28.3,0.74) -- (axis cs:28.3,0.82)
+    (axis cs:28.3,0.78) -- (axis cs:71.7,0.78)
+    (axis cs:71.7,0.74) -- (axis cs:71.7,0.82);
+\node[blue!80, font=\footnotesize, anchor=north]
+    at (axis cs:50, 0.74) {$\sigma = \num{21,7}$};
 
 \end{axis}
 \end{tikzpicture}
-\caption{Dos conjuntos con igual rango y media $(\mu=50,\ R=96)$ pero distinta dispersión. La banda sombreada representa $\mu \pm \text{DMA}$.}
+\caption{Dos conjuntos con igual rango y media $(\mu=50,\ R=96)$ pero distinta dispersión.
+  Encima de cada conjunto: $\mu\pm\text{DMA}$ (discontinuo). Debajo: $\mu\pm\sigma$ (sólido).}
 \labfig{fig:rango-vs-dma}
 \end{figure*}
 
@@ -286,13 +308,11 @@ En la  \reftab{datos-desv} podemos ver dos conjuntos de datos. Ambos tienen el m
 \subsection{La varianza y la desviación estándar}
 \labsec{varianza-sd}
 
-La idea es simple: necesitamos una manera de eliminar los signos que no traiga los problemas algebraicos del valor absoluto. Y hay una manera muy natural de hacerlo: elevar al cuadrado. Si \(x_i - \mu\) puede ser negativo, \((x_i-\mu)^2\) es siempre no negativo, igual que \(|x_i-\mu|\). Pero a diferencia del valor absoluto, el cuadrado es derivable en todas partes y se comporta mucho mejor matemáticamente.
+En vez de usar los valores absolutos de las diferencias, podemos \emph{elevar al cuadrado.}  Por supuesto, esto es la varianza, al igual que lo vimos en \va s. Al hacer esto ganamos inmediatamente dos ventajas. Por un lado, podemos derivar en todos los reales y por otro, mantemenos la propiedad de separación de variables aleatorias independientes.
 
-Hay además una consecuencia que vale la pena notar: elevar al cuadrado \emph{penaliza más los datos lejanos.} Un dato que está a \(2\) unidades de la media contribuye \(4\) a la suma; uno que está a \(4\) unidades contribuye \(16\). Eso es una decisión deliberada, no un capricho matemático: la varianza le dice al resumen \enquote{presta más atención a los extremos.} Si se prefiriera no hacer eso, se usaría el valor absoluto. Si se prefiriera hacerlo aún más agresivamente, se elevaría al cubo o a la cuarta potencia. El cuadrado es el balance que resultó ser más manejable.
+Hay una diferencia con el  DMA un poco más sutil. La varianza, por decirlo así, \emph{da más énfasis} más los datos lejanos. ¿Qué quiere decir esto? Un dato que está a \(2\) unidades de la media contribuye \(4\) a la suma; uno que está a \(4\) unidades contribuye \(16\). 
 
-
-
-Sin embargo, elevar al cuadrado tiene un costo: las unidades cambian. Si los puntajes están en puntos, entonces \((x_i-\mu)^2\) está en \emph{puntos al cuadrado.} La varianza, que promedia esas desviaciones al cuadrado, también está en puntos al cuadrado. Esto puede sonar extraño porque lo es: \enquote{puntos cuadrados} no tiene un significado concreto en la realidad. La solución es obvia: sacar raíz cuadrada. Eso nos da la \emph{desviación estándar,} que vuelve a estar en las mismas unidades que los datos originales y es, por eso mismo, la medida que más se usa en la práctica.
+Al igual que vimos antes, la varianza considera las unidades de la variable \emph{al cuadrado.} La solución, como antes, es tomar la raíz cuadrada. Eso nos da la \emph{desviación estándar,} que vuelve a estar en las mismas unidades que los datos originales y es, por eso mismo, la medida que más se usa en la práctica.
 
 \formal
 \begin{definition}[Varianza poblacional]
@@ -312,7 +332,7 @@ Sus unidades son las mismas que las de los datos originales.
 
 Volvamos a los dos grupos del comienzo de la sección (\reftab{datos-desv}). Ya sabíamos que son muy distintos aunque compartan media y rango; ahora podemos medirlo con precisión.
 
-\formal
+
 \begin{table}[ht]
 \centering
 \caption{Cálculo paso a paso de la varianza poblacional (\(\mu=50\) en ambos casos).}
@@ -372,14 +392,14 @@ Dividiendo por \(N = 10\) en cada caso:
 \[
 \sigma^2_B = \frac{4720}{10} = \num{472,0} \qquad \sigma_B \approx \num{21,7}
 \]
-\informal
+
 
 El conjunto A tiene una desviación estándar casi un \(32\%\) mayor que el conjunto B. Nótese que ambos grupos comparten los mismos valores extremos (\(2\) y \(98\)), así que el cuadrado los penaliza por igual en ambos lados. La diferencia viene del interior: en B los ocho datos del centro están muy apretados cerca de \(50\), mientras que en A están esparcidos por todo el rango.
 
-¿Qué significa ese número concretamente? La desviación estándar responde a la pregunta: \emph{¿qué tan lejos se aleja un dato típico de la media?} Así, en el conjunto A un dato \enquote{normal} está a unas \(29\) unidades de la media; en el conjunto B, a unas \(22\). Como veremos en el capítulo sobre la distribución normal, cuando los datos siguen esa distribución aproximadamente el \(68\%\) cae dentro de un intervalo de una desviación estándar a cada lado de la media, y alrededor del \(95\%\) dentro de dos. Eso le da a \(\sigma\) un significado concreto incluso antes de saber la forma exacta de los datos.
+¿Qué significa ese número concretamente? La desviación estándar responde a la pregunta: \emph{¿qué tan lejos se aleja un dato típico de la media?} Así, en el conjunto A un dato \enquote{normal} está a unas \(29\) unidades de la media; en el conjunto B, a unas \(22\). Como vimos en el capítulo sobre la distribución normal, cuando los datos siguen esa distribución aproximadamente el \(\qty{68}{\percent}\) cae dentro de un intervalo de una desviación estándar a cada lado de la media, y alrededor del \(\qty{95}{\percent}\) dentro de dos. Eso le da a \(\sigma\) un significado concreto incluso antes de saber la forma exacta de los datos.
 
 \begin{remark}
-La desviación estándar poblacional \(\sigma\) mide cuánto se alejan típicamente los datos de su media \(\mu\). Un dato a más de \(2\sigma\) de la media es inusual; uno a más de \(3\sigma\), extraordinariamente raro.
+La desviación estándar poblacional \(\sigma\) mide cuánto se alejan típicamente los datos de su media \(\mu\). Un dato a más de \(2\sigma\) de la media es inusual; uno a más de \(3\sigma\), extraordinariamente raro. 
 \end{remark}
 
 Volvamos por un momento a la pelotita de goma del inicio del capítulo. Pesamos la pelota diez veces y obtuvimos diez resultados ligeramente distintos. Podemos escribir cada medición como
