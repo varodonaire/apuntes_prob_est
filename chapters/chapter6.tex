@@ -330,7 +330,7 @@ Sus unidades son las mismas que las de los datos originales.
 
 \informal
 
-Volvamos a los dos grupos del comienzo de la sección (\reftab{datos-desv}). Ya sabíamos que son muy distintos aunque compartan media y rango; ahora podemos medirlo con precisión.
+Volvamos a los dos grupos del comienzo de la sección (\reftab{datos-desv}). Ya sabíamos que son muy distintos aunque compartan media y rango, pero ahora calculemos la varianza y la desviación estándar.
 
 
 \begin{table}[ht]
@@ -339,7 +339,7 @@ Volvamos a los dos grupos del comienzo de la sección (\reftab{datos-desv}). Ya 
 \labtab{tab:varianza-calculo}
 \begin{minipage}{0.45\linewidth}
 \centering
-\smallskip\textbf{Conjunto A}\smallskip
+\textbf{Conjunto A}
 
 \begin{tabular}{rrr}
 \toprule
@@ -356,13 +356,13 @@ Volvamos a los dos grupos del comienzo de la sección (\reftab{datos-desv}). Ya 
 82 &  32 & 1024 \\
 98 &  48 & 2304 \\
 \midrule
-   &   0 & 8236 \\
+   &   Total & 8236 \\
 \bottomrule
 \end{tabular}
 \end{minipage}\hfill
 \begin{minipage}{0.45\linewidth}
 \centering
-\smallskip\textbf{Conjunto B}\smallskip
+\textbf{Conjunto B}
 
 \begin{tabular}{rrr}
 \toprule
@@ -379,13 +379,13 @@ Volvamos a los dos grupos del comienzo de la sección (\reftab{datos-desv}). Ya 
 56 &   6 &   36 \\
 98 &  48 & 2304 \\
 \midrule
-   &   0 & 4720 \\
+   &   Total & 4720 \\
 \bottomrule
 \end{tabular}
 \end{minipage}
 \end{table}
 
-Dividiendo por \(N = 10\) en cada caso:
+Dividiendo por \( = 10n\) obtenemos
 \[
 \sigma^2_A = \frac{8236}{10} = \num{823,6} \qquad \sigma_A \approx \num{28,7}
 \]
@@ -394,33 +394,25 @@ Dividiendo por \(N = 10\) en cada caso:
 \]
 
 
-El conjunto A tiene una desviación estándar casi un \(32\%\) mayor que el conjunto B. Nótese que ambos grupos comparten los mismos valores extremos (\(2\) y \(98\)), así que el cuadrado los penaliza por igual en ambos lados. La diferencia viene del interior: en B los ocho datos del centro están muy apretados cerca de \(50\), mientras que en A están esparcidos por todo el rango.
+El conjunto A tiene una desviación estándar casi un \(\qty{32}{\percent}\) mayor que el conjunto B. Nótese que ambos grupos comparten los mismos valores extremos (\(2\) y \(98\)), así que el cuadrado los penaliza por igual en ambos lados. La diferencia viene del interior: en B los ocho datos del centro están muy cerca de \(50\), mientras que en A están más esparcidos por todo el rango.
 
-¿Qué significa ese número concretamente? La desviación estándar responde a la pregunta: \emph{¿qué tan lejos se aleja un dato típico de la media?} Así, en el conjunto A un dato \enquote{normal} está a unas \(29\) unidades de la media; en el conjunto B, a unas \(22\). Como vimos en el capítulo sobre la distribución normal, cuando los datos siguen esa distribución aproximadamente el \(\qty{68}{\percent}\) cae dentro de un intervalo de una desviación estándar a cada lado de la media, y alrededor del \(\qty{95}{\percent}\) dentro de dos. Eso le da a \(\sigma\) un significado concreto incluso antes de saber la forma exacta de los datos.
+¿Qué significa la desviación estándar? Si lo pensamos, la varianza \[\frac{\sum_{i=1}^n \left(x_i-\mu\right)^2}{n}\] es un promedio: el promedio de \(\left(x_i-\mu\right)^2\), la distancia al cuadrado. Lo que hace la raíz es devolvernos a la variable sin cuadrado. Por lo tanto, la desviación estándar funciona como una esperanza: el valor esperado de la distancia del dato \enquote{típico} a la media. Como es una distancia, eso significa que el intervalo desde \(\mu-\sigma\) a \(\mu+\sigma\) tiene una importancia singular para los datos.
 
 \begin{remark}
-La desviación estándar poblacional \(\sigma\) mide cuánto se alejan típicamente los datos de su media \(\mu\). Un dato a más de \(2\sigma\) de la media es inusual; uno a más de \(3\sigma\), extraordinariamente raro. 
+La desviación estándar poblacional \(\sigma\) mide cuánto se alejan en promedio los datos de la media \(\mu\). Un dato a más de \(2\sigma\) de la media es menos común y uno a más de \(3\sigma\) es ya directamente raro, al menos si la distribución de los datos es relativamente común\sidenote{quería usar la palabra \enquote{normal} pero tiene un significado demasiado cargado en este curso}.
 \end{remark}
 
-Volvamos por un momento a la pelotita de goma del inicio del capítulo. Pesamos la pelota diez veces y obtuvimos diez resultados ligeramente distintos. Podemos escribir cada medición como
-\[
-\text{medición} = \text{valor exacto} + \text{error de azar.}
-\]
-El valor exacto es siempre el mismo: es la señal. El error de azar cambia en cada pesada: es el ruido. La media de las diez mediciones nos da una buena estimación del valor exacto. ¿Y la desviación estándar? No describe a la pelota, sino a la \emph{balanza.} Una balanza precisa produce errores pequeños y una desviación estándar pequeña; una balanza de mala calidad produce errores grandes y una desviación estándar grande. Dos balanzas pueden dar exactamente el mismo promedio y, sin embargo, ser muy distintas en confiabilidad.
+\subsection{Comparando dos grupos}
 
-\begin{pausa}
-Dos balanzas pesan la misma pelotita diez veces cada una. Ambas dan un promedio de \qty{24,85}{\gram}, pero la primera tiene una desviación estándar de \qty{0,01}{\gram} y la segunda de \qty{0,30}{\gram}. ¿Cuál usarías? ¿Cambiaría tu respuesta si supieras que la segunda cuesta diez veces menos?
-\end{pausa}
+Si queremos comparar la variación entre dos grupos, es muy fácil ser injusto. Por ejemplo, los elefantes y los saltamontes tienen pesos variados, pero los elefantes varían en toneladas y los saltamontes varían en gramos. ¿Será justo decir que los elefantes varían más?
 
-La dispersión no es el final del análisis: es el comienzo de la inferencia. En los capítulos que siguen veremos cómo estimar parámetros y construir intervalos de confianza; en ambos casos, \(\sigma\) volverá a aparecer como medida de la incertidumbre que arrastramos al trabajar con datos reales.
-
-¿Cuándo es \enquote{grande} una desviación estándar? Depende de la escala. Una desviación de \(5\)~kg en el peso de personas adultas es pequeña; la misma desviación en el peso de un ratón de laboratorio sería enorme. Para comparar dispersiones entre variables medidas en escalas distintas, se puede usar el \emph{coeficiente de variación:}
+Una manera de comparar la variación entre dos grupos es usar el coeficiente de variación.
 \[
 CV = \frac{\sigma}{\mu} \times 100\%.
 \]
-El \(CV\) expresa la desviación estándar como porcentaje de la media, lo que permite comparar, por ejemplo, cuán variable es el sueldo de los trabajadores de una empresa respecto a cuán variable es su estatura.
+El \(CV\) expresa la desviación estándar como porcentaje de la media, lo que permite hacer comparaciones.
 
-Consideremos los pesos de cinco saltamontes (en gramos) y cinco elefantes (en toneladas) de la \reftab{tab:cv-ejemplo}. ¿Cuál de las dos especies es más variable?
+En clase usamos los pesos (inventados) de cinco saltamontes (en gramos) y cinco elefantes (en toneladas) de la \reftab{tab:cv-ejemplo}. ¿Cuál de las dos especies es más variable?
 
 \formal
 \begin{table}[ht]
@@ -449,4 +441,20 @@ Calculando:
 \]
 \informal
 
-En términos absolutos, \(\sigma_E = \qty{0,108}{\tonne} = \qty{108}{\kilo\gram}\): los elefantes varían muchísimo más que los saltamontes. Pero eso no es sorprendente: los elefantes son animales enormes. La pregunta más interesante es cuánto varían \emph{respecto a su propio tamaño.} Ahí el resultado se invierte: los saltamontes tienen un \(CV\) de \qty{12}{\percent}, mientras que los elefantes tienen apenas \qty{2,2}{\percent}. Relativo a lo que pesan, los elefantes son notablemente uniformes y los saltamontes bastante variables.
+En términos absolutos, \(\sigma_E = \qty{0,108}{\tonne} = \qty{108}{\kilo\gram}\) y \(\sigma_S \approx \qty{1,19}{\gram}\). los elefantes varían muchísimo más que los saltamontes \empg{en términos absolutos,} pero varían menos que los saltamontes \emph{en relación a la media} porque \(CV_E = \qty{2,2}{\percent}\) mientras que \(CV_S=\qty{12,0}{\percent}\). Si comparamos, sería injusto calificar a los elefantes como más variados.
+
+\section{Medidas de posición: orden y progreso}
+\labsec{medidas-posicion}
+
+Las medidas de posición son entretenidas porque requieren que ordenemos. Básicamente, existe sólo un tipo de medida de posición, el \emph{cuantil.} Todo lo otro es un cuantil con otro nombre.\sidenote{mediana: dividir los datos en dos,\\cuartil: dividir los datos en 4,\\quintil: dividir los datos en cinco,\\percentil: dividir los datos en 100\\\hspace*{\fill}partes\\\hspace*{\fill}iguales.}
+
+Un cuantil \(x_q\) es aquel valor tal que la proporción de datos menores o iguales que \(x_q\) es \(q\).
+
+Lo que hay que considerar es que la idea de \enquote{ordenar} ya no es algo que viva en los naturales, si no generalmente en los reales. Por lo tanto, nuestra distribución de los datos da lugar necesariamente a una distribución de probabilidad (sobre todo si tenemos muchos datos). Viceversa, si tenemos una distribución de probabilidad podremos tomar sus cuantiles. En ese caso, el cuantil \(q\) es el valor \(x_q\) tal que \[\prob(X\leq x_q) = q.\]
+
+Entre las medidas de dispersión está el \emph{rango intercuartílico.} La idea es cuanto mide el \qty{50}{\percent} central, contenido entre \(P_{25}\) y \(P_{75}\).
+
+Para terminar, hay una relación entre los cuantiles y la media (un poco como la desigualdad de Chebyshev). Si \(x_q\) es el cuantil \(q\), entonces \[\mu-\sigma\sqrt{\frac{q}{1-q}} \leq x_q \leq \mu+\sigma\sqrt{\frac{q}{1-q}}.\] En particular, si \(q\) es \(1/2\) (y el cuantil es la mediana) encontramos que \[\mu-\sigma \leq Me \leq \mu + \sigma,\] es decir, la mediana nunca está más allá de una desviación estándar de la media.
+
+\section{Gráficos}
+\labsec{graficos}
