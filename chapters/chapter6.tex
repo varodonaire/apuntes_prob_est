@@ -408,9 +408,9 @@ Si queremos comparar la variación entre dos grupos, es muy fácil ser injusto. 
 
 Una manera de comparar la variación entre dos grupos es usar el coeficiente de variación.
 \[
-CV = \frac{\sigma}{\mu} \times 100\%.
+\cv = \frac{\sigma}{\mu} \times 100\%.
 \]
-El \(CV\) expresa la desviación estándar como porcentaje de la media, lo que permite hacer comparaciones.
+El \(\cv\) expresa la desviación estándar como porcentaje de la media, lo que permite hacer comparaciones.
 
 En clase usamos los pesos (inventados) de cinco saltamontes (en gramos) y cinco elefantes (en toneladas) de la \reftab{tab:cv-ejemplo}. ¿Cuál de las dos especies es más variable?
 
@@ -434,21 +434,41 @@ En clase usamos los pesos (inventados) de cinco saltamontes (en gramos) y cinco 
 
 Calculando:
 \[
-\mu_S = \qty{9,9}{\gram} \qquad \sigma_S \approx \qty{1,19}{\gram} \qquad CV_S \approx \qty{12,0}{\percent}
+\mu_S = \qty{9,9}{\gram} \qquad \sigma_S \approx \qty{1,19}{\gram} \qquad \cv_S \approx \qty{12,0}{\percent}
 \]
 \[
-\mu_E = \qty{4,954}{\tonne} \qquad \sigma_E = \qty{0,108}{\tonne} \qquad CV_E \approx \qty{2,2}{\percent}
+\mu_E = \qty{4,954}{\tonne} \qquad \sigma_E = \qty{0,108}{\tonne} \qquad \cv_E \approx \qty{2,2}{\percent}
 \]
 \informal
 
-En términos absolutos, \(\sigma_E = \qty{0,108}{\tonne} = \qty{108}{\kilo\gram}\) y \(\sigma_S \approx \qty{1,19}{\gram}\). los elefantes varían muchísimo más que los saltamontes \empg{en términos absolutos,} pero varían menos que los saltamontes \emph{en relación a la media} porque \(CV_E = \qty{2,2}{\percent}\) mientras que \(CV_S=\qty{12,0}{\percent}\). Si comparamos, sería injusto calificar a los elefantes como más variados.
+En términos absolutos, \(\sigma_E = \qty{0,108}{\tonne} = \qty{108}{\kilo\gram}\) y \(\sigma_S \approx \qty{1,19}{\gram}\). Los elefantes varían muchísimo más que los saltamontes \emph{en términos absolutos,} pero varían menos que los saltamontes \emph{en relación a la media} porque \(\cv_E = \qty{2,2}{\percent}\) mientras que \(\cv_S=\qty{12,0}{\percent}\). Si comparamos, sería injusto calificar a los elefantes como más variados.
 
 \section{Medidas de posición: orden y progreso}
 \labsec{medidas-posicion}
 
-Las medidas de posición son entretenidas porque requieren que ordenemos. Básicamente, existe sólo un tipo de medida de posición, el \emph{cuantil.} Todo lo otro es un cuantil con otro nombre.\sidenote{mediana: dividir los datos en dos,\\cuartil: dividir los datos en 4,\\quintil: dividir los datos en cinco,\\percentil: dividir los datos en 100\\\hspace*{\fill}partes\\\hspace*{\fill}iguales.}
+Las medidas de posición son entretenidas porque requieren que ordenemos. Básicamente, existe sólo un tipo de medida de posición, el \emph{cuantil.} Todo lo otro es un cuantil con otro nombre.\sidenote{mediana: dividir los datos en 2,\\cuartil: dividir los datos en 4,\\quintil: dividir los datos en 5,\\percentil: dividir los datos en 100\\\hspace*{\fill}partes\\\hspace*{\fill}iguales.}
 
 Un cuantil \(x_q\) es aquel valor tal que la proporción de datos menores o iguales que \(x_q\) es \(q\).
+
+\formal
+
+El cuantil de orden $q \in (0,1)$ se define como
+\[
+  x_q = \inf\{x \in \mathbb{R}\,/\,\hat{F}_n(x) \geq q\},
+\]
+donde $\hat{F}_n$ es la función de distribución empírica. En otras 
+palabras, $x_q$ es el menor valor tal que al menos una proporción 
+$q$ de los datos es menor o igual a $x_q$. Esta precisión es 
+necesaria porque, con un número finito de datos, puede no existir 
+ningún valor donde la proporción sea exactamente $q$. 
+
+$\hat{F}_n$, la función de distribución empírica, se define como
+\[
+  \hat{F}_n(x) = \frac{1}{n}\sum_{i=1}^{n} \mathbf{1}(x_i \leq x),
+\]
+donde $\mathbf{1}$ es la función indicadora \[\mathbf{1}(\text{condición}) = \begin{cases} 1 & \text{si la condición se cumple} \\ 0 & \text{si la condición no se cumple} \end{cases}\] y $n$ es el número de datos.
+
+\informal
 
 Lo que hay que considerar es que la idea de \enquote{ordenar} ya no es algo que viva en los naturales, si no generalmente en los reales. Por lo tanto, nuestra distribución de los datos da lugar necesariamente a una distribución de probabilidad (sobre todo si tenemos muchos datos). Viceversa, si tenemos una distribución de probabilidad podremos tomar sus cuantiles. En ese caso, el cuantil \(q\) es el valor \(x_q\) tal que \[\prob(X\leq x_q) = q.\]
 
@@ -458,3 +478,75 @@ Para terminar, hay una relación entre los cuantiles y la media (un poco como la
 
 \section{Gráficos}
 \labsec{graficos}
+
+El dicho dice \enquote{una imagen vale más que mil palabras.} Sin embargo, habría que agregar que una imagen \emph{buena} es lo que vale más que mil palabras. Entonces, ¿qué hace que un gráfico sea bueno?
+
+Mostrar datos en un gráfico nos permite hacer más que simplemente mostrar sus resúmenes. Un buen gráfico nos muestra relaciones, puntos de interés, datos extraños y en general información que no queda capturada en un simple cálculo. Un ejemplo es el conjunto de datos llamado \emph{Datasaurus dozen,} (\reffig{datasaurus}) donde doce conjuntos de datos tienen las mismas medidas pero se ven muy distintos al graficar (\href{https://jumpingrivers.github.io/datasauRus/}{link} a un gif con las medidas).
+
+\begin{marginfigure}[-28em]
+\centering
+\includegraphics{images/datasaurus.png}
+\caption{Datasaurus dozen}
+\labfig{datasaurus}
+\end{marginfigure}
+
+El dato que salta probablemente no se vería capturado por alguna de nuestras medidas usuales, media y desviación estándar (aunque sí por otra, ¿cuál?).
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[scale=0.8]
+  \begin{axis}[
+    xlabel={$x$},
+    ylabel={$y$},
+    width=8cm,
+    height=6cm,
+    grid=major,
+    xmin=0, xmax=10,
+    ymin=0, ymax=12,
+    axis lines=left,
+  ]
+  % Datos aproximadamente lineales (y ≈ x + ruido)
+  \addplot[only marks, mark=*, mark size=2pt, blue] coordinates {
+    (1.0, 1.5) (1.5, 2.1) (2.0, 2.8) (2.5, 3.2) (3.0, 3.6)
+    (3.5, 4.2) (4.0, 4.5) (4.5, 5.1) (5.0, 5.4) (5.5, 6.0)
+    (6.0, 6.3) (6.5, 6.9) (7.0, 7.2) (7.5, 7.8) (8.0, 8.1)
+    (8.5, 8.7) (9.0, 9.0) (9.5, 9.6)
+  };
+  % Punto atípico
+  \addplot[only marks, mark=*, mark size=2pt, blue] coordinates {
+    (7.2, 11.5)
+  };
+
+  \end{axis}
+\end{tikzpicture}
+\labfig{scatterplot-outlier}
+\end{figure}
+
+El lado malo de los gráficos es que nos permiten mentir. De hecho, un gráfico mentiroso es \emph{muy} fácil de hacer y, lamentablemente, muy común en reportajes, artículos periodísticos, etc. Esto es lo que Edward Tufte\sidenote{si quiere encontrar la felicidad, lea en algún momento el libro \emph{The visual display of quantitative information} de Tufte. Está en la biblioteca.} llama \enquote{la mentira gráfica.} Por ejemplo, gráficos cuyo eje Y no comienza en 0 se usan para enfatizar diferencias que\ldots probablemente no están ahí. También entran los gráficos de torta, en particular si son 3D, como muestra la \reffig{3dpie}.
+
+\begin{figure}
+\includegraphics{images/3dpie.png}
+\caption{Cada vez que alguien hace un gráfico de torta dios mata un gatito.}
+\labfig{3dpie}
+\end{figure}
+
+Entonces, ¿qué hace que un gráfico sea bueno? Es más arte que ciencia, pero uno de los elementos más importantes es lo que Tufte llama \emph{data-ink ratio,} la razón entre la tinta que se usa para representar datos versus la que se usa en total en el gráfico (donde dice tinta lea pixeles). En otras palabras, un buen gráfico tiene poco ruido.
+
+Los elementos decorativos, como tramas, efectos 3D, ilustraciones, etc., si no muestran datos, son lo que Tufte llama \emph{chartjunk,} básicamente el equivalente a la comida chatarra. Evítelos.
+
+En vez de hacer un gráfico apilado o hacer una animación, es mejor trabajar usando \emph{múltiplos pequeños.} Esto significa hacer muchos gráficos pequeños utilizando la misma escala.
+
+Un gráfico bien hecho puede manejar una gran densidad de datos. Si se elimina algo, se elimina porque es superfluo, no porque sea complejo. De hecho, una de las grandes gracias de un gráfico es que nos permite mostrar información compleja de manera \enquote{fácil.}
+
+Un buen gráfico responde a una pregunta, esencialmente una comparación. Si no hay una pregunta comparativa, puede que otra herramienta sea mejor que un gráfico.
+
+\section{Software}
+\labsec{software}
+
+En el año de nuestro Señor de 2026 todavía hay escuelas, colegios, liceos e incluso universidades que se dan el lujo de enseñar estadística \emph{sin} considerar en ningún momento el uso de un computador. Esto no sólo es retrógrado, si no que es irrisorio. No hay estadístico en el planeta que no use un computador con algún tipo de software estadístico.
+
+Dicho lo anterior, el software es una herramienta más y todos son más o menos parecidos en el fondo, pero adecuados a distintas necesidades y tipos de persona. Si usted usa Excel, estoy seguro que más de alguien arriscará la nariz pero mientras sus análisis sean de calidad, da lo mismo. 
+
+Personalmente, creo que siempre es mejor mantener los datos y lo que uno hace para trabajar con los datos en formatos abiertos (porque es lo único que uno está seguro que podrá leer eternamente) y no hay formato más abierto que el que está basado en texto plano. Los archivos de código R o Python y los archivos de datos en CSV cumplen con esas características. También hay formatos abiertos (aunque ya no de texto plano) que permiten comprimir datos demasiado grandes (por ejemplo los resultados del censo).
+
+Use el software (R, Python + librerías, SPSS, Excel, PowerBI, etc) que más le guste. Sólo aprenda a usarlo bien. Tomás de Aquino dijo \emph{hominem unius libri timeo:} le temo al hombre que sabe (perfectamente) un solo libro.
