@@ -1,9 +1,80 @@
-\chapter{La muestra y la población}
+\chapter{E pluribus unum\ldots duo, tres\ldots}
 \labch{distribuciones-muestrales}
 
 \begin{ideanote}
-Una muestra es una fracción del todo. ¿Qué podemos inferir de la población a partir de unos pocos datos? La respuesta depende de entender cómo se comportan, como variables aleatorias, los estadísticos que calculamos a partir de muestras.
+Una muestra es una fracción del todo. ¿Cuál es la relación que hay entre la muestra y el todo y lo que podemos calcular a partir de cada uno?
 \end{ideanote}
+
+\section{Población y muestra}
+
+Una \emph{población} es un grupo que queremos estudiar. Con cierta formalidad, podemos decir que la población es el grupo completo de unidades (personas, resultados de un experimento, etc.) que comparten una característica de interés, o una condición de interés.
+
+Más formalmente, una población es el conjunto de todas las unidades de observación o resultados posibles sobre los que definen parámetros y de los que se puede obtener conclusiones (o se desea obtenerlas), sin importar si este conjunto se observa en la realidad o está solamente definido conceptualmente.\sidenote{Por ejemplo, nuestra población puede ser la producción de una serie de medicamentos y \emph{técnicamente} la podemos conocer completa. Por otra parte, puede ser las personas que están en el país en un momento dado, como el censo, y es imposible conocerla \qty{100}{\percent} completamente.} 
+
+Por otra parte, una \emph{muestra} es un subconjunto de la población. Este subconjunto finito de la población se escoge para medir la característica o condición de interés. A partir de esta muestra, podemos calcular distintos valores y, como veremos, podremos empezar a decir \emph{suposiciones educadas} acerca de la población.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}
+
+% ---- Personas en disposición irregular ----
+\foreach \x/\y in {
+  0.3/0.2,   1.4/0.4,   2.5/0.1,   3.6/0.3,   4.4/0.0,
+  0.5/-1.2,  1.5/-0.9,  2.6/-1.3,  3.7/-1.0,  4.3/-1.2,
+  0.7/-2.5,  1.8/-2.2,  2.9/-2.6,  4.0/-2.3,
+  1.2/-3.6,  3.3/-3.4
+}{
+  \node[gray!55] at (\x,\y) {\Large\faUser};
+}
+
+% ---- Contornos orgánicos de las muestras ----
+
+% Muestra 1 (rojo): zona superior izquierda
+\draw[red!65, very thick]
+  plot[smooth cycle, tension=0.5] coordinates {
+    (-0.10,  0.70)
+    ( 0.90,  0.90)
+    ( 2.10,  0.72)
+    ( 2.20, -0.40)
+    ( 2.10, -1.55)
+    ( 0.90, -1.65)
+    ( 0.00, -1.65)
+    (-0.10, -0.70)
+  };
+\node[red!75, font=\small\bfseries] at (0.8, 1.20) {Muestra 1};
+
+% Muestra 2 (azul): zona superior derecha (sin traslaparse con M1)
+\draw[blue!65, very thick]
+  plot[smooth cycle, tension=0.5] coordinates {
+    ( 2.40,  0.78)
+    ( 3.60,  0.88)
+    ( 4.85,  0.62)
+    ( 4.80, -0.45)
+    ( 4.75, -1.65)
+    ( 3.40, -1.82)
+    ( 2.35, -1.72)
+    ( 2.40, -0.45)
+  };
+\node[blue!75, font=\small\bfseries] at (3.60, 1.22) {Muestra 2};
+
+% Muestra 3 (verde): zona inferior, con traslape con M2 en el lado derecho
+\draw[green!55!black, very thick]
+  plot[smooth cycle, tension=0.5] coordinates {
+    ( 1.40, -1.74)
+    ( 2.90, -1.68)
+    ( 3.60, -0.60)
+    ( 4.70, -1.0)
+    ( 4.65, -2.70)
+    ( 3.50, -3.0)
+    ( 2.00, -3.05)
+    ( 1.10, -2.55)
+  };
+\node[green!55!black, font=\small\bfseries] at (4.6, -3.25) {Muestra 3};
+
+\end{tikzpicture}
+\caption{Tres muestras extraídas de la misma población.}
+\labfig{fig:muestras}
+\end{figure}
 
 \section{La ley de los grandes números}
 \labsec{ley-grandes-numeros}
