@@ -173,3 +173,6 @@ Thumbs.db
 *.bak
 *.backup
 .Rproj.user
+
+# Claude Code temporary worktrees
+.claude/worktrees/
