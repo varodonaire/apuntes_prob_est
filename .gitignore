@@ -166,8 +166,8 @@ Thumbs.db
 .vscode/
 .idea/
 
-# Output files (uncomment if you want to exclude PDFs)
-# *.pdf
+# Output files
+*.pdf
 
 # Backup files
 *.bak
