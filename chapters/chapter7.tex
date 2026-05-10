@@ -13,6 +13,17 @@ Más formalmente, una población es el conjunto de todas las unidades de observa
 
 Por otra parte, una \emph{muestra} es un subconjunto de la población. Este subconjunto finito de la población se escoge para medir la característica o condición de interés. A partir de esta muestra, podemos calcular distintos valores y, como veremos, podremos empezar a decir \emph{suposiciones educadas} acerca de la población.
 
+Si tenemos una muestra, al igual que calculábamos algunos parámetros de la población, como la media, desviación estándar y otros, también podemos calcularlos a partir de la muestra. En general, nos concentraremos en tres tipos de parámetro: la media, la varianza (y desviación estándar) y la proporción. Para diferenciarlos, en una muestra los llamaremos \emph{estadístico} o \emph{estadígrafo} mientras que en la población los llamaremos \emph{parámetros.} También para distinguirlos usaremos distintos signos.
+
+\begin{center}
+\begin{tabular}{rcc}
+Medida & Población & Muestra\\\midrule
+Media & \(\mu\) & \(\mean{X}\)\\
+Varianza & \(\vars\) & \(\varm\)\\
+Proporción & \(p\) & \(\prop\)
+\end{tabular}
+\end{center}
+
 \begin{figure}[htbp]
 \centering
 \begin{tikzpicture}
@@ -76,36 +87,67 @@ Por otra parte, una \emph{muestra} es un subconjunto de la población. Este subc
 \labfig{fig:muestras}
 \end{figure}
 
+El tema, como muestra la \reffig{fig:muestras}, es que distintas muestras son posibles a partir de una misma población. Uno podría asumir que las tres muestras son parecidas, pero eso no es necesariamente cierto. Si las muestras son \emph{aleatorias,} no hay nada que impida que, por azar, las tres muestras sean muy diferentes entre sí.
+
+En particular, nada asegura que, por ejemplo, las medias \(\mean{X_1}, \mean{X_2}, \mean{X_3}\), sean iguales. Lo que suponemos que siempre es igual es la media poblacional \(\mu\), pero la media de las distintas muestras no tiene por qué ser igual.
+
+En otras palabras, como la muestra es \emph{azarosa}, los cálculos que hacemos a partir de ella también son azarosos: La media, varianza, proporción, etc., son variables aleatorias. Como buenas variables aleatorias, estas tienen una distribución de probabilidad. En este capítulo hablaremos sobre estas distribuciones de probabilidad, pero para ello necesitaremos dos teoremas principales: la ley de los grandes números y el teorema del límite central.
+
+\formal
+Para cerrar la introducción sobre las muestras, asumiremos en lo que viene que tenemos una población sobre la cual nos interesa una variable cuantitativa. Esta variable tiene una media \(\mu\) y una varianza \(\vars\) finitas y además \(\vars\) es mayor que \(0\).
+
+Una muestra es un conjunto de observaciones o mediciones \(X_1, X_2,\ldots X_n\) de la variable de interés hechas a partir de la población. Idealmente, la muestra es aleatoria, es decir, hecha completamente al azar. En términos matemáticos, para que esto se cumpla diremos que
+\begin{enumerate}
+\item Cada observación \(X_i\) es independiente de las otras.
+\item Como vienen de una misma población, cada \(X_i\) comparte una misma distribución de probabilidad respecto a la variable de interés.
+\end{enumerate}
+Abreviaremos esto diciendo que el conjunto \(\left\{ X_i \right\}_{i=1}^{n}\) es iid: independiente e idénticamente distribuido.
+\informal
+
 \section{La ley de los grandes números}
 \labsec{ley-grandes-numeros}
 
-En la clase hicimos un pequeño experimento tirando una moneda diez veces. No recuerdo los resultados, pero aquí lo hice unas cuantas veces
+En la clase hicimos un pequeño experimento tirando una moneda diez veces. No recuerdo los resultados, pero en casa lo repetí veinte veces, es decir, lancé\sidenote{simulé} diez veces una moneda veinte veces
 \begin{table}[!h]
 \centering
-\begin{tabular}[t]{rrS}
+\begin{tabular}[t]{SSS}
 \toprule
-Número de Caras & Frecuencia & Proporción\\
+{Número de Caras} & {Frecuencia} & {Porcentaje (\unit{\percent})}\\
 \midrule
-1 & 1 & 0.05\\
-2 & 1 & 0.05\\
-3 & 1 & 0.05\\
-4 & 6 & 0.30\\
-5 & 7 & 0.35\\
-6 & 3 & 0.15\\
-7 & 1 & 0.05\\
+1 & 1 & 05\\
+2 & 1 & 05\\
+3 & 1 & 05\\
+4 & 6 & 30\\
+5 & 7 & 35\\
+6 & 3 & 15\\
+7 & 1 & 05\\
 \bottomrule
 \end{tabular}
 \end{table}
 
 La mayoría de los resultados están dentro del intervalo \([4, 6]\), lo que es más o menos esperable. Si nos metemos en el intervalo \([3, 7]\) ya están casi todos los resultados: sólo faltan dos.
 
-Sin embargo, si hacíamos el experimento 1000, 5000 o más veces la intuición nos decía que esa diferencia tenía que irse achicando, ¿no?
+Sin embargo, si hacemos el experimento 1000, 5000 o más veces la intuición nos dice que esa diferencia tenía que irse achicando, ¿no? Es decir, al hacer este lanzamiento mil veces, \emph{ciertamente} casi todos los resultados darán 5 caras, asumiendo una moneda justa.
 
-\begin{pausa}
-¿Está de acuerdo? Al repetir más veces el experimento, ¿se acercaría más la proporción observada a \(\frac{1}{2}\)?
-\end{pausa}
 
-NO.
+
+\textbf{NO.} Los resultados se muestran en la \reffig{repeticiones-caras}. Siempre habrá resultados que \enquote{se escapan} de lo que se espera que debería pasar.
+
+\begin{figure*}[h!]
+\includegraphics{images/caras.png}
+\caption{1000 lanzamientos de 10 veces una moneda}
+\labfig{repeticiones-caras}
+\end{figure*}
+
+¿Por qué no \enquote{colapsa} a 5 caras?
+
+Porque estamos pensando mal. Lo que colapsa no es el número de caras que obtenemos, si no que el promedio del número de caras. La \reffig{promedio-caras} muestra cómo va evolucionando el promedio de caras a medida que realizamos más lanzamientos.
+
+\begin{figure*}
+\includegraphics{images/caras-prom.png}
+\caption{Promedio del número de caras a medida que aumenta el número de lanzamientos}
+\labfig{promedio-caras}
+\end{figure*}
 
 Nuestra intuición no está tan errada, pero hay que afinarla. En general, cuando tenemos una suma (o promedio o conteo) tendremos que \[\text{suma} = \text{valor esperado} + \text{error aleatorio.}\] La pregunta es qué tan grande es ese error aleatorio. Hay una fórmula que nos permite establecer el tamaño de este error, llamado \emph{error estándar.} Cuando contabilicemos la suma de las extracciones de una caja, con reposición, el error estándar de la suma es \[\sqrt{\text{número de extracciones}} \cdot (\text{desviación estándar de la caja})\]
 
@@ -115,7 +157,7 @@ y cuando el número de extracciones crece, el error estándar decrece.
 Esta idea está representada en la \emph{ley de los grandes números.} Hay varias versiones de esta ley, pero todas son teoremas que hablan de la convergencia de una serie de variables aleatorias.
 
 \formal
-Si \(X_1, X_2, \cdots, X_n\) son variables aleatorias independientes e idénticamente distribuidas, con esperanza \(\mu\) y varianza \(\sigma^2\) finitas, entonces la variable \(\mean{X} = \sum_{i=1}^{n} X_i/n\) cumple que para todo \(\varepsilon >0\), \[\lim_{n\to\infty} \prob\left(|\mean{X} - \mu| \leq \varepsilon\right) = 1\]
+Si \(X_1, X_2, \cdots, X_n\) son variables aleatorias independientes e idénticamente distribuidas, con esperanza \(\mu\) y varianza \(\vars\) finitas, entonces la variable \(\mean{X} = \sum_{i=1}^{n} X_i/n\) cumple que para todo \(\varepsilon >0\), \[\lim_{n\to\infty} \prob\left(|\mean{X} - \mu| \leq \varepsilon\right) = 1\]
 
 \informal
 Lo que dice este teorema es que, efectivamente, el promedio muestral converge hacia el promedio poblacional a medida que aumenta el tamaño de la muestra. Es posible que esa convergencia no ocurra, pero si la muestra es realmente azarosa, es lo que ocurrirá la mayor, muy mayor, parte del tiempo\sidenote{tan mayor que en realidad casi nunca no ocurre}.
@@ -130,12 +172,12 @@ Si tomara muchas muestras distintas de la misma población y calculara la media 
 \end{pausa}
 
 \formal
-Si \(X_1, X_2, \cdots, X_n\) son variables aleatorias independientes e idénticamente distribuidas, con esperanza \(\mu\) y varianza \(\sigma^2\) finitas (y la varianza mayor que \(0\)), entonces la \va \[Z_n = \frac{\mean{X} - \mu}{\sigma/\sqrt{n}}\] converge en distribución a la normal estándar cuando \(n\) se va a infinito, es decir, \[\lim_{n\to\infty} P (Z_n \leq x) = P(Z \leq x)\] donde \(Z \sim \norm{0}{1}\).
+Si \(X_1, X_2, \cdots, X_n\) son variables aleatorias independientes e idénticamente distribuidas, con esperanza \(\mu\) y varianza \(\vars\) finitas (y la varianza mayor que \(0\)), entonces la \va \[Z_n = \frac{\mean{X} - \mu}{\desv/\sqrt{n}}\] converge en distribución a la normal estándar cuando \(n\) se va a infinito, es decir, \[\lim_{n\to\infty} P (Z_n \leq x) = P(Z \leq x)\] donde \(Z \sim \norm{0}{1}\).
 
 \informal
-Hay algunas cosas que decir. La primera es una observación menor. Si nos fijamos, la variable \(Z_n\) nos está diciendo el comportamiento de la media muestral. Mediante un truco algebraico bien conocido (amplificar por \(n\)) obtenemos lo siguiente \[Z_n = \frac{\mean{X} - \mu}{\sigma/\sqrt{n}} = \frac{\sum_{i=1}^{n}X_i - n\mu}{\sqrt{n}\sigma}\] y por lo tanto el teorema también nos cuenta acerca de la suma de las variables, lo que puede ser de utilidad.
+Hay algunas cosas que decir. La primera es una observación menor. Si nos fijamos, la variable \(Z_n\) nos está diciendo el comportamiento de la media muestral. Mediante un truco algebraico bien conocido (amplificar por \(n\)) obtenemos lo siguiente \[Z_n = \frac{\mean{X} - \mu}{\desv/\sqrt{n}} = \frac{\sum_{i=1}^{n}X_i - n\mu}{\sqrt{n}\desv}\] y por lo tanto el teorema también nos cuenta acerca de la suma de las variables, lo que puede ser de utilidad.
 
-Una segunda cosa es que si \[\lim_{n\to\infty}Z_n = \norm{0}{1}\] (usando una notación un poco liberal), y recordamos qué es estandarizar una distribución normal, descubriremos que otra forma de enunciar el teorema es \[\mean{X_n} \approx \norm{\mu}{\frac{\sigma^2}{n}}\] (usando una idea todavía más liberal, porque estamos obviando el límite). 
+Una segunda cosa es que si \[\lim_{n\to\infty}Z_n = \norm{0}{1}\] (usando una notación un poco liberal), y recordamos qué es estandarizar una distribución normal, descubriremos que otra forma de enunciar el teorema es \[\mean{X_n} \approx \norm{\mu}{\frac{\vars}{n}}\] (usando una idea todavía más liberal, porque estamos obviando el límite). 
 
 Un tercer punto es que, y esto es lo más increíble, el teorema no puso \emph{ninguna} restricción a la distribución que siguen los \(X_i\), salvo que tuvieran media y varianza finitas y varianza no nula además. 
 
@@ -148,7 +190,7 @@ Las secciones anteriores nos llevan a un resultado: las distribuciones muestrale
 
 \subsection{Distribución muestral de la media muestral}
 
-Básicamente, esta sección es reiterar lo dicho en la anterior. Gracias al teorema del límite central, sabemos que la media muestral sigue una distribución normal con media \(\mu\) y desviación estándar \(\sigma/\sqrt{n}\) \[\mean{X} \sim\norm{\mu}{\frac{\sigma^2}{n}}\] o, equivalentemente, la variable \[Z = \frac{\mean{X} - \mu}{\sigma/\sqrt{n}}\] sigue una distribución normal estándar.
+Básicamente, esta sección es reiterar lo dicho en la anterior. Gracias al teorema del límite central, sabemos que la media muestral sigue una distribución normal con media \(\mu\) y desviación estándar \(\desv/\sqrt{n}\) \[\mean{X} \sim\norm{\mu}{\frac{\vars}{n}}\] o, equivalentemente, la variable \[Z = \frac{\mean{X} - \mu}{\desv/\sqrt{n}}\] sigue una distribución normal estándar.
 
 \subsection{Distribución muestral de la proporción muestral}
 
@@ -158,7 +200,7 @@ Recordemos que la distribución binomial cuenta la cantidad de \emph{éxitos} re
 
 Pero una forma equivalente es preguntarnos por la probabilidad de que la proporción de personas zurdas sea 5/37. En otras palabras, al dividir por la cantidad total obtenemos una nueva distribución binomial, pero esta vez con esperanza \(p\) y varianza \(pq\).
 
-En otras palabras, la proporción muestral \(\hat{p}\) se distribuye según una distribución normal \[\hat{p}\sim \norm{p}{\frac{pq}{n}}\] o lo que es lo mismo, la variable \[Z = \frac{\hat{p} - p}{\sqrt{pq/n}}\] sigue una distribución normal estándar.
+En otras palabras, la proporción muestral \(\prop\) se distribuye según una distribución normal \[\prop\sim \norm{p}{\frac{pq}{n}}\] o lo que es lo mismo, la variable \[Z = \frac{\prop - p}{\sqrt{pq/n}}\] sigue una distribución normal estándar.
 
 \subsection{La distribución muestral de la media muestral para poblaciones de varianza desconocida}
 
@@ -170,17 +212,17 @@ Ese fue (parte d)el problema que trató de resolver William Sealy Gosset mientra
 
 La distribución \(\Td_{\nu}\) es una distribución que depende sólo de un parámetro: los grados de libertad (\(\nu\)). La media siempre es \(0\) y la varianza es \(\nu/(\nu-2)\) cuando \(\nu >2\).
 
-Para trabajar con esta distribución debemos calcular el score \(T\), de manera análoga a como lo hacíamos con la distribución normal \[T = \frac{\mean{x}-\mu}{s/\sqrt{n}}\] donde \(\mean{x}\) es la media muestral, \(\mu\) es la media poblacional, \(n\) es la cantidad de observaciones de la muestra y \(s\) es la desviación estándar muestral definida por \[s^2 = \frac{1}{n-1}\sum_{i=1}^{n} (x_i - \mean{x}).\] Este score \(T\) sigue entonces una distribución \(t\) con \(n-1\) grados de libertad \[T \sim \Td_{n-1}.\]
+Para trabajar con esta distribución debemos calcular el score \(T\), de manera análoga a como lo hacíamos con la distribución normal \[T = \frac{\mean{x}-\mu}{\desvm/\sqrt{n}}\] donde \(\mean{x}\) es la media muestral, \(\mu\) es la media poblacional, \(n\) es la cantidad de observaciones de la muestra y \(\desvm\) es la desviación estándar muestral definida por \[\varm = \frac{1}{n-1}\sum_{i=1}^{n} (x_i - \mean{x}).\] Este score \(T\) sigue entonces una distribución \(t\) con \(n-1\) grados de libertad \[T \sim \Td_{n-1}.\]
 
 \subsection{Distribución muestral de la varianza muestral}
 
-Lamentablemente, el teorema del límite central no nos ayuda con la varianza en general. El TLC está definido para el promedio y se puede extender a otras ideas relacionadas con el  promedio, como sumar o contar, pero la varianza con su suma de diferencias cuadradas no se presta bien para ser adoptada por el TLC. Por si acaso, recordemos que la varianza muestral viene dada por \[s^2 = \frac{1}{n-1}\sum_{i=1}^{n} \left( x_i - \mean{x} \right)\]
+Lamentablemente, el teorema del límite central no nos ayuda con la varianza en general. El TLC está definido para el promedio y se puede extender a otras ideas relacionadas con el  promedio, como sumar o contar, pero la varianza con su suma de diferencias cuadradas no se presta bien para ser adoptada por el TLC. Por si acaso, recordemos que la varianza muestral viene dada por \[\varm = \frac{1}{n-1}\sum_{i=1}^{n} \left( x_i - \mean{x} \right)\]
 
-Sin embargo, hay un caso especial y es cuando sabemos que la muestra proviene de una distribución normal. Supongamos que tenemos una muestra  \(X_1, X_2, \ldots, X_n\), es decir, \(n\) variables aleatorias independientes e idénticamente distribuidas según una distribución normal \(\norm{\mu}{\sigma^2}\). Para cada \(X_i\) podemos estandarizarla y obtener \(Z_i=(X_i-\mu)/\sigma\) y por lo tanto \[\sum_{i=1}^{n}\left(\frac{X_i-\mu}{\sigma}\right)^2 = \sum_{i=1}^{n} Z_i^2 \sim \chi^2_n\] por definición de la distribución \(\chi^2_n\).
+Sin embargo, hay un caso especial y es cuando sabemos que la muestra proviene de una distribución normal. Supongamos que tenemos una muestra  \(X_1, X_2, \ldots, X_n\), es decir, \(n\) variables aleatorias independientes e idénticamente distribuidas según una distribución normal \(\norm{\mu}{\vars}\). Para cada \(X_i\) podemos estandarizarla y obtener \(Z_i=(X_i-\mu)/\desv\) y por lo tanto \[\sum_{i=1}^{n}\left(\frac{X_i-\mu}{\desv}\right)^2 = \sum_{i=1}^{n} Z_i^2 \sim \chi^2_n\] por definición de la distribución \(\chi^2_n\).
 
 ¿Cómo podemos relacionar la media y varianza muestrales? Partamos por
 \begin{align*}
-\sum_{i=1}^{n}\left(\frac{X_i-\mu}{\sigma}\right)^2 &= \sum_{i=1}^{n}\left(\frac{\left(X_i-\mean{X}\right) + \left(\mean{X}-\mu\right)}{\sigma}\right)^2 
+\sum_{i=1}^{n}\left(\frac{X_i-\mu}{\desv}\right)^2 &= \sum_{i=1}^{n}\left(\frac{\left(X_i-\mean{X}\right) + \left(\mean{X}-\mu\right)}{\desv}\right)^2 
 \intertext{consideremos el numerador}
 &\sum_{i=1}^{n}\left(\left(X_i-\mean{X}\right) + \left(\mean{X}-\mu\right)\right)^2 \\
 \intertext{expandamos el cuadrado}
@@ -189,20 +231,20 @@ Sin embargo, hay un caso especial y es cuando sabemos que la muestra proviene de
 \intertext{consideremos la segunda sumatoria: como es la suma de las diferencias en torno a la media, por propiedades de ésta se hace \(0\)}
 &= \sum_{i=1}^{n}\left( X_i - \mean{X} \right)^2 + 2\left( \mean{X} - \mu \right)\cdot 0 + n\left( \mean{X} - \mu \right)^2\\
 &= \sum_{i=1}^{n}\left( X_i - \mean{X} \right)^2  + n\left( \mean{X} - \mu \right)^2
-\intertext{y considerando la sumatoria restante, podemos ver que es \(s^2\) multiplicado por \(n-1\)}
-&= \left( n-1 \right)s^2  + n\left( \mean{X} - \mu \right)^2
-\intertext{para volver a lo original, debemos dividir por \(\sigma^2\)}
-\sum_{i=1}^{n}\left(\frac{X_i-\mu}{\sigma}\right)^2 &= \frac{\left( n-1 \right)s^2}{\sigma^2}  + \frac{n\left( \mean{X} - \mu \right)^2}{\sigma^2}
+\intertext{y considerando la sumatoria restante, podemos ver que es \(\varm\) multiplicado por \(n-1\)}
+&= \left( n-1 \right)\varm  + n\left( \mean{X} - \mu \right)^2
+\intertext{para volver a lo original, debemos dividir por \(\vars\)}
+\sum_{i=1}^{n}\left(\frac{X_i-\mu}{\desv}\right)^2 &= \frac{\left( n-1 \right)\varm}{\vars}  + \frac{n\left( \mean{X} - \mu \right)^2}{\vars}
 \intertext{observemos el término de la derecha}
-\frac{n\left( \mean{X} - \mu \right)^2}{\sigma^2} &= \frac{\left( \sqrt{n} \right)^2\left( \mean{X} - \mu \right)^2}{\sigma^2} = \left(\frac{ \mean{X} - \mu }{\sigma/\sqrt{n}}\right)^2
+\frac{n\left( \mean{X} - \mu \right)^2}{\vars} &= \frac{\left( \sqrt{n} \right)^2\left( \mean{X} - \mu \right)^2}{\vars} = \left(\frac{ \mean{X} - \mu }{\desv/\sqrt{n}}\right)^2
 \intertext{por el TLC lo que está dentro del cuadrado sigue una distribución normal estándar y, al estar al cuadrado obtenemos }
-\left(\frac{ \mean{X} - \mu }{\sigma/\sqrt{n}}\right)^2 &\sim \chi^2_1
+\left(\frac{ \mean{X} - \mu }{\desv/\sqrt{n}}\right)^2 &\sim \chi^2_1
 \intertext{como resumen, tenemos lo siguiente}
-\sum_{i=1}^{n}\left(\frac{X_i-\mu}{\sigma}\right)^2 &= \frac{\left( n-1 \right)s^2}{\sigma^2}  + \frac{n\left( \mean{X} - \mu \right)^2}{\sigma^2}
+\sum_{i=1}^{n}\left(\frac{X_i-\mu}{\desv}\right)^2 &= \frac{\left( n-1 \right)\varm}{\vars}  + \frac{n\left( \mean{X} - \mu \right)^2}{\vars}
 \intertext{el término de la izquierda sigue una distribución \(\chi^2_n\) mientras que el último sumando de la derecha sigue una distribución \(\chi^2_1\)}
-\sum_{i=1}^{n}\left(\frac{X_i-\mu}{\sigma}\right)^2 &\sim \chi^2_n \qquad \frac{n\left( \mean{X} - \mu \right)^2}{\sigma^2} \sim \chi^2_1
+\sum_{i=1}^{n}\left(\frac{X_i-\mu}{\desv}\right)^2 &\sim \chi^2_n \qquad \frac{n\left( \mean{X} - \mu \right)^2}{\vars} \sim \chi^2_1
 \intertext{aquí tendremos que hacer un pequeño salto de fe: las distribuciones de la suma son independientes. Si esto es cierto (y lo es), entonces tenemos}
-\chi^2_n &= \frac{\left( n-1 \right)s^2}{\sigma^2}  + \chi^2_1
+\chi^2_n &= \frac{\left( n-1 \right)\varm}{\vars}  + \chi^2_1
 \intertext{y esto obliga a que}
-\frac{\left( n-1 \right)s^2}{\sigma^2} &\sim \chi^2_{n-1}
+\frac{\left( n-1 \right)\varm}{\vars} &\sim \chi^2_{n-1}
 \end{align*}
