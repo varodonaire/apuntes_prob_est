@@ -133,7 +133,7 @@ Sin embargo, si hacemos el experimento 1000, 5000 o más veces la intuición nos
 
 \textbf{NO.} Los resultados se muestran en la \reffig{repeticiones-caras}. Siempre habrá resultados que \enquote{se escapan} de lo que se espera que debería pasar.
 
-\begin{figure*}[h!]
+\begin{figure*}[t]
 \includegraphics{images/caras.png}
 \caption{1000 lanzamientos de 10 veces una moneda}
 \labfig{repeticiones-caras}
@@ -151,8 +151,8 @@ Porque estamos pensando mal. Lo que colapsa no es el número de caras que obtene
 
 Nuestra intuición no está tan errada, pero hay que afinarla. En general, cuando tenemos una suma (o promedio o conteo) tendremos que \[\text{suma} = \text{valor esperado} + \text{error aleatorio.}\] La pregunta es qué tan grande es ese error aleatorio. Hay una fórmula que nos permite establecer el tamaño de este error, llamado \emph{error estándar.} Cuando contabilicemos la suma de las extracciones de una caja, con reposición, el error estándar de la suma es \[\sqrt{\text{número de extracciones}} \cdot (\text{desviación estándar de la caja})\]
 
-En otras palabras, el error \emph{aumenta} a medida que repetimos nuestro experimento, de manera proporcional a la raíz del número de repeticiones. En ese sentido, nuestra intuición estaba completamente incorrecta. Sin embargo, si consideramos el promedio \[\frac{\sqrt{\text{número de extracciones}} \cdot (\text{SD de la caja})}{\text{número de extracciones}} = \frac{\text{SD de la caja}}{\sqrt{\text{número de extracciones}}} \]
-y cuando el número de extracciones crece, el error estándar decrece. 
+En otras palabras, el error \emph{aumenta} a medida que repetimos nuestro experimento, de manera proporcional a la raíz del número de repeticiones. En ese sentido, nuestra intuición estaba completamente incorrecta. Sin embargo, si dividimos por el número de extracciones \[\frac{\sqrt{\text{número de extracciones}} \cdot (\text{SD de la caja})}{\text{número de extracciones}} = \frac{\text{SD de la caja}}{\sqrt{\text{número de extracciones}}} \]
+obtenemos el promedio y cuando el número de extracciones crece, el error estándar decrece. 
 
 Esta idea está representada en la \emph{ley de los grandes números.} Hay varias versiones de esta ley, pero todas son teoremas que hablan de la convergencia de una serie de variables aleatorias.
 
@@ -160,7 +160,7 @@ Esta idea está representada en la \emph{ley de los grandes números.} Hay varia
 Si \(X_1, X_2, \cdots, X_n\) son variables aleatorias independientes e idénticamente distribuidas, con esperanza \(\mu\) y varianza \(\vars\) finitas, entonces la variable \(\mean{X} = \sum_{i=1}^{n} X_i/n\) cumple que para todo \(\varepsilon >0\), \[\lim_{n\to\infty} \prob\left(|\mean{X} - \mu| \leq \varepsilon\right) = 1\]
 
 \informal
-Lo que dice este teorema es que, efectivamente, el promedio muestral converge hacia el promedio poblacional a medida que aumenta el tamaño de la muestra. Es posible que esa convergencia no ocurra, pero si la muestra es realmente azarosa, es lo que ocurrirá la mayor, muy mayor, parte del tiempo\sidenote{tan mayor que en realidad casi nunca no ocurre}.
+Lo que dice este teorema es que, efectivamente, el promedio muestral converge hacia el promedio poblacional a medida que aumenta el tamaño de la muestra. Es posible que esa convergencia no ocurra, pero si la muestra es realmente azarosa, es lo que ocurrirá la mayor, muy mayor, parte del tiempo\sidenote{tan mayor que en realidad casi nunca no ocurre}.\sidenote{¿Cuándo podría no ocurrir? Piense tirar una moneda justa y que siempre salga cara. \emph{Siempre.}}
 
 \section{Teorema del límite central}
 \labsec{teo-limite-central}
@@ -177,11 +177,11 @@ Si \(X_1, X_2, \cdots, X_n\) son variables aleatorias independientes e idéntica
 \informal
 Hay algunas cosas que decir. La primera es una observación menor. Si nos fijamos, la variable \(Z_n\) nos está diciendo el comportamiento de la media muestral. Mediante un truco algebraico bien conocido (amplificar por \(n\)) obtenemos lo siguiente \[Z_n = \frac{\mean{X} - \mu}{\desv/\sqrt{n}} = \frac{\sum_{i=1}^{n}X_i - n\mu}{\sqrt{n}\desv}\] y por lo tanto el teorema también nos cuenta acerca de la suma de las variables, lo que puede ser de utilidad.
 
-Una segunda cosa es que si \[\lim_{n\to\infty}Z_n = \norm{0}{1}\] (usando una notación un poco liberal), y recordamos qué es estandarizar una distribución normal, descubriremos que otra forma de enunciar el teorema es \[\mean{X_n} \approx \norm{\mu}{\frac{\vars}{n}}\] (usando una idea todavía más liberal, porque estamos obviando el límite). 
+Una segunda cosa es que si \[\lim_{n\to\infty}Z_n = \norm{0}{1}\] (usando una notación un poco liberal), y recordamos qué es estandarizar una distribución normal, descubriremos que otra forma de enunciar el teorema es \[\mean{X_n} \approx \norm{\mu}{\frac{\vars}{n}}\] (usando una idea todavía más liberal, porque estamos obviando el límite). Es decir, la distribución de la media muestral es (aproximadamente) una normal con media \(\mu\) (la media poblacional) y varianza \(\vars/n\).
 
 Un tercer punto es que, y esto es lo más increíble, el teorema no puso \emph{ninguna} restricción a la distribución que siguen los \(X_i\), salvo que tuvieran media y varianza finitas y varianza no nula además. 
 
-Por ejemplo, los \(X_i\) podrían provenir de una distribución de Bernoulli (éxito con probabilidad \(p\), fracaso con probabilidad \(1-p\), como tirar una moneda). Si es así, \(\esp{X_i} = p\) y \(\var{X_i} = p(1-p)\). Además, la variable \[Y_n = X_1 + X_2 + \cdots + X_n\] sigue una distribución binomial \[Y_n \sim \Bin(n, p).\] Por lo tanto, \[Z_n = \frac{Yn - np}{\sqrt{np(1-p)}}\] converge hacia una normal estándar.
+Por ejemplo, los \(X_i\) podrían provenir de una distribución de Bernoulli (éxito con probabilidad \(p\), fracaso con probabilidad \(1-p\), como tirar una moneda). Si es así, \(\esp{X_i} = p\) y \(\var{X_i} = p(1-p)\). Además, la variable \[Y_n = X_1 + X_2 + \cdots + X_n\] sigue una distribución binomial \[Y_n \sim \Bin(n, p).\] Por lo tanto, \[Z_n = \frac{\mean{Y} - p}{\sqrt{\frac{p\,(1-p)}{n}}}\] converge hacia una normal estándar.
 
 \section{Distribuciones muestrales}
 \labsec{distribuciones-muestrales}
@@ -243,8 +243,9 @@ Sin embargo, hay un caso especial y es cuando sabemos que la muestra proviene de
 \sum_{i=1}^{n}\left(\frac{X_i-\mu}{\desv}\right)^2 &= \frac{\left( n-1 \right)\varm}{\vars}  + \frac{n\left( \mean{X} - \mu \right)^2}{\vars}
 \intertext{el término de la izquierda sigue una distribución \(\chi^2_n\) mientras que el último sumando de la derecha sigue una distribución \(\chi^2_1\)}
 \sum_{i=1}^{n}\left(\frac{X_i-\mu}{\desv}\right)^2 &\sim \chi^2_n \qquad \frac{n\left( \mean{X} - \mu \right)^2}{\vars} \sim \chi^2_1
-\intertext{aquí tendremos que hacer un pequeño salto de fe: las distribuciones de la suma son independientes. Si esto es cierto (y lo es), entonces tenemos}
+\intertext{aquí tendremos que hacer un pequeño salto de fe: las distribuciones de la suma son independientes. Si esto es cierto (y lo es),\sidenotemark{} entonces tenemos}
 \chi^2_n &= \frac{\left( n-1 \right)\varm}{\vars}  + \chi^2_1
 \intertext{y esto obliga a que}
 \frac{\left( n-1 \right)\varm}{\vars} &\sim \chi^2_{n-1}
 \end{align*}
+\sidenotetext[][-10\baselineskip]{básicamente, \begin{align*}\sum_{i=1}^{n}(\norm{0}{1})^2 &= \sum_{i=1}^{k}(\norm{0}{1})^2 \\ &\quad+\sum_{i=k+1}^{n}(\norm{0}{1})^2 \end{align*} y esas cosas distribuyen \(\chi^2_n\), \(\chi^2_{k}\) y \(\chi^2_{n-k}\) respectivamente}
