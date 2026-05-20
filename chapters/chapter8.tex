@@ -15,79 +15,95 @@ Un punto importante a tener en cuenta: ningún estimador es perfecto. Todos los 
 Antes de ver cómo se evalúan los estimadores: ¿qué propiedades le gustaría que tuviera uno? Intente listar dos o tres características que le parezcan deseables.
 \end{pausa}
 
-Una forma de entender los estimadores es imaginar que son tiradores de dardos. 
+Una forma de entender los estimadores es imaginar que son tiradores de dardos.
 
+\resizebox{\linewidth}{!}{%
 \begin{tikzpicture}
-    % Dartboard 1
-    \begin{scope}[xshift=0cm]
-        \fill[black!10] (0,0) circle (1.5);
-        \fill[black!30] (0,0) circle (1);
-        \fill[black!50] (0,0) circle (0.5);
-        \draw[thick] (0,0) circle (1.5);
-        \draw[thick] (0,0) circle (1);
-        \draw[thick] (0,0) circle (0.5);
-        \fill[blue!60!black] (0,0) circle (0.1);
-        % Dart results
-        \fill[red] (53.13:0.1) circle (0.08);
-        \fill[red] (158.2:0.12) circle (0.08);
-        \fill[red] (333.43:0.67) circle (0.08);
-        \fill[red] (248.2:0.04) circle (0.08);
-        \fill[red] (14.04:0.81) circle (0.08);
-        \fill[red] (116.57:1.47) circle (0.08);
-        \fill[red] (35.54:1.39) circle (0.08);
-        \fill[red] (206.57:0.45) circle (0.08);
-        % Label
-        \node at (0,-2) {Tirador 1};
-    \end{scope}
-    
-    % Dartboard 2
-    \begin{scope}[xshift=4cm]
-        \fill[black!10] (0,0) circle (1.5);
-        \fill[black!30] (0,0) circle (1);
-        \fill[black!50] (0,0) circle (0.5);
-        \draw[thick] (0,0) circle (1.5);
-        \draw[thick] (0,0) circle (1);
-        \draw[thick] (0,0) circle (0.5);
-        \fill[blue!60!black] (0,0) circle (0.1);
-        % Dart results
-        \fill[red] (53.13:0.5) circle (0.08);
-        \fill[red] (158.2:0.44) circle (0.08);
-        \fill[red] (333.43:0.27) circle (0.08);
-        \fill[red] (248.2:0.54) circle (0.08);
-        \fill[red] (14.04:0.41) circle (0.08);
-        \fill[red] (116.57:0.37) circle (0.08);
-        \fill[red] (35.54:0.3) circle (0.08);
-        \fill[red] (206.57:0.45) circle (0.08);
-        % Label
-        \node at (0,-2) {Tirador 2};
-    \end{scope}
-    
-    % Dartboard 3
-    \begin{scope}[xshift=8cm]
-        \fill[black!10] (0,0) circle (1.5);
-        \fill[black!30] (0,0) circle (1);
-        \fill[black!50] (0,0) circle (0.5);
-        \draw[thick] (0,0) circle (1.5);
-        \draw[thick] (0,0) circle (1);
-        \draw[thick] (0,0) circle (0.5);
-        \fill[blue!60!black] (0,0) circle (0.1);
-        % Dart results
-        \fill[red] (53.13:0.05) circle (0.08);
-        \fill[red] (158.2:0.14) circle (0.08);
-        \fill[red] (333.43:0.17) circle (0.08);
-        \fill[red] (248.2:0.14) circle (0.08);
-        \fill[red] (14.04:0.11) circle (0.08);
-        \fill[red] (116.57:0.17) circle (0.08);
-        \fill[red] (35.54:0.16) circle (0.08);
-        \fill[red] (206.57:0.15) circle (0.08);
-        % Label
-        \node at (0,-2) {Tirador 3};
-    \end{scope}
-\end{tikzpicture}
+    % Column headers
+    \node[font=\small\bfseries] at (0, 7.0) {Baja dispersión};
+    \node[font=\small\bfseries] at (4.5, 7.0) {Alta dispersión};
+    % Row headers
+    \node[font=\small\bfseries, rotate=90] at (-2.4, 5) {Bajo sesgo};
+    \node[font=\small\bfseries, rotate=90] at (-2.4, 0) {Alto sesgo};
 
-\begin{pausa}
-De los tiradores que ve en la figura, ¿cuál preferiría tener? ¿El que en promedio apunta al centro pero con mucha dispersión, o el que se aleja un poco del centro pero con muy poca dispersión?
-\end{pausa}
+    % Top-left: Bajo sesgo + Baja dispersión
+    \begin{scope}[xshift=0cm, yshift=5cm]
+        \fill[black!10] (0,0) circle (1.5);
+        \fill[black!30] (0,0) circle (1);
+        \fill[black!50] (0,0) circle (0.5);
+        \draw[thick] (0,0) circle (1.5);
+        \draw[thick] (0,0) circle (1);
+        \draw[thick] (0,0) circle (0.5);
+        \fill[blue!60!black] (0,0) circle (0.1);
+        \fill[red] (20:0.15) circle (0.08);
+        \fill[red] (85:0.18) circle (0.08);
+        \fill[red] (150:0.13) circle (0.08);
+        \fill[red] (210:0.16) circle (0.08);
+        \fill[red] (275:0.12) circle (0.08);
+        \fill[red] (330:0.19) circle (0.08);
+        \fill[red] (55:0.10) circle (0.08);
+        \fill[red] (175:0.14) circle (0.08);
+    \end{scope}
+
+    % Top-right: Bajo sesgo + Alta dispersión
+    \begin{scope}[xshift=4.5cm, yshift=5cm]
+        \fill[black!10] (0,0) circle (1.5);
+        \fill[black!30] (0,0) circle (1);
+        \fill[black!50] (0,0) circle (0.5);
+        \draw[thick] (0,0) circle (1.5);
+        \draw[thick] (0,0) circle (1);
+        \draw[thick] (0,0) circle (0.5);
+        \fill[blue!60!black] (0,0) circle (0.1);
+        \fill[red] (30:1.3) circle (0.08);
+        \fill[red] (105:0.8) circle (0.08);
+        \fill[red] (165:1.4) circle (0.08);
+        \fill[red] (235:0.6) circle (0.08);
+        \fill[red] (285:1.2) circle (0.08);
+        \fill[red] (350:0.9) circle (0.08);
+        \fill[red] (65:0.3) circle (0.08);
+        \fill[red] (210:1.1) circle (0.08);
+    \end{scope}
+
+    % Bottom-left: Alto sesgo + Baja dispersión
+    \begin{scope}[xshift=0cm, yshift=0cm]
+        \fill[black!10] (0,0) circle (1.5);
+        \fill[black!30] (0,0) circle (1);
+        \fill[black!50] (0,0) circle (0.5);
+        \draw[thick] (0,0) circle (1.5);
+        \draw[thick] (0,0) circle (1);
+        \draw[thick] (0,0) circle (0.5);
+        \fill[blue!60!black] (0,0) circle (0.1);
+        \fill[red] (40:0.85) circle (0.08);
+        \fill[red] (50:0.79) circle (0.08);
+        \fill[red] (35:0.83) circle (0.08);
+        \fill[red] (55:0.81) circle (0.08);
+        \fill[red] (45:0.87) circle (0.08);
+        \fill[red] (42:0.76) circle (0.08);
+        \fill[red] (48:0.82) circle (0.08);
+        \fill[red] (38:0.78) circle (0.08);
+    \end{scope}
+
+    % Bottom-right: Alto sesgo + Alta dispersión
+    \begin{scope}[xshift=4.5cm, yshift=0cm]
+        \fill[black!10] (0,0) circle (1.5);
+        \fill[black!30] (0,0) circle (1);
+        \fill[black!50] (0,0) circle (0.5);
+        \draw[thick] (0,0) circle (1.5);
+        \draw[thick] (0,0) circle (1);
+        \draw[thick] (0,0) circle (0.5);
+        \fill[blue!60!black] (0,0) circle (0.1);
+        \fill[red] (70:1.1) circle (0.08);
+        \fill[red] (20:0.9) circle (0.08);
+        \fill[red] (350:0.7) circle (0.08);
+        \fill[red] (100:0.5) circle (0.08);
+        \fill[red] (30:1.4) circle (0.08);
+        \fill[red] (310:0.8) circle (0.08);
+        \fill[red] (60:1.2) circle (0.08);
+        \fill[red] (10:1.1) circle (0.08);
+    \end{scope}
+\end{tikzpicture}%
+}
+
 
 Cada tirador está tratando de dar en el blanco. Sin embargo, hay varias formas en que se puede fallar y sólo una en que se puede ser perfectamente exitoso \emph{siempre.} En nuestro caso, un estimador está tratando de dar en el blanco. El blanco es algún parámetro de nuestra población. Generalmente, consideraremos la media o varianza, pero podría ser cualquier cosa: mediana, curtosis, simetría, etc. Nuestro ideal sería encontrar un estimador que
 \begin{enumerate}
@@ -95,7 +111,7 @@ Cada tirador está tratando de dar en el blanco. Sin embargo, hay varias formas 
 \item En general no sea muy disperso. Es imposible que no tenga dispersión, pero si esa dispersión es de alguna forma pequeña, sirve.
 \end{enumerate}
 
-¿Por qué es imposible pedir el estimador perfecto? Un estimador es un cálculo que se puede hacer para todas las muestras posibles. Eso quiere decir que, incluso en el mejor de los estimadores posibles, como la media muestral \(\mean{x}\) para estimar \(\mu\) de una población normal, podríamos tener una situación como la del gráfico\\
+¿Por qué es imposible pedir el estimador perfecto? Un estimador es un cálculo que se puede hacer para todas las muestras posibles. Eso quiere decir que, incluso en el mejor de los estimadores posibles, podríamos tener una situación como la del gráfico\\
 \begin{tikzpicture}
     \begin{axis}[
         width=10cm,
@@ -122,13 +138,22 @@ Cada tirador está tratando de dar en el blanco. Sin embargo, hay varias formas 
         \fill[red] (axis cs:-3.5,0) circle (2pt);
         \end{axis}
 \end{tikzpicture}
-donde el estimador \(\mean{x}\), aplicado a esa muestra, no da cerca del parámetro \(\mu\).\sidenote{en general, denotaremos un estimador de un parámetro \(\theta\) por \(\estim{\theta}\), salvo en casos como la media, donde solemos usar \(\mean{x}\).}
+donde el estimador \(\mean{x}\), aplicado a esa muestra, no da cerca del parámetro \(\mu\).
 
 Nuestro plan será
 \begin{enumerate}
 \item Definir qué hace que un estimador sea bueno.
 \item Definir estrategias razonables para encontrar estimadores.
 \end{enumerate}
+
+Antes de seguir, definamos qué es un estimador.
+
+\begin{definition}
+\labdef{estimador}
+
+Un estimador \(\estim{\theta}\) del parámetro poblacional \(\theta\) es una función de la muestra \[\estim{\theta} = f(X_1, X_2,\ldots, X_n)\]
+
+\end{definition}
 
 \section{¿Qué hace que un estimador sea bueno? Error cuadrático medio y amigos}
 \labsec{ECM}
@@ -158,7 +183,7 @@ El ECM es poco práctico de esa manera, pero además no nos dice mucho (más all
 
 Esta forma del ECM es más práctica pero además nos muestra que el error cuadrático medio está compuesto de dos partes: la varianza del estimador y la diferencia entre el valor esperado del estimador y el verdadero valor del parámetro. 
 
-La segunda parte, la diferencia (sin el cuadrado) entre el valor esperado del estimador y el verdadero parámetro se conoce como \emph{sesgo.} Idealmente, un estimador debería tener sesgo \(0\), es decir, la esperanza del estimador debería ser el parámetro que estima. Cuando esto ocurre, se dice que el estimador es \emph{insesgado.}\sidenote{en otras palabras, el sesgo mide el error que \emph{sistemáticamente} comete nuestro estimador en promedio.}
+Definiremos \[B\left(\estim{\theta}\right) = \esp{\estim{\theta}} - \theta\] como el \emph{sesgo} de \(\estim{\theta}\).  Idealmente, un estimador debería tener sesgo \(0\), es decir, la esperanza del estimador debería ser el parámetro que estima. Cuando esto ocurre, se dice que el estimador es \emph{insesgado.}\sidenote{en otras palabras, el sesgo mide el error que \emph{sistemáticamente} comete nuestro estimador en promedio.}
 
 La varianza del estimador, por otra parte, se considera como su \emph{eficiencia.} El estimador \(\estim{\theta}_1\) es más eficiente que el estimador \(\estim{\theta}_2\) si \[\var{\estim{\theta}_1}< \var{\estim{\theta}_2}.\] Mientras más eficiente un estimador, sus estimaciones estarán más concentradas. \emph{Adonde} estén concentradas tiene que ver con el sesgo del estimador.
 
