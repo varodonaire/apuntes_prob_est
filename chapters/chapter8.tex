@@ -187,8 +187,163 @@ Definiremos \[B\left(\estim{\theta}\right) = \esp{\estim{\theta}} - \theta\] com
 
 La varianza del estimador, por otra parte, se considera como su \emph{eficiencia.} El estimador \(\estim{\theta}_1\) es más eficiente que el estimador \(\estim{\theta}_2\) si \[\var{\estim{\theta}_1}< \var{\estim{\theta}_2}.\] Mientras más eficiente un estimador, sus estimaciones estarán más concentradas. \emph{Adonde} estén concentradas tiene que ver con el sesgo del estimador.
 
+Para resumir, el error cuadrático medio es \[\ecm\left( \estim{\theta} \right) = \var{\estim{\theta}} + B^2\left( \estim{\theta} \right)\]
+
 \subsection{Cota de Cramér-Rao}
 
 El estimador perfecto sería insesgado y con varianza \(0\). Ese estimador no existe.
 
 Hay una cota inferior de las varianzas de los posibles estimadores: la cota de Cramér-Rao. 
+\newpage
+
+\formal
+Si \(\estim{\theta}\) es un estimador insesgado de \(\theta\), es decir \(\esp{\estim{\theta}} =\nobreak \theta\), la cota de Cramér-Rao establece un valor mínimo para la varianza de \(\estim{\theta}\) \[\var{\estim{\theta}} \geq \frac{1}{n\esp{\left( \frac{\partial \ln\left(f(x, \theta)\right)}{\partial \theta} \right)^2}}\] donde \(f(x, \theta)\) representa la función de masa de probabilidad para una distribución discreta o la función de densidad para una distribución continua. 
+
+Normalmente, si \(f(x, \theta)\) es diferenciable dos veces, es más fácil calcular la cota de Cramér-Rao como \[\frac{1}{-n\esp{\frac{\partial^2 \ln\left( f(x, \theta) \right)}{\partial \theta^2}}}.\]
+
+\informal
+Recordemos que si tenemos dos estimadores, \(\estim{\theta}_1\) y \(\estim{\theta}_2\), se dice que \(\estim{\theta}_1\) es más eficiente que \(\estim{\theta}_2\) si \[\var{\estim{\theta}_1} \leq \var{\estim{\theta}_2}.\] Esto funciona simplemente como una comparación. Si un estimador \(\estim{\theta}\) alcanza la cota de Cramér-Rao, entonces se dice que \(\estim{\theta}\) es \emph{eficiente,} a secas.
+
+\section{¿Cómo encontrar buenos estimadores?}
+\labsec{encontrar-buenos-estimadores}
+
+La definición de estimador es tremendamente general: cualquier función de la muestra es un estimador. Eso no significa que sea un \emph{buen} estimador. Entonces, ¿cómo hacemos para encontrar uno que sea bueno?
+
+Hay dos técnicas que podemos usar: el estimador de máxima verosimilitud y el método de los momentos. 
+
+\subsection{Estimador de máxima verosimilitud}
+
+La verosimilitud se refiere a una probabilidad, pero no la probabilidad de obtener un resultado. La verosimilitud es la probabilidad de que un parámetro \(\theta\) de una población que sigue una distribución de probabilidad dado que tenemos una muestra \(\{X_i\}_{i=1}^n\).
+
+En otras palabras, \[\like{\theta, X_1, X_2, \ldots, X_n} = f\giventhat{\theta}{X_1, X_2,\ldots X_n}.\]
+
+Como \(\{X_i\}_{i=1}^n\) es una muestra, asumimos que cada \(X_i\) es independiente, por lo tanto 
+\begin{align*}
+\like{\theta, X_1, X_2, \ldots, X_n} &= f\giventhat{\theta}{X_1, X_2,\ldots X_n}\\
+&= f\giventhat{\theta}{X_1} \cdot f\giventhat{\theta}{X_2} \cdots f\giventhat{\theta}{X_n}\\
+&= \prod_{i=1}^{n} f\giventhat{\theta}{X_i}
+\end{align*}
+
+Si queremos maximizar la verosimilitud, esa forma es poco práctica. Afortunadamente, la función logaritmo natural es inyectiva y creciente, por lo que el máximo de \(\like{\theta, X_1, X_2, \ldots, X_n}\) coincide con el máximo de \(\ln\left( \like{\theta, X_1, X_2, \ldots, X_n} \right)\).
+\begin{align*}
+\ln\left( \like{\theta, X_1, X_2, \ldots, X_n} \right) &= \ln \left( \prod_{i=1}^{n} f\giventhat{\theta}{X_i} \right)\\
+&= \sum_{i=1}^{n} \ln\left( f\giventhat{\theta}{X_i} \right)
+\end{align*}
+
+Por lo tanto, maximizando \(\ln\left( \like{\theta, X_1, X_2, \ldots, X_n} \right)\), también conocida como log-verosimilitud, obtenemos el estimador de máxima verosimilitud. Normalmente, lo que haremos será resolver la ecuación \[\frac{\partial \ln\left( \like{\theta, X_1, X_2, \ldots, X_n} \right)}{\partial \theta} = 0\] y el valor de \(\theta\) que obtengamos se definirá como \(\estim{\theta}_{EMV}\).
+
+\subsubsection*{Ejemplo: estimador de \(p\) en una Bernoulli}
+
+\informal
+Supongamos que revisamos \(n\) solicitudes HTTP a un servidor y anotamos, para cada una, si fue exitosa (\(x_i = 1\)) o falló (\(x_i = 0\)). Queremos estimar \(p\), la probabilidad de que una solicitud sea exitosa.
+
+\begin{pausa}
+Antes de ver el desarrollo: si de \(10\) solicitudes \(7\) fueron exitosas, ¿qué valor de \(p\) le parece más razonable? ¿Cómo justificaría esa elección?
+\end{pausa}
+
+
+
+Cada \(X_i \sim \text{Bernoulli}(p)\) tiene función de masa de probabilidad \[f(x_i;\, p) = p^{x_i}(1-p)^{1-x_i}, \quad x_i \in \{0,1\}.\]
+
+La función de verosimilitud para la muestra completa es
+\begin{align*}
+\like{p,\, X_1, \ldots, X_n}
+    &= \prod_{i=1}^{n} p^{x_i}(1-p)^{1-x_i}
+\intertext{y la log-verosimilitud es}
+\ln\left( \like{p,\, X_1, \ldots, X_n} \right) &= \sum_{i=1}^{n} \ln\left( p^{x_i}(1-p)^{1-x_i} \right)\\
+&= \ln p \sum_{i=1}^{n} x_i + \ln(1-p)\left( n - \sum_{i=1}^{n} x_i \right)
+\end{align*}
+
+Denotemos \(S = \sum_{i=1}^n x_i\) (cantidad de éxitos). La log-verosimilitud es
+\begin{align*}
+\ln\!\left(\like{p, X_1, \ldots, X_n}\right) &= S\ln(p) + (n - S)\ln(1 - p).
+\end{align*}
+
+Derivamos respecto a \(p\) e igualamos a cero:
+\begin{align*}
+\frac{\partial \ln\!\left(\like{p, X_1, \ldots, X_n}\right)}{\partial p}
+    &= \frac{S}{p} - \frac{n - S}{1 - p} = 0.
+\end{align*}
+
+Multiplicando ambos lados por \(p(1-p)\):
+\begin{align*}
+S(1-p) &= (n-S)\,p \\
+S - Sp &= np - Sp \\
+S      &= np.
+\end{align*}
+
+Por lo tanto, el estimador de máxima verosimilitud de \(p\) es
+\[\estim{p}_{\,\text{EMV}} = \frac{S}{n} = \frac{\displaystyle\sum_{i=1}^n X_i}{n} = \mean{X}.\]
+
+El EMV de \(p\) es simplemente la proporción de éxitos en la muestra. En el ejemplo numérico, \[\estim{p}_{\,\text{EMV}} = \frac{7}{10} = \num{0.7},\] exactamente el valor que la intuición sugería. El método de máxima verosimilitud confirma el sentido común, pero ahora con respaldo matemático: de todos los posibles valores de \(p\), \(\num{0.7}\) es el que hace más probable haber observado \(7\) éxitos en \(10\) intentos.
+
+\subsection{Método de los momentos}
+
+\formal
+
+El \emph{momento \(n\)-ésimo} de una \va\ \(X\) se define como \[\mu'_n = \esp{X^n}.\]El primer momento es conocido como \(\mu\), la esperanza de la \va\ \(X\). 
+
+El \emph{\(n\)-ésimo momento central} de una \va\ \(X\) se define como \[\mu_n = \esp{\left( X-\mu \right)^n}\]
+
+Observemos que nosotros hemos usado la varianza largamente durante el curso, pero esta no es más que el segundo momento central. 
+
+Así como existen los momentos poblacionales, también existen los momentos muestrales. El \emph{\(n\)-ésimo momento muestral} viene definido por \[m_n = \frac{1}{n}\sum_{i=1}^{n}X_i^n\] donde la muestra viene dada por \(\left\{ X_i \right\}_{i=1}^{n}\).
+
+\informal
+El método de los momentos consiste en igualar los suficientes momentos muestrales con los momentos poblacionales. Como en general el momento poblacional \(n\)-ésimo es una función de los parámetros, \(\theta_1, \theta_2, \ldots \theta_k\), que posea la distribución, el método de los momentos dice que un estimador para todos esos parámetros se obtiene resolviendo el sistema de ecuaciones
+\begin{align*}
+m_1 &= \mu'_1(\theta_1, \theta_2, \ldots \theta_k)\\
+m_2 &= \mu'_2(\theta_1, \theta_2, \ldots \theta_k)\\
+m_3 &= \mu'_3(\theta_1, \theta_2, \ldots \theta_k)\\
+\vdots\quad &=\quad \vdots\\
+m_k &= \mu'_k(\theta_1, \theta_2, \ldots \theta_k)
+\end{align*}
+
+\example
+
+Consideremos una muestra \(\{X_i\}_{i=1}^n\) de una distribución con normal con media \(\mu\) desconocida. Queremos estimar \(\mu\) usando el método de los momentos.
+
+Para una distribución normal, el primer momento poblacional es
+\[\mu'_1 = \esp{X} = \mu.\]
+
+El primer momento muestral es
+\[m_1 = \frac{1}{n}\sum_{i=1}^{n}X_i = \mean{X}.\]
+
+Aplicando el método de los momentos, igualamos el momento muestral con el momento poblacional:
+\[m_1 = \mu'_1 \quad \Rightarrow \quad \mean{X} = \mu.\]
+
+Por lo tanto, el estimador de los momentos para la media poblacional es
+\[\estim{\mu}_{\text{MM}} = \mean{X} = \frac{1}{n}\sum_{i=1}^{n}X_i.\]
+
+Este resultado es intuitivo: el mejor estimador para la media poblacional es simplemente la media muestral. En este caso particular, el método de los momentos coincide con el estimador natural de máxima verosimilitud para muchas distribuciones (como la normal), confirmando que ambos enfoques conducen a conclusiones razonables.
+
+\example
+
+Consideremos una muestra \(\{X_i\}_{i=1}^n\) de una distribución uniforme \(\mathcal{U}(a, b)\) donde ambos parámetros \(a\) y \(b\) son desconocidos. Queremos estimar ambos parámetros usando el método de los momentos.
+
+Para una distribución uniforme \(\mathcal{U}(a, b)\), los dos primeros momentos poblacionales son
+\[\mu'_1 = \esp{X} = \frac{a+b}{2},\]
+\[\mu'_2 = \esp{X^2} = \frac{a^2 + ab + b^2}{3}.\]
+
+Los dos primeros momentos muestrales son
+\[m_1 = \frac{1}{n}\sum_{i=1}^{n}X_i = \mean{X},\]
+\[m_2 = \frac{1}{n}\sum_{i=1}^{n}X_i^2.\]
+
+Aplicando el método de los momentos, igualamos los momentos muestrales con los poblacionales
+\begin{align*}
+m_1 &= \mu'_1 \quad \Rightarrow \quad \mean{X} = \frac{a+b}{2}\\
+m_2 &= \mu'_2 \quad \Rightarrow \quad \frac{1}{n}\sum_{i=1}^{n}X_i^2 = \frac{a^2 + ab + b^2}{3}
+\end{align*}
+
+De la primera ecuación obtenemos
+\[a + b = 2\mean{X}.\]
+
+De la segunda ecuación y usando la identidad \(\var{X} =\nobreak m_2 -\nobreak m_1^2\), tenemos que para una uniforme \(\var{X} = \frac{(b-a)^2}{12}\), así
+\[\mean{X}^2 - \frac{(b-a)^2}{12} = \frac{1}{n}\sum_{i=1}^{n}X_i^2 - \mean{X}^2.\]
+
+Resolviendo el sistema de ecuaciones, obtenemos los estimadores
+\[\estim{a}_{\text{MM}} = \mean{X} - \sqrt{3\left(\frac{1}{n}\sum_{i=1}^{n}X_i^2 - \mean{X}^2\right)},\]
+\[\estim{b}_{\text{MM}} = \mean{X} + \sqrt{3\left(\frac{1}{n}\sum_{i=1}^{n}X_i^2 - \mean{X}^2\right)}.\]
+
+
+
