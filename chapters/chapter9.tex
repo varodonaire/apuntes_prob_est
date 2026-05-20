@@ -1,7 +1,13 @@
-\chapter{¿Qué tan seguros estamos?}
+\chapter{En la confianza está el peligro}
 \labch{intervalosdeconfianza}
 
 \begin{ideanote}
 Un número puntual no captura la incertidumbre de nuestra estimación. ¿Cómo podemos expresar, de manera precisa, qué tan confiados estamos en nuestro resultado y qué rango de valores es plausible?
 \end{ideanote}
+
+Pretender que con simplemente un estimador puntual podemos \enquote{capturar}  el verdadero valor del parámetro poblacional es, por decirlo chilenamente, bien patudo. En efecto, ¿cuál será la probabilidad de achuntarle? Con toda seguridad bien baja. 
+
+Una opción un poco más humilde es que usemos un \emph{intervalo} para capturar el parámetro: un intervalo es más ancho que un punto\sidenote{al menos si tiene un radio mayor estrictamente que \(0\)} así que, con un poco de suerte, el parámetro estará dentro del intervalo. El precio que tenemos que pagar es la exactitud. Ya no tendremos un valor exacto pero, en realidad, nunca lo tuvimos. 
+
+Hay un problema con la redacción del párrafo anterior, que tiene que ver con la frase \enquote{el parámetro estará dentro del intervalo}. La verdad, esa frase tiene todo al revés. El parámetro \emph{es lo que es.} Es un número. No va a \enquote{caer} en algún lugar del intervalo. Lo que sí va a cambiar es el intervalo que haremos. Ese intervalo dependerá de dos cosas: la muestra y qué tan seguros queremos estar de capturar el parámetro. Los bordes del intervalo son, por lo tanto, variables aleatorias. 
 
