@@ -11,3 +11,80 @@ Una opción un poco más humilde es que usemos un \emph{intervalo} para capturar
 
 Hay un problema con la redacción del párrafo anterior, que tiene que ver con la frase \enquote{el parámetro estará dentro del intervalo}. La verdad, esa frase tiene todo al revés. El parámetro \emph{es lo que es.} Es un número. No va a \enquote{caer} en algún lugar del intervalo. Lo que sí va a cambiar es el intervalo que haremos. Ese intervalo dependerá de dos cosas: la muestra y qué tan seguros queremos estar de capturar el parámetro. Los bordes del intervalo son, por lo tanto, variables aleatorias. 
 
+Es decir, frases como la del siguiente párrafo
+\begin{quote}
+Hay un \qty{95}{\percent} de probabilidad que el parámetro esté dentro de este intervalo
+\end{quote}
+están \emph{mal}\sidenote{al menos desde el punto de vista frecuentista}. El parámetro no tiene probabilidades porque es un número. Lo que sí tiene probabilidades asociadas es el intervalo que construimos. Este intervalo fue construido a partir de la muestra y, por lo tanto, tiene necesariamente asociada la aleatoriedad de ésta.
+
+Entonces, ¿cómo construiremos nuestro intervalo?
+
+\formal
+Un \emph{intervalo de confianza} \(1-\alpha\) para \(\theta\) es un estadígrafo de intervalo \(C\left(\{X_i\}\right)\) (o bien, dos estadígrafos \(L\left(\{X_i\}\right)\) y \(U\left(\{X_i\}\right)\) que representan los límites inferior y superior respectivamente) calculados a partir de la muestra \(\{X_i\}\) tal que \[\prob_{\theta}\left( \theta \in C(\{X_i\}) \right) = 1-\alpha.\] \(\prob_{\theta}\) es la probabilidad cuando el verdadero valor del parámetro es \(\theta\).
+
+\informal
+¿Qué significa esto? Un intervalo de confianza \(1-\alpha\) es un intervalo que construimos a partir de nuestra muestra. La \emph{confianza} se refiere a un tipo de probabilidad: la confianza es la probabilidad de encontrar dentro del intervalo que hicimos al verdadero valor del parámetro. Como el parámetro no tiene una probabilidad asociada, esta probabilidad se refiere al intervalo. Es decir,
+\begin{quote}
+el \qty[parse-numbers=false]{100(1-\alpha)}{\percent} de las muestras, aproximadamente, contendrán el parámetro dentro del intervalo de confianza generado a partir de ellas.
+\end{quote}
+
+Una complicación para entender la idea de intervalo de confianza es que nos obliga a pensar no sólo en la muestra que tenemos, si no en las muestras que \emph{no} tenemos. Podemos hacer una simulación para ver qué está pasando (\reffig{inter_confianza}). En esta simulación, la verdadera media de la población es 50. Si generamos un intervalo de confianza del \qty{95}{\percent}, esperaríamos que aproximadamente ese porcentaje de las muestras \enquote{atrape} el verdadero valor de la media. En efecto, la figura muestra lo que ocurre con 100 muestras aleatorias y sus intervalos de confianza. Como se puede ver, en seis de las muestras el intervalo no atrapa el verdadero valor de la media.
+
+\begin{figure*}
+\includegraphics{images/intervalos_confianza.png}
+\caption{Simulación de intervalos de confianza \qty{95}{\percent}. Aproximadamente el \qty{95}{\percent} de las muestras genera un intervalo que contiene a la verdadera media poblacional.}
+\labfig{inter_confianza}
+\end{figure*}
+
+Entonces, ¿cómo hacemos un intervalo de confianza? Partamos con la media. Como las distribuciones normal y t son simétricas, esto nos permitirá crear un intervalo muy fácilmente.
+
+\section{Intervalos de confianza para la media}
+\labsec{int-conf-media}
+
+\subsection{Con varianza poblacional conocida}
+
+Una manera práctica de crear un intervalo de confianza \qty[parse-numbers=false]{100(1-\alpha)}{\percent} para la media poblacional es usar el estimador puntual \emph{par excellence} de ésta: la media muestral.
+
+Recordemos que gracias al teorema del límite central, sabemos que la media muestral sigue aproximadamente una distribución normal con media \(\mu\) y desviación estándar \(\sigma/\sqrt{n}\). Al mismo tiempo, sabemos que en una distribución normal, la regla empírica nos dice que un intervalo de radio una desviación estándar alrededor de la media incluye el \qty{68}{\percent} aproximadamente, uno de radio dos desviaciones estándar incluye aproximadamente el \qty{95}{\percent} de los datos y uno de radio tres desviaciones estándar incluye aproximadamente el \qty{99,7}{\percent} de los datos.
+
+Eso quiere decir que podemos encontrar un valor para el radio de ese intervalo, que podemos expresar como un múltiplo de la desviación estándar, que efectivamente capture una probabilidad de \(1-\alpha\) (\reffig{normal_intervalo}).
+
+\begin{figure*}
+\begin{tikzpicture}
+    \begin{axis}[
+        width=\linewidth,
+        height=5cm,
+        axis lines=middle,
+        domain=-3.8:3.8,
+        samples=120,
+        ymin=0,
+        enlargelimits=false,
+        clip=false,
+        hide y axis,
+        xtick=\empty,
+        ]
+        \addplot[fill=blue!15, draw=none, domain=-1.96:1.96] {gauss(x,0,1)} \closedcycle;
+        \addplot[blue!80!black, thick] {gauss(x,0,1)};
+        \draw[ gray] (axis cs:-1.96,0) -- (axis cs:-1.96,{gauss(-1.96,0,1)});
+        \draw[ gray] (axis cs: 1.96,0) -- (axis cs: 1.96,{gauss( 1.96,0,1)});
+        \node[below] at (axis cs:0,0) {$\mu$};
+        \node[below, font=\small] at (axis cs:-1.96,0) {$\mu - r\frac{\sigma}{\sqrt{n}}$};
+        \node[below, font=\small] at (axis cs: 1.96,0) {$\mu + r\frac{\sigma}{\sqrt{n}}$};
+        \node at (axis cs:0,0.17) {$1-\alpha$};
+        \node[font=\small] at (axis cs:-2.9,0.05) {$\tfrac{\alpha}{2}$};
+        \node[font=\small] at (axis cs: 2.9,0.05) {$\tfrac{\alpha}{2}$};
+    \end{axis}
+\end{tikzpicture}
+\caption{Capturando \(1-\alpha\) alrededor de \(\mu\)}
+\labfig{normal_intervalo}
+\end{figure*}
+
+¿Cuánto vale ese valor de \(r\)? Si estamos usando una tabla que da los valores hacia la izquierda\sidenote{¡Ojo! Este cálculo es dependiente de la dirección de nuestra tabla, pero es análogo si tenemos tablas que van para el otro lado. También se entiende ahora lo que les comenté otra clase, sobre tablas que van para ambos lados.}, entonces estamos buscando un valor que nos deje la probabilidad \[1-\alpha + \frac{\alpha}{2}\] bajo él. No cuesta mucho ver que  esa probabilidad es \[1-\frac{\alpha}{2}\] y por lo tanto el valor que buscamos es \[r=z_{1-\frac{\alpha}{2}}.\]
+
+\begin{definition}
+El intervalo de confianza \(1-\alpha\) para la media, conociendo la varianza poblacional \(\sigma^2\), viene dado por \[\left[\mean{x}\pm z_{1-\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}}\right].\]
+\end{definition}
+
+\subsection{Con varianza poblacional desconocida}
+
+Si no conocemos \(\sigma\), tendremos que estimarlo. Ya sabemos que el estimador insesgado de \(\sigma\) es \(s\), la desviación estándar muestral.
