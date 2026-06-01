@@ -90,3 +90,77 @@ El intervalo de confianza \(1-\alpha\) para la media, conociendo la varianza pob
 Si no conocemos \(\sigma\), tendremos que estimarlo. Ya sabemos que el estimador insesgado de \(\sigma\) es \(s\), la desviación estándar muestral.
 
 Al mismo tiempo, sabemos que al usar \(s\), la distribución normal no nos ayuda. Para poder hacer el intervalo de confianza, usaremos la distribución \(t\).
+
+En este caso, sabemos que la cantidad \[T=\frac{\mean{X} - \mu}{s / \sqrt{n}} \sim t_{n-1}.\]
+
+Como la distribución \(t\) es simétrica alrededor del cero, la construcción del intervalo es idéntica a la del caso con varianza conocida. Sólo cambia el cuantil.
+
+\begin{definition}
+El intervalo de confianza \(1-\alpha\) para la media, cuando la varianza poblacional es desconocida, viene dado por \[\left[\mean{x}\pm t_{1-\frac{\alpha}{2},\,n-1}\,\frac{s}{\sqrt{n}}\right],\] donde \(t_{1-\alpha/2,\,n-1}\) es el cuantil \(1-\alpha/2\) de la distribución \(t\) con \(n-1\) grados de libertad.
+\end{definition}
+
+Siempre se cumple que \(t_{1-\alpha/2,\,n-1} > z_{1-\alpha/2}\)\sidenote{Se puede verificar en cualquier tabla estadística: para cualquier número finito de grados de libertad, los cuantiles de la \(t\) son mayores que los de la normal estándar.}, así que el intervalo con \(s\) es siempre más ancho que el intervalo con \(\sigma\). Es el precio por no conocer la varianza. 
+
+\section{Intervalos de confianza para la proporción}
+\labsec{int-conf-prop}
+
+La proporción es una especie de media: podemos entender el número de éxitos dividido por el número de intentos como un promedio.
+
+El estimador natural de la proporción poblacional \(p\) es la proporción muestral \[\prop = \frac{\text{número de éxitos en la muestra}}{n}.\]
+
+Por el teorema del límite central, para \(n\) grande, \[\prop \approx \norm{p}{\frac{p(1-p)}{n}}.\] Esto nos permitiría pivotear igual que antes y obtener un intervalo del tipo \(\left[\prop \pm z_{1-\alpha/2}\sqrt{p(1-p)/n}\right]\). El problema es que la desviación estándar del estimador depende del propio \(p\) que queremos estimar. La solución es la misma que aplicamos con \(\sigma\): lo estimamos con \(\prop\).
+
+\begin{definition}
+El intervalo de confianza \(1-\alpha\) para la proporción poblacional \(p\) viene dado por \[\left[\prop \pm z_{1-\frac{\alpha}{2}}\sqrt{\frac{\prop(1-\prop)}{n}}\right].\]
+\end{definition}
+
+Este intervalo es válido para \(n\) grande\sidenote{La condición habitual es \(n\prop \geq 5\) y \(n(1-\prop)\geq 5\). Si \(\prop\) es cercano a \(0\) o a \(1\), el intervalo puede ser muy impreciso para muestras pequeñas.}. La lógica es idéntica a la del intervalo para la media con varianza conocida: el estimador más o menos un múltiplo de su error estándar.
+
+\section{Intervalos de confianza para la varianza}
+\labsec{int-conf-var}
+
+Hasta ahora nos hemos concentrado en parámetros de posición. Pero a veces lo que importa es la dispersión. En control de calidad, puede importar más que los productos sean consistentes — que \(\sigma^2\) sea pequeño — que que estén centrados en el valor correcto.
+
+El estimador natural de la varianza poblacional \(\sigma^2\) es la varianza muestral \[s^2 = \frac{1}{n-1}\sum_{i=1}^{n}(x_i - \mean{x})^2.\]
+
+Ya vimos en el capítulo de distribuciones muestrales que \[\frac{(n-1)s^2}{\sigma^2} \sim \chi^2_{n-1}.\] Ésta es nuestra cantidad pivotal. El problema es que la distribución \(\chi^2\) no es simétrica. Eso lo cambia todo.
+
+La distribución \(\chi^2\) es asimétrica (ver \reffig{chisq_intervalo}): su cola derecha es mucho más larga que la izquierda. Esto significa que el intervalo no se puede escribir como \(\estim{\theta} \pm \text{algo}\). Hay que encontrar dos cuantiles — uno en cada cola — que juntos dejen el \((1-\alpha)\) de probabilidad en el centro. Queremos \(a\) y \(b\) tales que \[\prob\left(a \leq \frac{(n-1)s^2}{\sigma^2} \leq b\right) = 1-\alpha.\] Eligiendo \(a = \chi^2_{\alpha/2,\,n-1}\) y \(b = \chi^2_{1-\alpha/2,\,n-1}\), y despejando \(\sigma^2\), se obtiene el intervalo.
+
+\begin{figure*}
+\begin{tikzpicture}
+    \begin{axis}[
+        width=\linewidth,
+        height=5cm,
+        axis lines=middle,
+        domain=0.1:26,
+        samples=150,
+        ymin=0,
+        enlargelimits=false,
+        clip=false,
+        hide y axis,
+        xtick=\empty,
+        ]
+        \addplot[fill=blue!15, draw=none, domain=3.25:20.48] {chisqpdf(x,10)} \closedcycle;
+        \addplot[blue!80!black, thick] {chisqpdf(x,10)};
+        \draw[gray] (axis cs:3.25, 0) -- (axis cs:3.25, {chisqpdf(3.25,10)});
+        \draw[gray] (axis cs:20.48,0) -- (axis cs:20.48,{chisqpdf(20.48,10)});
+        \node[below,] at (axis cs:3.25, 0) {$\chi^2_{\alpha/2,\,n-1}$};
+        \node[below,] at (axis cs:20.48,0) {$\chi^2_{1-\alpha/2,\,n-1}$};
+        \node at (axis cs:10,0.042) {$1-\alpha$};
+        \node[] at (axis cs:1.3, 0.016) {$\frac{\alpha}{2}$};
+        \node[] at (axis cs:23.5,0.016) {$\frac{\alpha}{2}$};
+    \end{axis}
+\end{tikzpicture}
+\caption{Distribución \(\chi^2_{n-1}\). A diferencia de la normal y la \(t\), es asimétrica: la cola derecha es mucho más larga que la izquierda. Los dos cuantiles que delimitan la región central de probabilidad \(1-\alpha\) no están a la misma distancia de ningún punto.}
+\labfig{chisq_intervalo}
+\end{figure*}
+
+\begin{definition}
+El intervalo de confianza \(1-\alpha\) para la varianza poblacional \(\sigma^2\) viene dado por \[\left[\frac{(n-1)s^2}{\chi^2_{1-\frac{\alpha}{2},\,n-1}},\;\frac{(n-1)s^2}{\chi^2_{\frac{\alpha}{2},\,n-1}}\right].\]
+\end{definition}
+
+Un detalle que suele causar confusión: el denominador más grande, \(\chi^2_{1-\alpha/2,\,n-1}\), aparece en el límite \emph{inferior} del intervalo\sidenote{Porque dividir por una misma cantidad por un número más grande da un resultado más pequeño que dividirla por un número más chico.}.
+
+A diferencia de los intervalos para la media y la proporción, éste requiere que la población sea normal. El resultado \((n-1)S^2/\sigma^2 \sim \chi^2_{n-1}\) se demuestra bajo normalidad estricta de la población\sidenote{Cuando la distribución de la población se aleja de la normalidad, la distribución de \(S^2\) puede alejarse bastante de \(\chi^2\), invalidando el intervalo de confianza.}.
+
