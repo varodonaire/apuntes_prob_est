@@ -1,1 +1,36 @@
 \chapter{Pruebas de hipótesis}
+\labch{pruebas-hipotesis}
+
+\begin{ideanote}
+La muestra, ¿nos permite afirmar nuestras ideas previas? ¿No nos permite? ¿Cuánto tiene que ser la diferencia entre lo que sospechábamos y lo que nos dice la muestra para decir que no es lo mismo?
+\end{ideanote}
+
+Una de las razones por las que la estadística es útil es porque ayuda en la vida cotidiana o laboral. Una de las formas en que es útil es porque nos ayuda a tomar decisiones. Una manera de tomar decisiones es mediante pruebas de hipótesis.
+
+Una hipótesis es una afirmación sobre la población. En nuestro caso, haremos pruebas de hipótesis \emph{paramétricas,} es decir, afirmaciones sobre algún parámetro de la población.
+
+Una \emph{prueba de hipótesis} es una manera sistemática de comprobar si una hipótesis puede ser plausible o no. Esta comprobación estará basada en nuestros datos, es decir, en la muestra que tenemos. Por supuesto, esto involucra azar y por lo tanto podría ocurrir que tomemos una muestra que, mediante la intervención de los dioses del azar, nos dé un estimador del parámetro que en realidad no se parece al de la población. Sin embargo, podemos hacer algunos cálculos para medir la probabilidad de que eso ocurra.
+
+Las pruebas que realizaremos seguirán un proceso clásico:
+\begin{enumerate}
+\item Definiremos dos hipótesis que contrastaremos, la hipótesis nula y la alternativa.
+\item Definiremos un nivel de significancia.
+\item Calcularemos un estadístico de prueba.
+\item \begin{itemize}
+\item O bien, a partir del nivel de significancia definiremos una región de rechazo, y veremos si el estadístico de prueba cae en ella.
+\item O bien calcularemos un valor p a partir del estadístico de prueba.
+\end{itemize}
+\item Basado en el paso anterior, tomaremos una decisión acerca de nuestra hipótesis nula.
+\end{enumerate}
+
+\section{Definición de hipótesis}
+\labsec{definicion-hipotesis}
+
+Hay algunas sutilezas que tener en cuenta. Por ejemplo, supongamos que estamos haciendo una medición sobre la cantidad de bebida en las botellas y queremos comparar si tienen lo que dicen tener, \qty{500}{\milli\liter}. 
+
+La hipótesis nula se refiere generalmente a la hipótesis que mantiene todo tal cual, en elegante, la hipótesis \emph{más parsimoniosa.} En nuestro caso, podríamos decir que la hipótesis nula es efectivamente que las latas contienen, en promedio, \qty{500}{\milli\liter}.
+
+La hipótesis nula es lo único que podemos decir realmente, lo que significa que podemos aceptarla o bien, rechazarla. ¿En qué sentido es \enquote{lo único que podemos decir realmente}? En el contexto en que estamos trabajando, la hipótesis alternativa se constituye como una \emph{negación} de la hipótesis nula.\sidenote{y no es, por ejemplo, una hipótesis como decir \(\mu = 490\).} Esta negación la entenderemos en un sentido un poco más amplio que en la lógica aristotélica: si nuestra hipótesis nula es que el promedio de la población es \qty{500}{\milli\liter}, eso es decir que \[H_0: \mu = 500\] y nuestra hipótesis alternativa será una de las siguientes \[H_a: \mu<500,\quad H_a: \mu \neq 500,\quad H_a: \mu>500.\]
+
+¿Cuál hipótesis alternativa es la que usaremos? Eso es parte de nuestra decisión y depende de nuestra intención. Si queremos demostrar que la compañía embotelladora está mintiendo (y ganar una jugosa demanda), probablemente usaríamos la primera versión, ya que dice que la verdadera media de la población es menor que lo que dicen las latas. Si somos un poco más neutrales, la segunda versión está bien, no nos interesa demostrar que es \emph{menor,} solo que no es \qty{500}{\milli\liter} (dejando abierta la posibilidad que sea mayor). Si somos los abogados de la embotelladora, nos interesaría usar la tercera y demostrar que la compañía da más bebida de la que promete.
+
