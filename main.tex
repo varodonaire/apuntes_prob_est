@@ -258,12 +258,18 @@
 %	BOOK INFORMATION
 %----------------------------------------------------------------------------------------
 
- \includeonly{chapters/chapter10.tex}
+%  \includeonly{chapters/chapter10.tex}
 
 %----------------------------------------------------------------------------------------
 
 % Load the package for hyperlinks
 \usepackage{kaorefs}
+
+% kao.sty loads varioref before polyglossia; polyglossia's LaTeX3 \addto then
+% creates a self-referential \extrasenglish definition, causing a stack overflow
+% at \begin{document}. Resetting it here (after all packages) prevents that.
+% Safe because the document language is Spanish, so \extrasenglish is never used.
+\def\extrasenglish{}
 \addto\captionsspanish{\renewcommand{\proofname}{Demostración}}
 
 % Fix kaobook's broken \caption save (\let doesn't work with xparse commands).
