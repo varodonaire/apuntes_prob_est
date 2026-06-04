@@ -1,0 +1,12 @@
+name: VarianzaMuestral
+title: VarianzaMuestral
+username: varodonaire
+account: varodonaire
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 17463289
+bundleId: 12079636
+url: https://varodonaire.shinyapps.io/VarianzaMuestral/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE

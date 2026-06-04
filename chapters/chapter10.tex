@@ -34,3 +34,121 @@ La hipótesis nula es lo único que podemos decir realmente, lo que significa qu
 
 ¿Cuál hipótesis alternativa es la que usaremos? Eso es parte de nuestra decisión y depende de nuestra intención. Si queremos demostrar que la compañía embotelladora está mintiendo (y ganar una jugosa demanda), probablemente usaríamos la primera versión, ya que dice que la verdadera media de la población es menor que lo que dicen las latas. Si somos un poco más neutrales, la segunda versión está bien, no nos interesa demostrar que es \emph{menor,} solo que no es \qty{500}{\milli\liter} (dejando abierta la posibilidad que sea mayor). Si somos los abogados de la embotelladora, nos interesaría usar la tercera y demostrar que la compañía da más bebida de la que promete.
 
+\formal
+Técnicamente, las hipótesis nula y alternativa \emph{deben} ser complementarias, es decir, si mi hipótesis alternativa es \(H_a: \mu>500\), mi hipótesis nula \emph{debe} ser \(H_0: \mu \leq 500\). Sin embargo, podemos ser no tan estrictos.
+
+\informal
+\section{Significancia, poder y otras hierbas}
+\labsec{significancia}
+
+El segundo paso dice \enquote{Definiremos un nivel de significancia}, ¿pero qué significa eso?
+
+Para empezar, necesitamos reconocer algo: nunca sabremos si \emph{de verdad} la hipótesis nula es verdadera o falsa. Para realmente saberlo, necesitaríamos conocer toda la población y ya sabemos que eso es generalmente imposible. Lo mejor que podemos hacer es decir que nuestros datos \emph{nos sugieren que} la hipótesis nula es verdadera o falsa.
+
+Pero eso nos plantea una situación como en la \reftab{hachecero}. La hipótesis nula puede ser verdadera o falsa e indepedientemente de esto, basados en nuestros datos, nosotros podemos aceptarla o rechazarla.
+
+\begin{table}[ht]
+  \centering
+  \begin{tabular}{>{\raggedright\arraybackslash}m{2.5cm}>{\centering\arraybackslash}m{1.5cm}>{\centering\arraybackslash}m{1.5cm}}
+    & \(H_0\) es verdadera & \(H_0\) es falsa \\
+    \midrule
+    Aceptamos \(H_0\) & Decisión correcta         & Error tipo II (\(\beta\)) \\\midrule
+    Rechazamos \(H_0\) & Error tipo I (\(\alpha\)) & Decisión correcta \\
+  \end{tabular}
+  \caption{La verdad de \(H_0\) y nuestras decisiones.}
+  \labtab{hachecero}
+\end{table}
+
+Si en la realidad \(H_0\) es verdadera y la aceptamos, o bien si en la realidad \(H_0\) es falsa y la rechazamos, tomamos la decisión correcta en cualquiera de los dos casos. Sin embargo, también podemos equivocarnos y podemos equivocarnos de dos formas:
+\begin{itemize}
+\item \(H_0\) puede ser cierta en la realidad y nosotros tomamos la decisión de rechazarla.
+\item \(H_0\) puede ser falsa en la realidad y nosotros tomamos la decisión de no rechazarla.
+\end{itemize}
+
+Si rechazamos \(H_0\) cuando \(H_0\) es verdadera, llamamos a este tipo de error \emph{error tipo I.} El máximo de la probabilidad de cometer este error\sidenote{que podemos entender como un falso positivo} se define como \(\alpha\), la \emph{significancia} del test.
+
+\formal
+La definición de \(\alpha\) es \[\alpha = \sup_{\theta \in \Theta_0} \prob_{\theta}(T\in R),\] es decir, \(\alpha\) es el supremo sobre \(\theta\) de la probabilidad de que el estadístico de prueba pertenezca a la región de rechazo.
+
+\informal
+Por otra parte, el error que cometemos al aceptar \(H_0\) cuando en la realidad es falsa es llamado el \emph{error tipo II.} Definiremos su probabilidad como \(\beta\). 
+
+¿Cómo se ven \(\alpha\) y \(\beta\)? Por ejemplo, si nuestra hipótesis alternativa es \(\mu>\mu_0\).
+
+
+\begin{tikzpicture}
+    \begin{axis}[
+        width=1.3\linewidth,
+        height=5cm,
+        axis lines=middle,
+        domain=-3.8:3.8,
+        samples=150,
+        ymin=0,
+        enlargelimits=false,
+        clip=false,
+        ytick=\empty,
+        xtick=\empty,
+    ]
+    \addplot[fill=DiceRed!30, draw=none, domain=1.645:3.8] {gauss(x,0,1)} \closedcycle;
+    \addplot[DiceBlue!80!black, thick] {gauss(x,0,1)};
+    \draw[gray] (axis cs:1.645, 0) -- (axis cs:1.645, {gauss(1.645,0,1)});
+    \node[below, font=\small] at (axis cs:0, 0) {\(0\)};
+    \node[below, font=\small] at (axis cs:1.645, 0) {\(z_\alpha\)};
+    \node[DiceRed!50!black, font=\small] at (axis cs:2, 0.023) {\(\alpha\)};
+    \end{axis}
+\end{tikzpicture}
+
+El error tipo 1 asume que \(H_0\) es verdadera. Por lo tanto, si estandarizamos como \[Z=\frac{\mean{X} - \mu_0}{\sigma/\sqrt{n}}\] podemos entender a \(\alpha\) como la probabilidad de que nos equivoquemos, es decir, que el promedio de nuestra muestra esté tan distante del (supuesto) verdadero promedio que sea inevitable pensar que la hipótesis nula es falsa.
+
+Eso quiere decir que si la media muestral está lo suficientemente alejada de la media poblacional propuesta, tendremos razones para creer que \(H_0\) es falsa. ¿Qué significa \enquote{suficientemente alejada}? Significa que estamos dispuestos a equivocarnos: eso es lo que quiere decir la significancia.
+
+¿Y cómo se ve \(\beta\)?
+
+\begin{pausa}
+Para calcular \(\alpha\), asumimos que \(H_0\) es verdadera y calculamos la probabilidad de caer en la región de rechazo. Para calcular \(\beta\), ¿qué necesitamos asumir además?
+\end{pausa}
+
+Para calcular \(\beta\), necesitamos especificar el verdadero valor del parámetro, es decir, un \(\mu_a\) concreto. Esto es distinto de \(\alpha\), cuyo cálculo no requiere conocer la alternativa.
+
+\formal
+\[\beta(\mu_a) = \prob_{\mu_a}(T \notin R),\]
+es decir, la probabilidad de que el estadístico de prueba \emph{no} caiga en la región de rechazo cuando el verdadero parámetro es \(\mu_a\).
+\informal
+
+Supongamos que el verdadero promedio es \(\mu_a > \mu_0\). La curva azul muestra cómo se distribuye el estadístico bajo \(H_0\) (centrada en \(\mu_0\)); la curva roja muestra la distribución real (centrada en \(\mu_a\)).
+
+\begin{tikzpicture}
+    \begin{axis}[
+        width=1.3\linewidth,
+        height=5cm,
+        axis lines=middle,
+        domain=-3.5:5.5,
+        samples=150,
+        ymin=0,
+        enlargelimits=false,
+        clip=false,
+        ytick=\empty,
+        axis y line = none,
+        xtick=\empty,
+    ]
+    \addplot[fill=DiceBlue!30, draw=none, domain=-3.5:1.645] {gauss(x,2.5,1)} \closedcycle;
+    \addplot[fill=DiceRed!30, draw=none, domain=1.645:5.5] {gauss(x,0,1)} \closedcycle;
+    \addplot[DiceBlue!80!black, thick] {gauss(x,0,1)};
+    \addplot[DiceRed!80!black, thick] {gauss(x,2.5,1)};
+    \draw[gray] (axis cs:1.645, 0) -- (axis cs:1.645, {gauss(1.645,2.5,1)});
+    \draw[gray!60, thin] (axis cs:0, 0) -- (axis cs:0, {gauss(0,0,1)});
+    \draw[gray!60, thin] (axis cs:2.5, 0) -- (axis cs:2.5, {gauss(2.5,2.5,1)});
+    \node[below, font=\small] at (axis cs:0, 0) {\(\mu_0\)};
+    \node[below, font=\small] at (axis cs:2.5, 0) {\(\mu_a\)};
+    \node[below, font=\small] at (axis cs:1.645, 0) {\(z_\alpha\)};
+    \node[DiceRed!50!black, font=\small] at (axis cs:2, 0.023) {\(\alpha\)};
+    \node[DiceBlue!50!black, font=\small] at (axis cs:0.9, 0.06) {\(\beta\)};
+    \end{axis}
+\end{tikzpicture}
+
+\(\beta\) es la probabilidad de que, aunque la distribución real esté centrada en \(\mu_a\), el estadístico de prueba caiga a la izquierda de \(z_\alpha\) y \emph{no} rechacemos \(H_0\). Es la probabilidad de aceptar \(H_0\) aunque sea falsa.
+
+Nótese que \(\beta\) depende de cuánto se aleja \(\mu_a\) de \(\mu_0\): si la diferencia es grande, las distribuciones se separan y es fácil detectar que \(H_0\) es falsa (\(\beta\) es pequeño). Si es pequeña, se superponen y es difícil distinguirlas (\(\beta\) es grande).
+
+El complemento de \(\beta\) tiene nombre propio: la \emph{potencia} de la prueba, definida como \(1-\beta\). Una prueba con alta potencia detecta fácilmente cuando \(H_0\) es falsa.
+
