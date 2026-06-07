@@ -38,7 +38,7 @@ La hipótesis nula es lo único que podemos decir realmente, lo que significa qu
 Técnicamente, las hipótesis nula y alternativa \emph{deben} ser complementarias, es decir, si mi hipótesis alternativa es \(H_a: \mu>500\), mi hipótesis nula \emph{debe} ser \(H_0: \mu \leq 500\). Sin embargo, podemos ser no tan estrictos.
 
 \informal
-\section{Significancia, poder y otras hierbas}
+\section{Significancia, potencia y otras hierbas}
 \labsec{significancia}
 
 El segundo paso dice \enquote{Definiremos un nivel de significancia}, ¿pero qué significa eso?
@@ -150,5 +150,23 @@ Supongamos que el verdadero promedio es \(\mu_a > \mu_0\). La curva azul muestra
 
 Nótese que \(\beta\) depende de cuánto se aleja \(\mu_a\) de \(\mu_0\): si la diferencia es grande, las distribuciones se separan y es fácil detectar que \(H_0\) es falsa (\(\beta\) es pequeño). Si es pequeña, se superponen y es difícil distinguirlas (\(\beta\) es grande).
 
-El complemento de \(\beta\) tiene nombre propio: la \emph{potencia} de la prueba, definida como \(1-\beta\). Una prueba con alta potencia detecta fácilmente cuando \(H_0\) es falsa.
+El complemento de \(\beta\) es la \emph{potencia} de la prueba, definida como \(1-\beta\). Una prueba con alta potencia detecta rápidamente cuando \(H_0\) es falsa.
 
+\section{Estadístico de prueba}
+\labsec{estadistico-prueba}
+
+Nuestra muestra nos da datos. Dependiendo del parámetro que estemos usando en nuestra prueba de hipótesis, podremos calcular un estimador puntual para ese parámetro a partir de los datos de la muestra. 
+
+El cálculo del estimador dependerá de la prueba que estemos realizando, de las maneras que ya conocemos. 
+\begin{center}
+{
+\renewcommand{\arraystretch}{3}
+\begin{tabular}{rl}
+Prueba & Estadístico\\\midrule
+\(\mu\), \(\sigma\) conocido & \(Z = \dfrac{\mean{x} - \mu}{\sigma/\sqrt{n}}\)\\
+\(\mu\), \(\sigma\) desconocido & \(T = \dfrac{\mean{x} - \mu}{s/\sqrt{n}}\)\\
+\(p\) & \(Z = \dfrac{\estim{p} - p}{\sqrt{\frac{p(1-p)}{n}}}\)\\
+\(\sigma^2\) & \(\chi^2 = \dfrac{(n-1)s^2}{\sigma^2}\)
+\end{tabular}
+}
+\end{center}
