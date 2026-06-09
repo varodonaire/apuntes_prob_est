@@ -170,3 +170,73 @@ Prueba & Estadístico\\\midrule
 \end{tabular}
 }
 \end{center}
+
+El estadístico de prueba es una representación de nuestra muestra en términos de la distribución (normal, t, chi cuadrado) que corresponde. La pregunta que queda por responder es
+\begin{quotation}
+Suponiendo que esta muestra es representativa, ¿el estadístico de prueba me permite creer que la hipótesis nula es razonable o no?
+\end{quotation}
+
+\section{Comparando al estadístico de prueba}
+\labsec{comparando-estadistico-prueba}
+
+Tenemos dos métodos para comparar. El clásico es hacerlo mediante región de rechazo. Sin embargo, usando un computador es extremadamente fácil hacerlo mediante el valor \(p\) (o \(p\)-valor).
+
+\subsection{Región de rechazo}
+
+Nuestro valor de \(\alpha\) es, recordemos, la probabilidad de que la muestra nos lleve a rechazar la hipótesis nula \emph{dado} que es verdadera. 
+
+Si centramos, por ejemplo estandarizando una normal, a partir de la media \(\mu\) que nos da la hipótesis nula (como en el cálculo del estadístico de prueba para \(\mu\) con \(\sigma\) conocido), tenemos una situación así (para hipótesis alternativa de una sola cola).
+
+\begin{tikzpicture}
+    \begin{axis}[
+        width=1.3\linewidth,
+        height=5cm,
+        axis lines=middle,
+        domain=-3.8:3.8,
+        samples=150,
+        ymin=0,
+        enlargelimits=false,
+        clip=false,
+        ytick=\empty,
+        xtick=\empty,
+    ]
+    \addplot[fill=DiceRed!30, draw=none, domain=1.645:3.8] {gauss(x,0,1)} \closedcycle;
+    \addplot[DiceBlue!80!black, thick] {gauss(x,0,1)};
+    \draw[gray] (axis cs:1.645, 0) -- (axis cs:1.645, {gauss(1.645,0,1)});
+    \node[below, font=\small] at (axis cs:0, 0) {\(0\)};
+    \node[below, font=\small] at (axis cs:1.645, 0) {\(z_\alpha\)};
+    \node[DiceRed!50!black, font=\small] at (axis cs:2, 0.023) {\(\alpha\)};
+    \end{axis}
+\end{tikzpicture}
+
+Tenemos un cierto percentil \(z_{\alpha}\), que define dos regiones. Definiremos la \emph{región de rechazo} como aquella que nos lleva a rechazar la hipótesis nula si el estadístico de prueba cae dentro de ella. Como estamos dispuestos a rechazar la hipótesis nula, dado que ella es cierta, con probabilidad \(\alpha\), resulta que en el gráfico anterior, donde mostramos el mundo según la hipótesis nula, la región sombreada corresponde a la región de rechazo.
+
+La \emph{región de no rechazo} es aquella que no nos lleva a rechazar la hipótesis nula. Por lo tanto, en el gráfico anterior es el área que no está marcada.
+
+Debemos tener cuidado cuando se trate de una prueba de dos colas. En ese caso tenemos que considerar que nuestra probabilidad \(\alpha\) se refiere a que la verdadera media es \emph{distinta} de la propuesta en la hipótesis nula, lo que significa que puede ser mayor o menor. Al ser así, la región de rechazo queda especificada en \emph{dos} intervalos. Pero \(\alpha\) sigue siendo \(\alpha\), por lo que cada intervalo encierra una probabilidad de \(\alpha/2\).
+
+\begin{tikzpicture}
+    \begin{axis}[
+        width=1.3\linewidth,
+        height=5cm,
+        axis lines=middle,
+        domain=-3.8:3.8,
+        samples=150,
+        ymin=0,
+        enlargelimits=false,
+        clip=false,
+        ytick=\empty,
+        xtick=\empty,
+    ]
+    \addplot[fill=DiceRed!30, draw=none, domain=-3.8:-1.96] {gauss(x,0,1)} \closedcycle;
+    \addplot[fill=DiceRed!30, draw=none, domain=1.96:3.8] {gauss(x,0,1)} \closedcycle;
+    \addplot[DiceBlue!80!black, thick] {gauss(x,0,1)};
+    \draw[gray] (axis cs:-1.96, 0) -- (axis cs:-1.96, {gauss(-1.96,0,1)});
+    \draw[gray] (axis cs:1.96, 0) -- (axis cs:1.96, {gauss(1.96,0,1)});
+    \node[below, font=\small] at (axis cs:0, 0) {\(0\)};
+    \node[below, font=\small] at (axis cs:-1.96, 0) {\(-z_{\alpha/2}\)};
+    \node[below, font=\small] at (axis cs:1.96, 0) {\(z_{\alpha/2}\)};
+    \node[DiceRed!50!black, font=\small] at (axis cs:-2.6, 0.05) {\(\alpha/2\)};
+    \node[DiceRed!50!black, font=\small] at (axis cs:2.6, 0.05) {\(\alpha/2\)};
+    \end{axis}
+\end{tikzpicture}
