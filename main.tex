@@ -204,6 +204,13 @@
 
 \DeclareMathOperator{\cv}{CV}
 
+% Regresión lineal: sumas de cuadrados, error estándar y estadístico de prueba
+\newcommand{\SSx}{\mathrm{SS}_{x}}
+\newcommand{\SSy}{\mathrm{SS}_{y}}
+\newcommand{\SSxy}{\mathrm{SS}_{xy}}
+\newcommand{\SSE}{\mathrm{SSE}}
+\DeclareMathOperator{\SE}{SE}
+
 % Shared TikZ frame for partition diagrams (used in chapters 1 and 2)
 \newcommand{\partitionbeziers}{%
   \draw[thick] (0,0) rectangle (6,4);
@@ -258,7 +265,7 @@
 %	BOOK INFORMATION
 %----------------------------------------------------------------------------------------
 
- \includeonly{chapters/chapter10.tex}
+%  \includeonly{chapters/chapter12.tex}
 
 %----------------------------------------------------------------------------------------
 
@@ -331,4 +338,5 @@
 \include{chapters/chapter9.tex}
 \include{chapters/chapter10.tex}
 \include{chapters/chapter11.tex}
+\include{chapters/chapter12.tex}
 \end{document}

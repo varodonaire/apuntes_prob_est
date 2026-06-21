@@ -240,3 +240,148 @@ Debemos tener cuidado cuando se trate de una prueba de dos colas. En ese caso te
     \node[DiceRed!50!black, font=\small] at (axis cs:2.6, 0.05) {\(\alpha/2\)};
     \end{axis}
 \end{tikzpicture}
+
+¿De qué lado queda la región de rechazo? Depende de la hipótesis alternativa, y conviene pensarlo en vez de memorizarlo. Si sospechamos que la verdadera media es \emph{mayor} que la propuesta (\(H_a: \mu>\mu_0\)), sólo nos van a hacer dudar de \(H_0\) las muestras con un promedio muy alto: la región de rechazo queda en la cola derecha. Si sospechamos que es \emph{menor} (\(H_a:\mu<\mu_0\)), queda en la cola izquierda. Y si sólo decimos que es \emph{distinta} (\(H_a:\mu\neq\mu_0\)), nos hacen dudar tanto los promedios muy altos como los muy bajos, así que la región se reparte en las dos colas, como acabamos de ver.
+
+La regla, entonces, es simple: calculamos el estadístico de prueba con nuestra muestra y miramos dónde cae. Si cae en la región de rechazo, rechazamos \(H_0\); si cae en la región de no rechazo, no la rechazamos.
+
+Volvamos a las botellas. Sospechamos que la embotelladora está rellenando de menos, así que contrastamos \(H_0: \mu=\qty{500}{\milli\liter}\) contra \(H_a: \mu<\qty{500}{\milli\liter}\), una prueba de una sola cola (la izquierda). Fijamos una significancia de \(\alpha=\num{0,05}\) y supongamos\sidenote{en la práctica casi nunca lo conocemos; cuando no, usamos el estadístico \(T\) con \(s\) en vez de \(\sigma\), pero la mecánica es idéntica} que conocemos la desviación estándar del proceso, \(\sigma=\qty{6}{\milli\liter}\). Medimos \(n=36\) botellas y obtenemos un promedio de \(\mean{x}=\qty{498}{\milli\liter}\).
+
+El estadístico de prueba es \[Z = \frac{\mean{x}-\mu_0}{\sigma/\sqrt{n}} = \frac{498-500}{6/\sqrt{36}} = \frac{-2}{1} = -2.\]
+
+Como la cola es izquierda y \(\alpha=\num{0,05}\), el percentil crítico es \(z_\alpha=-\num{1,645}\)\marginnote{lo sacamos de la tabla de la normal o del computador}. La región de rechazo es todo lo que esté a la izquierda de ese valor.
+
+\begin{tikzpicture}
+    \begin{axis}[
+        width=1.3\linewidth,
+        height=5cm,
+        axis lines=middle,
+        domain=-3.8:3.8,
+        samples=150,
+        ymin=0,
+        enlargelimits=false,
+        clip=false,
+        ytick=\empty,
+        xtick=\empty,
+    ]
+    \addplot[fill=DiceRed!30, draw=none, domain=-3.8:-1.645] {gauss(x,0,1)} \closedcycle;
+    \addplot[DiceBlue!80!black, thick] {gauss(x,0,1)};
+    \draw[gray] (axis cs:-1.645, 0) -- (axis cs:-1.645, {gauss(-1.645,0,1)});
+    \draw[Mahogany, thick] (axis cs:-2, 0) -- (axis cs:-2, {gauss(-2,0,1)});
+    \node[below, font=\small] at (axis cs:0, 0) {\(0\)};
+    \node[below, font=\small] at (axis cs:-1.645, 0) {\(z_\alpha\)};
+    \node[below, Mahogany, font=\small, yshift=-11pt] at (axis cs:-2, 0) {\(z^*\)};
+    \node[DiceRed!50!black, font=\small] at (axis cs:-2.7, 0.04) {\(\alpha\)};
+    \end{axis}
+\end{tikzpicture}
+
+Nuestro estadístico, \(z^*=-2\), es más pequeño que \(-\num{1,645}\): cae dentro de la región de rechazo. Por lo tanto, rechazamos la hipótesis nula. Con estos datos, y a un \qty{5}{\percent} de significancia, tenemos evidencia de que las botellas traen, en promedio, menos de \qty{500}{\milli\liter}.
+
+\subsection{Valor \texorpdfstring{\(p\)}{p}}
+\labsec{valor-p}
+
+El método de la región de rechazo nos da un veredicto de sí o no: el estadístico cae adentro o no cae. Pero se guarda algo de información. No es lo mismo que el estadístico caiga justo pasando la frontera a que caiga lejísimos, en la punta de la cola. En ambos casos rechazamos, pero en el segundo deberíamos sentirnos mucho más seguros. El valor \(p\) es una forma de medir \emph{qué tan adentro} caímos.
+
+\begin{pausa}
+Si nuestro estadístico de prueba cayera \emph{justo} sobre la frontera de la región de rechazo, ¿qué valor cree que tomaría el valor \(p\)?
+\end{pausa}
+
+La idea es la siguiente. Nos paramos en el mundo de la hipótesis nula —es decir, suponemos que \(H_0\) es verdadera— y nos preguntamos: si \(H_0\) fuera cierta, ¿qué tan raro sería obtener una muestra como la nuestra, o todavía más extrema? Esa probabilidad es el valor \(p\).
+
+En el ejemplo de las botellas, el estadístico fue \({z^*=-2}\). Como la prueba es de cola izquierda, \enquote{tan o más extremo} significa \enquote{tan o más a la izquierda}, es decir, un valor menor o igual a \(-2\). El valor \(p\) es el área bajo la curva a la izquierda de \(-2\):
+\[p = \prob(Z \leq -2) = \num{0,0228}.\]
+
+\begin{tikzpicture}
+    \begin{axis}[
+        width=1.3\linewidth,
+        height=5cm,
+        axis lines=middle,
+        domain=-3.8:3.8,
+        samples=150,
+        ymin=0,
+        enlargelimits=false,
+        clip=false,
+        ytick=\empty,
+        xtick=\empty,
+    ]
+    \addplot[fill=DiceRed!30, draw=none, domain=-3.8:-2] {gauss(x,0,1)} \closedcycle;
+    \addplot[DiceBlue!80!black, thick] {gauss(x,0,1)};
+    \draw[Mahogany, thick] (axis cs:-2, 0) -- (axis cs:-2, {gauss(-2,0,1)});
+    \node[below, font=\small] at (axis cs:0, 0) {\(0\)};
+    \node[below, Mahogany, font=\small] at (axis cs:-2, 0) {\(z^*\)};
+    \node[DiceRed!50!black, font=\small] at (axis cs:-2.7, 0.035) {\(p\)};
+    \end{axis}
+\end{tikzpicture}
+
+En palabras: si la embotelladora estuviera diciendo la verdad y la media real fuera \qty{500}{\milli\liter}, sólo un \qty{2,28}{\percent} de las muestras de \num{36} botellas darían un promedio tan bajo (o más bajo) que el nuestro. O nos tocó una casualidad bastante grande, o la media real no es \num{500}.
+
+\formal
+El valor \(p\) es la probabilidad, calculada suponiendo que \(H_0\) es verdadera, de obtener un estadístico de prueba al menos tan extremo como el observado, \(z^*\). Qué significa \enquote{tan extremo} depende de la hipótesis alternativa:
+\[p = \prob_{H_0}(Z \leq z^*) \quad(\text{cola izquierda}),\]
+\[p = \prob_{H_0}(Z \geq z^*) \quad(\text{cola derecha}),\]
+\[p = \prob_{H_0}(|Z| \geq |z^*|) = 2\,\prob_{H_0}(Z \geq |z^*|) \quad(\text{dos colas}).\]
+
+\informal
+En la prueba de dos colas un valor extremo hacia cualquiera de los dos lados cuenta, así que sumamos las dos colas; como la normal es simétrica, basta calcular una y multiplicarla por dos.
+
+¿Y cómo decidimos con el valor \(p\)? Comparándolo con \(\alpha\). Recordemos que \(\alpha\) es la cantidad de \enquote{rareza} que estamos dispuestos a tolerar antes de desconfiar de \(H_0\). Si el valor \(p\) es más chico que \(\alpha\), nuestra muestra es más rara de lo que estábamos dispuestos a aceptar bajo \(H_0\), y rechazamos. Si es más grande, no rechazamos. 
+\begin{gather*}
+\text{Si } p<\alpha \Rightarrow \text{rechazamos } H_0,\\
+\text{si } p\geq\alpha \Rightarrow \text{no rechazamos.}
+\end{gather*}
+En nuestro ejemplo, \(p=\num{0,0228}\) es menor que \(\alpha=\num{0,05}\), así que rechazamos \(H_0\): la misma conclusión que antes.
+
+Y no es casualidad que coincida. Los dos métodos son la misma decisión vista de dos formas. Mirémoslo en un solo gráfico: la región de rechazo es todo lo que está a la izquierda de \(z_\alpha=-\num{1,645}\) y encierra un área \(\alpha=\num{0,05}\); el valor \(p\) es el área a la izquierda de nuestro estadístico \(z^*=-2\).
+
+\begin{tikzpicture}
+    \begin{axis}[
+        width=1.3\linewidth,
+        height=5cm,
+        axis lines=middle,
+        domain=-3.8:3.8,
+        samples=150,
+        ymin=0,
+        enlargelimits=false,
+        clip=false,
+        ytick=\empty,
+        xtick=\empty,
+    ]
+    \addplot[fill=DiceRed!15, draw=none, domain=-3.8:-1.645] {gauss(x,0,1)} \closedcycle;
+    \addplot[fill=DiceRed!45, draw=none, domain=-3.8:-2] {gauss(x,0,1)} \closedcycle;
+    \addplot[DiceBlue!80!black, thick] {gauss(x,0,1)};
+    \draw[gray] (axis cs:-1.645, 0) -- (axis cs:-1.645, {gauss(-1.645,0,1)});
+    \draw[Mahogany, thick] (axis cs:-2, 0) -- (axis cs:-2, {gauss(-2,0,1)});
+    \node[below, font=\small] at (axis cs:0, 0) {\(0\)};
+    \node[below, font=\small] at (axis cs:-1.645, 0) {\(z_\alpha\)};
+    \node[below, Mahogany, font=\small, yshift=-11pt] at (axis cs:-2, 0) {\(z^*\)};
+    \node[DiceRed!50!black, font=\small] at (axis cs:-1.8, 0.02) {\(\alpha\)};
+    \node[DiceRed!60!black, font=\small] at (axis cs:-2.8, 0.03) {\(p\)};
+    \end{axis}
+\end{tikzpicture}
+
+Como \(-2\) está más a la izquierda que \(-\num{1,645}\), su cola es más chica que toda la región de rechazo. Y ahí está el truco: el estadístico cae \emph{dentro} de la región de rechazo exactamente cuando el área que deja en la cola (su valor \(p\)) es menor que \(\alpha\). Rechazar porque el estadístico está en la región de rechazo y rechazar porque \(p<\alpha\) son, entonces, la misma cosa.
+
+El valor \(p\) tiene además una ventaja práctica: no depende de haber fijado \(\alpha\) de antemano. Quien lea nuestro informe puede aplicar su propio umbral. Por eso, con un computador a mano, casi siempre se reporta el valor \(p\).
+
+Una advertencia, porque es el error más común: el valor \(p\) \emph{no} es la probabilidad de que \(H_0\) sea verdadera. Es una probabilidad calculada \emph{suponiendo} que \(H_0\) es verdadera, que es muy distinto\sidenote{después del capítulo de Bayes esto debería sonar conocido: \(\prob\giventhat{\text{datos}}{H_0}\) no es \(\prob\giventhat{H_0}{\text{datos}}\)}.
+
+\section{Toma de decisión}
+\labsec{toma-decision}
+
+Lo mecánico ya está: tenemos dos formas de comparar el estadístico de prueba —la región de rechazo y el valor \(p\)— y las dos llevan a la misma decisión. Lo que falta es lo más importante y lo que más cuesta: interpretar bien esa decisión.
+
+Cuando rechazamos \(H_0\), estamos diciendo que la muestra es difícil de explicar si \(H_0\) fuera verdadera, tan difícil que preferimos pensar que \(H_0\) es falsa. En el ejemplo de las botellas rechazamos: los datos son convincentes de que se rellena de menos.
+
+Cuando \emph{no} rechazamos, hay que cuidar las palabras. Fíjese que en todo el capítulo dijimos \enquote{no rechazar} y no \enquote{aceptar}\sidenote{por eso la tabla del comienzo decía \enquote{aceptamos} entre comillas mentales}. No es lo mismo. No rechazar \(H_0\) no quiere decir que hayamos probado que es verdadera; quiere decir que la muestra no nos dio evidencia suficiente para descartarla. Ausencia de evidencia no es evidencia de ausencia.
+
+\begin{pausa}
+Un test da \enquote{no significativo}: no rechazamos \(H_0\). ¿Probamos que \(H_0\) es verdadera, o sólo que no juntamos evidencia en su contra? ¿Cambia su respuesta si la muestra era de \num{5} datos en vez de \num{5000}?
+\end{pausa}
+
+Sirve pensarlo como un juicio. El veredicto \enquote{no culpable} no significa \enquote{probadamente inocente}, sino que la fiscalía no logró probar la culpabilidad más allá de toda duda razonable. La hipótesis nula es el acusado: se la presume cierta hasta que la evidencia —la muestra— demuestre lo contrario, y \(\alpha\) es nuestra \enquote{duda razonable}.
+
+Por eso convivimos siempre con los dos errores del comienzo del capítulo. Rechazar cuando \(H_0\) era cierta es el error tipo I, y su probabilidad la fijamos nosotros: es \(\alpha\). No rechazar cuando \(H_0\) era falsa es el error tipo II, con probabilidad \(\beta\), y es más escurridizo porque depende de cuál sea la verdad. Bajar \(\alpha\) para no rechazar a la ligera sube \(\beta\): nos volvemos más conservadores y dejamos pasar más \(H_0\) falsas. No hay almuerzo gratis.
+
+Al reportar, lo honesto es decir las tres cosas: qué hipótesis contrastamos, con qué significancia, y qué obtuvimos. Un \enquote{rechazamos \(H_0\) al \qty{5}{\percent} de significancia (\(z^*=-2\), \(p=\num{0,0228}\))} dice mucho más que un escueto \enquote{dio significativo}.
+
+Dos advertencias finales para no salir a hacer daño con esto. Primero, \enquote{significativo} no quiere decir \enquote{importante}: con una muestra enorme, una diferencia minúscula y sin ninguna relevancia práctica puede dar un valor \(p\) chiquitito. Que la embotelladora rellene \qty{0,1}{\milli\liter} de menos es detectable con suficientes botellas, pero a nadie le importa. Segundo, si uno prueba muchas hipótesis hasta que una \enquote{dé}, tarde o temprano alguna va a dar por puro azar\sidenote{si hacemos \num{20} pruebas a un \qty{5}{\percent}, esperamos que una salga significativa aunque todas las \(H_0\) sean verdaderas}: la significancia se gana antes de mirar los datos, no después.
