@@ -260,6 +260,22 @@
   title=Idea central,
 }
 
+\usepackage{listings}
+
+\lstdefinestyle{kaocode}{
+  language=Python,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{MidnightBlue}\bfseries,
+  commentstyle=\color{ForestGreen}\itshape,
+  stringstyle=\color{Mahogany},
+  numbers=left, numberstyle=\tiny\color{gray}, numbersep=8pt,
+  showstringspaces=false,
+  breaklines=true,
+  frame=leftline, framerule=1.2pt, rulecolor=\color{DiceBlue},
+  xleftmargin=12pt,
+  upquote=true,        % comillas rectas, para copiar/pegar
+}
+\lstset{style=kaocode}
 
 %----------------------------------------------------------------------------------------
 %	BOOK INFORMATION
