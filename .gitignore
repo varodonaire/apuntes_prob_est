@@ -176,3 +176,12 @@ Thumbs.db
 
 # Claude Code temporary worktrees
 .claude/worktrees/
+
+# Archivos de trabajo locales (no se publican)
+CLAUDE.md
+GUIA_DE_ESTILO.md
+.claude/
+.RData
+.Rhistory
+plan_eje3_conjetura_antes_revelacion.md
+plan_eje4_datasets.md
