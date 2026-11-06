@@ -31,8 +31,6 @@ app*.R, run_app*.R       Aplicaciones Shiny (varianza muestral, lanzamiento de m
 lanz_monedas.R, ...      Scripts de R para simulaciones y figuras
 guia_eda_nacimientos.ipynb
 Serie_Nacimientos_2020_2022.csv   Datos del cuaderno de análisis exploratorio
-GUIA_DE_ESTILO.md        Guía de estilo y voz del libro
-CLAUDE.md                Instrucciones para trabajar en el proyecto con Claude Code
 ```
 
 ## Compilar
@@ -51,9 +49,10 @@ Las apps de Shiny necesitan R con los paquetes `shiny`, `ggplot2` y `dplyr`:
 
 ```r
 shiny::runApp("app.R")                       # estimación de varianza muestral
+# versión en línea: https://varodonaire.shinyapps.io/VarianzaMuestral/
 source("run_app_tlc.R")                      # teorema del límite central
 ```
 
 ## Estilo
 
-Antes de escribir contenido nuevo, revisa [GUIA_DE_ESTILO.md](GUIA_DE_ESTILO.md). Lo esencial: intuición antes que formalismo, una `pausa` antes de cada revelación, coma decimal con `\num{}`, comillas con `\enquote{}` y los comentarios laterales en `\sidenote{}` o `\marginnote{}`.
+El libro sigue unas pocas convenciones: intuición antes que formalismo, una `pausa` antes de cada revelación, coma decimal con `\num{}`, comillas con `\enquote{}` y los comentarios laterales en `\sidenote{}` o `\marginnote{}`.
