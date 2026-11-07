@@ -2,6 +2,11 @@
 
 Libro de apuntes de Álvaro Mattus Donaire para el curso de Estadística de Ingeniería de la Universidad del Desarrollo. Está escrito en LaTeX con la clase [`kaobook`](https://github.com/fmarotta/kaobook) (formato A5, con márgenes para notas y figuras), con gráficos hechos en TikZ/pgfplots y aplicaciones interactivas en R/Shiny.
 
+> **📘 [Descargar el libro en PDF](https://github.com/varodonaire/apuntes_prob_est/releases/latest/download/main.pdf)** — 191 páginas, 12 capítulos.
+> Ese enlace entrega siempre la versión más reciente; no hace falta compilar
+> nada para leerlo. El resto del repositorio es el fuente, por si quieres
+> compilarlo tú o mirar cómo está hecho.
+
 La idea del libro es ir de la intuición al formalismo: cada concepto parte de un ejemplo cotidiano (fichas, dados, naipes, monedas), le da al lector un momento para conjeturar, y recién después llega la definición. El texto en negro es la intuición y la conversación; el texto en azul (`\formal`) son las definiciones y demostraciones.
 
 ## Contenido
